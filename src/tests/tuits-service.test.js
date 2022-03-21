@@ -53,9 +53,11 @@ describe('TUIT API SERVICE', () => {
     let insertedTuits = [];
     const sampleTuits = [{ tuit: '3 aliens down' }, { tuit: '4 aliens down' }];
     // insert sample tuits into backend
-    insertedTuits = await Promise.all(
-      sampleTuits.map(async (tuit) => await createTuit(user.id, tuit))
-    );
+    for (const tuit of sampleTuits) {
+      const dbTuit = await createTuit(user.id, tuit);
+      insertedTuits.push(dbTuit);
+    }
+
     // fetch all tuits
     const allFoundTuits = await findAllTuits();
 
