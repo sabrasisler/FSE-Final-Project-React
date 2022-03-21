@@ -30,7 +30,6 @@ test('user list renders static user array', () => {
 
 test('user list renders async', async () => {
   const users = await findAllUsers();
-  // console.log('FROM TEST' + users);
   render(
     <HashRouter>
       <UserList users={users} />
@@ -48,7 +47,6 @@ test('user list renders mocked', async () => {
   );
 
   const res = await findAllUsers();
-  console.log('MOCK USERs', res);
   render(
     <HashRouter>
       <UserList users={res.users} />

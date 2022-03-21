@@ -20,7 +20,6 @@ export const updateUser = (user) =>
 
 export const findAllUsers = () =>
   api.get(USERS_API).then((response) => {
-    // console.log('RESONSE ' + response.data);
     return response.data;
   });
 
