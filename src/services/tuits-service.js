@@ -6,7 +6,10 @@ const USERS_API = `${process.env.REACT_APP_API_URL}/users`;
 export const api = axios.create({ withCredentials: true });
 
 export const findAllTuits = () =>
-  api.get(TUITS_API).then((response) => response.data);
+  api
+    .get(TUITS_API)
+    .then((response) => response.data)
+    .catch((err) => err.response.data);
 
 export const findTuitById = (tuitId) =>
   api.get(`${TUITS_API}/${tuitId}`).then((response) => response.data);

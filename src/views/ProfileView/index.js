@@ -14,10 +14,10 @@ const ProfileView = () => {
   return (
     <div className='ttr-profile'>
       <div className='border border-bottom-0'>
-        <h4 className='p-2 mb-0 pb-0 fw-bolder'>
+        <h5 className='p-2 mb-0 pb-0 fw-bolder'>
           {user.name ? `${user.name}` : ''}
           <i className='fa fa-badge-check text-primary'></i>
-        </h4>
+        </h5>
         <span className='ps-2'>67.6K Tuits</span>
         <div className='mb-5 position-relative'>
           <img
@@ -44,10 +44,10 @@ const ProfileView = () => {
         </div>
 
         <div className='p-2'>
-          <h4 className='fw-bolder pb-0 mb-0'>
+          <h5 className='fw-bolder pb-0 mb-0'>
             {`${user.name}`}
             <i className='fa fa-badge-check text-primary'></i>
-          </h4>
+          </h5>
           <h6 className='pt-0'>{`@${user.username}`}</h6>
           <p className='pt-2'>{user.bio}</p>
           <p>

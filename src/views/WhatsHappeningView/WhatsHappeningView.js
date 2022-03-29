@@ -13,7 +13,7 @@ function WhatsHappeningView() {
         />
       </div>
       <div className='bg-secondary bg-opacity-10 ttr-rounded-15px mt-2 p-2'>
-        <h2>What's happening</h2>
+        <h5>What's happening</h5>
         {whatsHappening.map((wh) => {
           return (
             <div key={wh._id} className='ttr-whats-happening-tuit d-flex mb-3'>

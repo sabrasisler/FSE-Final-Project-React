@@ -1,18 +1,15 @@
 import React from 'react';
-import { Tuits } from '../../components';
+import { CreateTuit, Tuits } from '../../components';
 import * as service from '../../services/tuits-service';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 const HomeView = () => {
   const user = useSelector((state) => state.user.data);
-  // const location = useLocation();
-  // const {uid} = useParams();
   const [tuits, setTuits] = useState([]);
-  const [tuit, setTuit] = useState('');
-  // const userId = uid;
+  const [loading, setLoading] = useState(false);
+
   const findAndSetTuits = async () => {
     const tuits = await service.findAllTuits();
-
     setTuits(tuits);
   };
   useEffect(() => {
@@ -22,12 +19,16 @@ const HomeView = () => {
       isMounted = false;
     };
   }, [user]);
-  const createTuit = async () => {
+  const createTuit = async (tuit) => {
+    setLoading(true);
     await service.createTuit(user.id, { tuit });
+    setLoading(false);
     await findAndSetTuits();
   };
   const deleteTuit = async (tid) => {
+    setLoading(true);
     await service.deleteTuit(tid);
+    setLoading(false);
     await findAndSetTuits();
   };
 
@@ -35,7 +36,7 @@ const HomeView = () => {
     user && (
       <div className='ttr-home'>
         <div className='border border-bottom-0'>
-          <h4 className='fw-bold p-2'>Home Screen</h4>
+          <h5 className='fw-bold p-2'>Home</h5>
           {user.id && (
             <div className='d-flex'>
               <div className='p-2'>
@@ -45,32 +46,7 @@ const HomeView = () => {
                   src={user.profilePhoto}
                 />
               </div>
-              <div className='p-2 w-100'>
-                <textarea
-                  onChange={(e) => setTuit(e.target.value)}
-                  placeholder="What's happening?"
-                  className='w-100 border-0'
-                ></textarea>
-                <div className='row'>
-                  <div className='col-10 ttr-font-size-150pc text-primary'>
-                    <i className='fas fa-portrait me-3'></i>
-                    <i className='far fa-gif me-3'></i>
-                    <i className='far fa-bar-chart me-3'></i>
-                    <i className='far fa-face-smile me-3'></i>
-                    <i className='far fa-calendar me-3'></i>
-                    <i className='far fa-map-location me-3'></i>
-                  </div>
-                  <div className='col-2'>
-                    <a
-                      onClick={createTuit}
-                      className={`btn btn-primary rounded-pill fa-pull-right
-                                  fw-bold ps-4 pe-4`}
-                    >
-                      Tuit
-                    </a>
-                  </div>
-                </div>
-              </div>
+              <CreateTuit createTuit={createTuit} loading={loading} />
             </div>
           )}
         </div>

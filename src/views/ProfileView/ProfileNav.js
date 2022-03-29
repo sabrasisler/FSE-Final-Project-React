@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const ProfileNav = ({ title, link }) => {
   const location = useLocation();
@@ -17,14 +17,17 @@ const ProfileNav = ({ title, link }) => {
     <ul className='mt-4 nav nav-pills nav-fill'>
       {navItems.map((item) => (
         <li className='nav-item'>
-          <Link
+          <NavLink
+            exact={true}
             to={item.link}
-            className={`nav-link ${
-              location.pathname.indexOf(item.link) === 0 ? 'active' : ''
-            }`}
+            // className={`nav-link ${
+            //   location.pathname.indexOf(item.link) === 0 ? 'active' : ''
+            // }`}
+            className='nav-link'
+            activeClassName='active'
           >
             {item.title}
-          </Link>
+          </NavLink>
         </li>
       ))}
     </ul>
