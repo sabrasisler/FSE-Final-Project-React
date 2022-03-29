@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import './styles.css';
-import Tuit from './tuit';
+import './Tuits.css';
+import Tuit from './Tuit';
 
 function Tuits({ tuits = [], deleteTuit }) {
   return (

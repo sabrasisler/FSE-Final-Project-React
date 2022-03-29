@@ -46,7 +46,6 @@ describe('findUserById', () => {
 
     // retrieve the user from the database by its primary key
     const existingUser = await findUserById(newUser.id);
-    console.log(existingUser);
 
     // verify retrieved user matches parameter user
     expect(existingUser.username).toEqual(ripley.username);
@@ -73,7 +72,6 @@ describe('findAllUsers', () => {
     )
   );
 
-  //   // clean up after ourselves
   afterAll(() =>
     // delete the users we inserted
     usernames.map(async (user) => await deleteUser(user.id))

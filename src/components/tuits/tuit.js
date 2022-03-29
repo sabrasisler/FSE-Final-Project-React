@@ -1,7 +1,7 @@
 import React from 'react';
-import TuitStats from './tuit-stats';
-import TuitImage from './tuit-image';
-import TuitVideo from './tuit-video';
+import TuitStats from './TuitStats';
+import TuitImage from './TuitImage';
+import TuitVideo from './TuitVideo';
 
 const Tuit = ({ tuit, deleteTuit }) => {
   return (

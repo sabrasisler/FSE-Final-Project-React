@@ -12,10 +12,17 @@ export const register = (user) =>
     .catch((err) => err.response.data);
 
 export const login = (user) =>
-  api.post(`${SECURITY_API}/login`, user).then((response) => response.data);
+  api
+    .post(`${SECURITY_API}/login`, user)
+    .then((response) => response.data)
+    .catch((err) => err.response.data);
 
 export const logout = (user) =>
-  api.post(`${SECURITY_API}/logout`, user).then((response) => response.data);
+  api.post(`${SECURITY_API}/logout`, user).then((response) => {
+    if (response === 200) {
+      window.location.replace('/');
+    }
+  });
 
 export const getProfile = () =>
   api

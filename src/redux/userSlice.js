@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { register, getProfile } from '../services/auth-service';
+import { register, getProfile, login, logout } from '../services/auth-service';
 import { updateUser } from '../services/users-service';
 import { useDispatch } from 'react-redux';
 export const getProfileThunk = createAsyncThunk(
@@ -13,26 +13,39 @@ export const registerThunk = createAsyncThunk(
   'users/register',
   async (user) => {
     const res = await register(user);
-    console.log('register thunk response', res);
+
     return res;
   }
 );
+
+export const loginThunk = createAsyncThunk('users/login', async (user) => {
+  const res = await login(user);
+
+  return res;
+});
+
+export const logoutThunk = createAsyncThunk('users/logout', async (user) => {
+  const res = await logout(user);
+
+  return res;
+});
 
 export const updateUserThunk = createAsyncThunk(
   'users/update',
   async (user) => {
     const res = await updateUser(user);
-    console.log('update thunk response', res);
+
     return res;
   }
 );
 
 const setUserDataOrError = (state, action) => {
   if (action.payload.error) {
-    state.error = action.payload;
+    state.error = action.payload.error;
   } else {
     state.data = action.payload;
     state.loggedIn = true;
+    checkProfileComplete(state);
   }
 };
 
@@ -43,7 +56,6 @@ const checkProfileComplete = (state) => {
   } else {
     state.profileComplete = true;
   }
-  console.log(state.profileComplete);
 };
 
 const userSlice = createSlice({
@@ -64,7 +76,7 @@ const userSlice = createSlice({
   // error: false,
   // reducers: {
   //   updateUser: (state, action) => {
-  //     console.log('UPDATE USER: ', state);
+  //
   //     state = {
   //       id: '123',
   //       username: 'jsmith',
@@ -81,7 +93,7 @@ const userSlice = createSlice({
   //     };
   //   },
   //   updateError: (state, action) => {
-  //     console.log('UPDATE ERROR', action.payload);
+  //
   //     state.error = true;
   //   },
   // },
@@ -90,19 +102,16 @@ const userSlice = createSlice({
       state.loading = true;
     },
     [getProfileThunk.fulfilled]: (state, action) => {
-      console.log('profile thunk PAYLOAD', action.payload);
       state.loading = false;
+      if (action.payload.error) return;
       setUserDataOrError(state, action);
-      checkProfileComplete(state);
     },
     [updateUserThunk.pending]: (state) => {
       state.loading = true;
     },
     [updateUserThunk.fulfilled]: (state, action) => {
-      console.log('update user thunk PAYLOAD', action.payload);
       state.loading = false;
       setUserDataOrError(state, action);
-      checkProfileComplete(state);
     },
     [registerThunk.pending]: (state) => {
       state.loading = true;
@@ -110,10 +119,27 @@ const userSlice = createSlice({
     [registerThunk.fulfilled]: (state, action) => {
       state.loading = false;
       setUserDataOrError(state, action);
-      checkProfileComplete(state);
+    },
+    [loginThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [loginThunk.fulfilled]: (state, action) => {
+      state.loading = false;
+      setUserDataOrError(state, action);
+    },
+    [loginThunk.rejected]: (state, action) => {
+      state.loading = true;
+    },
+    [logoutThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [logoutThunk.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.data = undefined;
+      state.profileComplete = false;
     },
     // [updateUserThunk.rejected]: (state, action) => {
-    //   console.log(action.data);
+    //
     //   state.loading = false; Hello123!
     // },
   },

@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import Login from './components/login';
-import Error from './components/error';
+import React, { useEffect } from 'react';
+import LoginView from './views/LoginView/LoginView';
+import { GenericError } from './components';
 import { useDispatch, useSelector } from 'react-redux';
-import logo from './logo.svg';
 import './styles.css';
-import Tuiter from './pages/tuiter';
-import LandingPage from './pages/landing';
+import TuiterView from './views/TuiterView/TuiterView';
+import LandingView from './views/LandingView/LandingView';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { getProfileThunk } from './redux/userSlice';
 
 function App() {
-  const user = useSelector((state) => state.user.data);
+  // const user = useSelector((state) => state.user.data);
   const profileComplete = useSelector((state) => state.user.profileComplete);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,12 +23,16 @@ function App() {
         <Route
           path='/*'
           element={
-            profileComplete ? <Tuiter /> : <LandingPage content={<Login />} />
+            profileComplete ? (
+              <TuiterView />
+            ) : (
+              <LandingView content={<LoginView />} />
+            )
           }
         ></Route>
         <Route
           path='/error'
-          element={<LandingPage content={<Error />} />}
+          element={<LandingView content={<GenericError />} />}
         ></Route>
       </Routes>
     </BrowserRouter>

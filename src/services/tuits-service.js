@@ -11,8 +11,11 @@ export const findAllTuits = () =>
 export const findTuitById = (tuitId) =>
   api.get(`${TUITS_API}/${tuitId}`).then((response) => response.data);
 
-export const findTuitByUser = (userId) =>
-  api.get(`${USERS_API}/${userId}/tuits`).then((response) => response.data);
+export const findTuitsByUser = (userId) =>
+  api
+    .get(`${USERS_API}/${userId}/tuits`)
+    .then((response) => response.data)
+    .catch((err) => err.response.data);
 
 export const createTuit = (userId, tuit) =>
   api
