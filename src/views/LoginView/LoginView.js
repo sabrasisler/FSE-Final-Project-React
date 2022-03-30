@@ -10,7 +10,7 @@ const LoginView = () => {
   return (
     <div>
       <h1 className='fs-1 home-heading-primary'>Happening Now</h1>
-      <h3 className='h2 '>Join Tuiter Today</h3>
+      <h4>Join Tuiter Today</h4>
       <div className='col-md-7'>
         <div className='mt-5'>
           <LoginForm />

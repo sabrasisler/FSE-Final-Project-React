@@ -18,7 +18,7 @@ const LoginForm = () => {
   };
   return (
     <form>
-      <h3>Login</h3>
+      <h5>Login</h5>
       <input
         className='mb-2 form-control'
         onChange={(e) =>
