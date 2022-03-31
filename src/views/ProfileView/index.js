@@ -70,7 +70,7 @@ const ProfileView = () => {
           </p>
           <b>{user.followeeCount}</b> Following
           <b className='ms-4'>{user.followerCount}</b> Followers
-          <ProfileNav />
+          {/* <ProfileNav /> */}
         </div>
       </div>
       <Routes>
