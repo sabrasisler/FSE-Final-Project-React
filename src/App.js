@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
-import LoginView from './views/LoginView/LoginView';
 import { GenericError } from './components';
 import { useDispatch, useSelector } from 'react-redux';
 import './styles.css';
 import TuiterView from './views/TuiterView/TuiterView';
-import LandingView from './views/LandingView/LandingView';
+import { LoginView, LandingView } from './views';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { getProfileThunk } from './redux/userSlice';
 
 function App() {
-  // const user = useSelector((state) => state.user.data);
+  const user = useSelector((state) => state.user.data);
   const profileComplete = useSelector((state) => state.user.profileComplete);
   const dispatch = useDispatch();
   useEffect(() => {

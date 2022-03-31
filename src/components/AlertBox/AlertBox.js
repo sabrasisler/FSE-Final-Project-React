@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
+import './AlertBox.css';
 
-const AlertBox = (props) => {
-  const { heading, message } = props;
+const AlertBox = ({ heading, message }) => {
   const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    if (message) setShow(true);
+  }, [message]);
 
   if (show) {
     return (
-      <Alert variant='danger' onClose={() => setShow(false)} dismissible>
+      <Alert
+        variant='warning'
+        className='alert-fixed'
+        onClose={() => setShow(false)}
+        dismissible
+      >
         <Alert.Heading>{heading && heading}</Alert.Heading>
         <p>{message && message}</p>
       </Alert>

@@ -5,6 +5,8 @@ import Tuits from './Tuits';
 import AlertBox from './AlertBox/AlertBox';
 import Navigation from './Navigation/Navigation';
 import CreateTuit from './CreateTuit/CreateTuit';
+import Loader from './Loader/Loader';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 export {
   AlertBox,
@@ -14,4 +16,6 @@ export {
   Tuits,
   Navigation,
   CreateTuit,
+  Loader,
+  ErrorBoundary,
 };

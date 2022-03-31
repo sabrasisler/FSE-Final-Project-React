@@ -1,59 +1,54 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { register, getProfile, login, logout } from '../services/auth-service';
 import { updateUser } from '../services/users-service';
-import { useDispatch } from 'react-redux';
+import { dataOrStateError } from './helpers';
+
 export const getProfileThunk = createAsyncThunk(
   'users/getProfile',
-  async () => {
-    return await getProfile();
+  async (data, ThunkAPI) => {
+    const profile = await getProfile();
+    return dataOrStateError(profile, ThunkAPI);
   }
 );
 
 export const registerThunk = createAsyncThunk(
   'users/register',
-  async (user) => {
+  async (user, ThunkAPI) => {
     const res = await register(user);
-
-    return res;
+    return dataOrStateError(res, ThunkAPI);
   }
 );
 
-export const loginThunk = createAsyncThunk('users/login', async (user) => {
-  const res = await login(user);
+export const loginThunk = createAsyncThunk(
+  'users/login',
+  async (user, ThunkAPI) => {
+    const res = await login(user);
+    return dataOrStateError(res, ThunkAPI);
+  }
+);
 
-  return res;
-});
-
-export const logoutThunk = createAsyncThunk('users/logout', async (user) => {
-  const res = await logout(user);
-
-  return res;
-});
+export const logoutThunk = createAsyncThunk(
+  'users/logout',
+  async (user, ThunkAPI) => {
+    const res = await logout(user);
+    return dataOrStateError(res, ThunkAPI);
+  }
+);
 
 export const updateUserThunk = createAsyncThunk(
   'users/update',
-  async (user) => {
+  async (user, ThunkAPI) => {
     const res = await updateUser(user);
 
-    return res;
+    return dataOrStateError(res, ThunkAPI);
   }
 );
 
-const setUserDataOrError = (state, action) => {
-  if (action.payload.error) {
-    state.error = action.payload.error;
-  } else {
-    state.data = action.payload;
-    state.loggedIn = true;
-    checkProfileComplete(state);
-  }
-};
-
-const checkProfileComplete = (state) => {
-  const user = state.data;
+const checkProfileComplete = (state, user) => {
   if (!user || (user && !user.username)) {
     state.profileComplete = false;
   } else {
+    state.data = user;
     state.profileComplete = true;
   }
 };
@@ -63,40 +58,10 @@ const userSlice = createSlice({
   initialState: {
     data: null,
     loading: false,
-    error: null,
     profileComplete: false,
     loggedIn: false,
   },
-  reducers: {
-    updateError: (state, action) => {
-      state.error = action.payload;
-    },
-  },
-  // pending: false,
-  // error: false,
-  // reducers: {
-  //   updateUser: (state, action) => {
-  //
-  //     state = {
-  //       id: '123',
-  //       username: 'jsmith',
-  //       name: 'John Smith',
-  //       email: 'john@email.com',
-  //       profilePhoto:
-  //         'https://lh3.googleusercontent.com/a-/AOh14GgBPcir2Y7kATdCKuYerdtqVqtK7KGUtTGLQSFf=s96-c',
-  //       followerCount: 1,
-  //       followeeCount: 2,
-  //       joinedDate: '01-01-1990',
-  //       bio: 'This is my bio',
-  //       website: 'https://google.com',
-  //       ...action.payload,
-  //     };
-  //   },
-  //   updateError: (state, action) => {
-  //
-  //     state.error = true;
-  //   },
-  // },
+
   extraReducers: {
     [getProfileThunk.pending]: (state) => {
       state.loading = true;
@@ -104,46 +69,49 @@ const userSlice = createSlice({
     [getProfileThunk.fulfilled]: (state, action) => {
       state.loading = false;
       if (action.payload.error) return;
-      setUserDataOrError(state, action);
+      checkProfileComplete(state, action.payload);
+    },
+    [getProfileThunk.rejected]: (state) => {
+      state.loading = false;
     },
     [updateUserThunk.pending]: (state) => {
       state.loading = true;
     },
     [updateUserThunk.fulfilled]: (state, action) => {
       state.loading = false;
-      setUserDataOrError(state, action);
+      checkProfileComplete(state, action.payload);
     },
     [registerThunk.pending]: (state) => {
       state.loading = true;
     },
     [registerThunk.fulfilled]: (state, action) => {
       state.loading = false;
-      setUserDataOrError(state, action);
+      checkProfileComplete(state, action.payload);
     },
     [loginThunk.pending]: (state) => {
       state.loading = true;
     },
     [loginThunk.fulfilled]: (state, action) => {
       state.loading = false;
-      setUserDataOrError(state, action);
+      checkProfileComplete(state, action.payload);
     },
     [loginThunk.rejected]: (state, action) => {
-      state.loading = true;
+      state.loading = false;
     },
     [logoutThunk.pending]: (state) => {
       state.loading = true;
     },
     [logoutThunk.fulfilled]: (state, action) => {
       state.loading = false;
-      state.data = undefined;
+      state.data = null;
       state.profileComplete = false;
     },
-    // [updateUserThunk.rejected]: (state, action) => {
-    //
-    //   state.loading = false; Hello123!
-    // },
+    [logoutThunk.rejected]: (state) => {
+      state.loading = false;
+      state.data = null;
+      state.profileComplete = false;
+    },
   },
 });
 
-export const { updateError } = userSlice.actions;
 export default userSlice.reducer;

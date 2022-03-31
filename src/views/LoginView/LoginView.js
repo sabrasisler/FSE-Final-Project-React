@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SignupForm } from '../../forms';
 import { LoginForm } from '../../forms';
+import { useSelector } from 'react-redux';
+import { AlertBox } from '../../components';
 
 const LoginView = () => {
-  // const user = useSelector((state) => state.user.data);
+  const error = useSelector((state) => state.error.data);
   const google = () => {
     window.open(`${process.env.REACT_APP_API_URL}/auth/google`, '_self');
   };
@@ -21,7 +23,7 @@ const LoginView = () => {
           </div>
           <SignupForm />
         </div>
-        {/* {user && !user.username ? <CompleteSignup /> : null} */}
+        {error && <AlertBox message={error} />}
       </div>
     </div>
   );

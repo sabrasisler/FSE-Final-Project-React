@@ -16,15 +16,13 @@ const ProfileNav = ({ title, link }) => {
   return (
     <ul className='mt-4 nav nav-pills nav-fill'>
       {navItems.map((item) => (
-        <li className='nav-item'>
+        <li key={item.link} className='nav-item'>
           <NavLink
-            exact={true}
             to={item.link}
             // className={`nav-link ${
             //   location.pathname.indexOf(item.link) === 0 ? 'active' : ''
             // }`}
             className='nav-link'
-            activeClassName='active'
           >
             {item.title}
           </NavLink>

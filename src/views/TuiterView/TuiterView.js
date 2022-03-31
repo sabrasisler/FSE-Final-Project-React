@@ -1,7 +1,7 @@
 import React from 'react';
 import './TuiterView.css';
 import { Routes, Route } from 'react-router-dom';
-import { Navigation } from '../../components';
+import { AlertBox, Navigation } from '../../components';
 import {
   WhatsHappeningView,
   HomeView,
@@ -12,9 +12,11 @@ import {
   MessagesView,
   MoreView,
   ListsView,
-} from '..';
+} from '../index';
+import { useSelector } from 'react-redux';
 
 function TuiterView() {
+  const error = useSelector((state) => state.error.data);
   return (
     <div className='container'>
       <div className='ttr-tuiter'>
@@ -37,6 +39,7 @@ function TuiterView() {
             <Route path='/profile/*' element={<ProfileView />} />
             <Route path='/more' element={<MoreView />} />
           </Routes>
+          {/* {error && <AlertBox message={error} />} */}
         </div>
         <div className='ttr-right-column'>
           <WhatsHappeningView />

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-const ErrorBox = ({ errorMessage }) => {
-  const [error, setError] = useState(errorMessage);
+const ErrorBox = ({ message }) => {
+  const [error, setError] = useState(message);
 
   return (
-    <div className='alert alert-danger'>
+    <div className='alert alert-warning'>
       <p>{error && error}</p>
     </div>
   );

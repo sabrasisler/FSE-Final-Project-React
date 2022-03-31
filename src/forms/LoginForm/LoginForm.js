@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginThunk } from '../../redux/userSlice';
 
-import { AlertBox } from '../../components';
+import { Loader } from '../../components';
 
 const LoginForm = () => {
-  const error = useSelector((state) => state.user.error);
-  const [loginUser, setLoginUser] = useState();
+  const loading = useSelector((state) => state.user.loading);
+  const [loginUser, setLoginUser] = useState({ username: '', password: '' });
   const dispatch = useDispatch();
 
   const submit = async (e) => {
@@ -25,6 +25,7 @@ const LoginForm = () => {
           setLoginUser({ ...loginUser, username: e.target.value })
         }
         placeholder='email or username'
+        value={loginUser.username}
       />
       <input
         className='mb-2 form-control'
@@ -33,15 +34,15 @@ const LoginForm = () => {
         }
         placeholder='password'
         type='password'
+        value={loginUser.password}
       />
       <button
         type='submit'
         onClick={(e) => submit(e)}
         className='btn btn-primary mb-5'
       >
-        Login
+        <Loader loading={loading} content='Sign in' />
       </button>
-      {error && <AlertBox message={error} />}
     </form>
   );
 };

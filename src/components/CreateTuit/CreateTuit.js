@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
+import Loader from '../Loader/Loader';
 import * as service from '../../services/tuits-service';
+import { useDispatch, useSelector } from 'react-redux';
+import { findAllTuitsThunk, createTuitThunk } from '../../redux/tuitSlice';
 
-const CreateTuit = ({ createTuit, loading }) => {
+const CreateTuit = () => {
+  const userId = useSelector((state) => state.user.data.id);
+  const dispatch = useDispatch();
   const [tuit, setTuit] = useState('');
+
+  const createTuit = async (tuit) => {
+    if (!tuit) return;
+    await dispatch(createTuitThunk({ userId, tuit }));
+    dispatch(findAllTuitsThunk());
+  };
 
   return (
     <div className='p-2 w-100'>
@@ -30,11 +41,7 @@ const CreateTuit = ({ createTuit, loading }) => {
             className={`btn btn-primary rounded-pill fa-pull-right
                                   fw-bold ps-4 pe-4`}
           >
-            {loading ? (
-              <i class='fas fa-spinner fa-pulse'></i>
-            ) : (
-              <span>Tuit</span>
-            )}
+            Tuit
           </button>
         </div>
       </div>

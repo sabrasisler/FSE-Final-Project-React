@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { processError } from './helpers';
 const SECURITY_API = `${process.env.REACT_APP_API_URL}/auth`;
 
 const api = axios.create({
@@ -18,11 +19,10 @@ export const login = (user) =>
     .catch((err) => err.response.data);
 
 export const logout = (user) =>
-  api.post(`${SECURITY_API}/logout`, user).then((response) => {
-    if (response === 200) {
-      window.location.replace('/');
-    }
-  });
+  api
+    .post(`${SECURITY_API}/logout`, user)
+    .then((response) => response.data)
+    .catch((err) => processError(err));
 
 export const getProfile = () =>
   api
