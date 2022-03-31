@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './styles.css';
 import TuiterView from './views/TuiterView/TuiterView';
 import { LoginView, LandingView } from './views';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
 
 import { getProfileThunk } from './redux/userSlice';
 
@@ -17,7 +17,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route
           path='/*'
@@ -34,7 +34,7 @@ function App() {
           element={<LandingView content={<GenericError />} />}
         ></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
