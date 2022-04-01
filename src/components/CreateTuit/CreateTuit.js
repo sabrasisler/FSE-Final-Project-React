@@ -11,8 +11,7 @@ const CreateTuit = () => {
 
   const createTuit = async (tuit) => {
     if (!tuit) return;
-    await dispatch(createTuitThunk({ userId, tuit }));
-    dispatch(findAllTuitsThunk());
+    dispatch(createTuitThunk({ userId, tuit }));
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as service from '../../services/likes-service';
+import './Tuits.css';
 
 function LikeDislikeButtons({ tuit }) {
   const userId = useSelector((state) => state.user.data.id);
@@ -11,10 +12,10 @@ function LikeDislikeButtons({ tuit }) {
   const [animationClass, setAnimationClass] = useState('');
 
   const animate = () => {
-    setAnimationClass('fs-5 fa-pulse');
+    setAnimationClass('fs-6 ttr-heart-animated fa-pulse');
     setTimeout(() => {
       setAnimationClass('');
-    }, 800);
+    }, 400);
   };
 
   const updateLiked = (tuit) => {
@@ -70,26 +71,28 @@ function LikeDislikeButtons({ tuit }) {
     <div className='d-flex '>
       <div className='col'>
         <span className='btn p-0 m-0' onClick={() => handleLikeTuit()}>
-          <i
+          <span
             className={
               liked
-                ? `fa-solid fa-thumbs-up me-1  ${animationClass}`
-                : 'far fa-thumbs-up me-1'
+                ? `fa-solid text-danger fa-heart ttr-heart me-1  ${animationClass}`
+                : 'far fa-heart ttr-heart me-1'
             }
-          ></i>
-          {likeCount && likeCount}
+          >
+            <span className='px-1'>{likeCount && likeCount}</span>
+          </span>
         </span>
       </div>
       <div className='col'>
         <span className='btn p-0 m-0' onClick={() => handleDislikeTuit()}>
-          <i
+          <span
             className={
               disliked
                 ? `fa-solid fa-thumbs-down me-1 ${animationClass}`
                 : 'far fa-thumbs-down me-1'
             }
-          ></i>
-          {dislikeCount && dislikeCount}
+          >
+            <span className='px-1'>{dislikeCount && dislikeCount}</span>
+          </span>
         </span>
       </div>
     </div>

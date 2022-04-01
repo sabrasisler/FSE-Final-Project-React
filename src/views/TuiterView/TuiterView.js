@@ -39,7 +39,7 @@ function TuiterView() {
             <Route path='/profile/*' element={<ProfileView />} />
             <Route path='/more' element={<MoreView />} />
           </Routes>
-          {/* {error && <AlertBox message={error} />} */}
+          {error && <AlertBox message={error} />}
         </div>
         <div className='ttr-right-column'>
           <WhatsHappeningView />

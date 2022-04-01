@@ -4,14 +4,13 @@ import TuitImage from './TuitImage';
 import TuitVideo from './TuitVideo';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTuit } from '../../services/tuits-service';
-import { findAllTuitsThunk } from '../../redux/tuitSlice';
+import { deleteTuitThunk, findAllTuitsThunk } from '../../redux/tuitSlice';
 
 const Tuit = ({ tuit }) => {
   const userId = useSelector((state) => state.user.data.id);
   const dispatch = useDispatch();
   const handleDeleteTuit = async (tid) => {
-    await deleteTuit(tid);
-    dispatch(findAllTuitsThunk());
+    dispatch(deleteTuitThunk(tuit.id));
   };
   return (
     <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>

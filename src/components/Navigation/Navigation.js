@@ -37,9 +37,9 @@ function Navigation() {
           );
         })}
       </ul>
-      <button className='mt-3 btn btn-lg btn-primary rounded-pill w-100 fw-bold text-white'>
+      {/* <button className='mt-3 btn btn-lg btn-primary rounded-pill w-100 fw-bold text-white'>
         Tuit
-      </button>
+      </button> */}
     </div>
   );
 }
