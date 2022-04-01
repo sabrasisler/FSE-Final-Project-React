@@ -6,7 +6,10 @@ import { Loader } from '../../components';
 
 const LoginForm = () => {
   const loading = useSelector((state) => state.user.loading);
-  const [loginUser, setLoginUser] = useState({ username: '', password: '' });
+  const [loginUser, setLoginUser] = useState({
+    username: 'batman',
+    password: 'Hello123!',
+  });
   const dispatch = useDispatch();
 
   const submit = async (e) => {
