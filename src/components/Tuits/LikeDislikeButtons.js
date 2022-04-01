@@ -71,28 +71,28 @@ function LikeDislikeButtons({ tuit }) {
     <div className='d-flex '>
       <div className='col'>
         <span className='btn p-0 m-0' onClick={() => handleLikeTuit()}>
-          <span
+          <i
             className={
               liked
-                ? `fa-solid text-danger fa-heart ttr-heart me-1  ${animationClass}`
-                : 'far fa-heart ttr-heart me-1'
+                ? `fa-solid text-danger fa-heart ttr-heart  ${animationClass}`
+                : 'far fa-heart ttr-heart'
             }
           >
-            <span className='px-1'>{likeCount && likeCount}</span>
-          </span>
+            <span className='mx-1'>{likeCount && likeCount}</span>
+          </i>
         </span>
       </div>
       <div className='col'>
         <span className='btn p-0 m-0' onClick={() => handleDislikeTuit()}>
-          <span
+          <i
             className={
               disliked
-                ? `fa-solid fa-thumbs-down me-1 ${animationClass}`
-                : 'far fa-thumbs-down me-1'
+                ? `fa-solid fa-thumbs-down ${animationClass}`
+                : 'far fa-thumbs-down'
             }
           >
-            <span className='px-1'>{dislikeCount && dislikeCount}</span>
-          </span>
+            <span className='mx-1'>{dislikeCount && dislikeCount}</span>
+          </i>
         </span>
       </div>
     </div>

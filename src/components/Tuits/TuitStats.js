@@ -7,12 +7,14 @@ const TuitStats = ({ tuit }) => {
   return (
     <div className='row mt-2'>
       <div className='col'>
-        <i className='far fa-message me-1'></i>
-        {tuit.stats && tuit.stats.replies}
+        <i className='far fa-message'>
+          <span className='mx-1'>{tuit.stats && tuit.stats.replies}</span>
+        </i>
       </div>
       <div className='col'>
-        <i className='far fa-retweet me-1'></i>
-        {tuit.stats && tuit.stats.retuits}
+        <i className='far fa-retweet'>
+          <span className='mx-1'>{tuit.stats && tuit.stats.retuits}</span>
+        </i>
       </div>
       <div className='col'>
         <LikeDislikeButtons tuit={tuit} />
