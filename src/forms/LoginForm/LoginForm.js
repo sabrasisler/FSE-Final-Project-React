@@ -20,9 +20,10 @@ const LoginForm = () => {
     dispatch(loginThunk(loginUser));
   };
   return (
-    <form>
+    <form data-testid='login-form'>
       <h5>Login</h5>
       <input
+        data-testid='login-user'
         className='mb-2 form-control'
         onChange={(e) =>
           setLoginUser({ ...loginUser, username: e.target.value })
@@ -31,6 +32,7 @@ const LoginForm = () => {
         value={loginUser.username}
       />
       <input
+        data-testid='login-password'
         className='mb-2 form-control'
         onChange={(e) =>
           setLoginUser({ ...loginUser, password: e.target.value })

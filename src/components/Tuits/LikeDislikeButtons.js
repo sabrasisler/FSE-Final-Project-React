@@ -50,7 +50,7 @@ function LikeDislikeButtons({ tuit }) {
 
   const handleLikeTuit = async () => {
     const resTuit = await service.userLikesTuit(userId, tuit.id);
-    if (resTuit.error) {
+    if (resTuit && resTuit.error) {
       return;
     }
     updateStats(resTuit.stats);
@@ -70,28 +70,40 @@ function LikeDislikeButtons({ tuit }) {
   return (
     <div className='d-flex '>
       <div className='col'>
-        <span className='btn p-0 m-0' onClick={() => handleLikeTuit()}>
+        <span
+          className='btn p-0 m-0'
+          data-testid='ttr-like-btn'
+          onClick={() => handleLikeTuit()}
+        >
           <i
             className={
               liked
-                ? `fa-solid text-danger fa-heart ttr-heart  ${animationClass}`
-                : 'far fa-heart ttr-heart'
+                ? `fa-solid text-danger fa-heart ttr-heart ttr-stat-icon  ${animationClass}`
+                : 'far fa-heart ttr-heart ttr-stat-icon'
             }
           >
-            <span className='mx-1'>{likeCount && likeCount}</span>
+            <span data-testid='ttr-stats-likes' className='mx-1'>
+              {likeCount && likeCount}
+            </span>
           </i>
         </span>
       </div>
       <div className='col'>
-        <span className='btn p-0 m-0' onClick={() => handleDislikeTuit()}>
+        <span
+          className='btn p-0 m-0 ttr-dislike-btn'
+          onClick={() => handleDislikeTuit()}
+          data-testid='ttr-dislike-btn'
+        >
           <i
             className={
               disliked
-                ? `fa-solid fa-thumbs-down ${animationClass}`
-                : 'far fa-thumbs-down'
+                ? `fa-solid fa-thumbs-down ttr-stat-icon ${animationClass}`
+                : 'far fa-thumbs-down ttr-stat-icon'
             }
           >
-            <span className='mx-1'>{dislikeCount && dislikeCount}</span>
+            <span data-testid=' ttr-stats-dislikes' className='mx-1'>
+              {dislikeCount && dislikeCount}
+            </span>
           </i>
         </span>
       </div>
