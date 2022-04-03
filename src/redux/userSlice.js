@@ -1,8 +1,14 @@
+/**
+ * Includes redux state management for user actions such as login and update user.
+ */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { register, getProfile, login, logout } from '../services/auth-service';
 import { updateUser } from '../services/users-service';
 import { dataOrStateError } from './helpers';
 
+/**
+ * Updates redux state with user profile after calling getProfile from user service.
+ */
 export const getProfileThunk = createAsyncThunk(
   'users/getProfile',
   async (data, ThunkAPI) => {
@@ -11,6 +17,9 @@ export const getProfileThunk = createAsyncThunk(
   }
 );
 
+/**
+ * Calls the registration service and updates state with registered user.
+ */
 export const registerThunk = createAsyncThunk(
   'users/register',
   async (user, ThunkAPI) => {
@@ -19,6 +28,9 @@ export const registerThunk = createAsyncThunk(
   }
 );
 
+/**
+ * Calls the login service and updates state with logged in user.
+ */
 export const loginThunk = createAsyncThunk(
   'users/login',
   async (user, ThunkAPI) => {
@@ -27,6 +39,9 @@ export const loginThunk = createAsyncThunk(
   }
 );
 
+/**
+ * Logs the user out by calling the logout service.
+ */
 export const logoutThunk = createAsyncThunk(
   'users/logout',
   async (user, ThunkAPI) => {
@@ -35,6 +50,9 @@ export const logoutThunk = createAsyncThunk(
   }
 );
 
+/**
+ * Calls updateUser service to update user and then update state with the user.
+ */
 export const updateUserThunk = createAsyncThunk(
   'users/update',
   async (user, ThunkAPI) => {
@@ -44,6 +62,9 @@ export const updateUserThunk = createAsyncThunk(
   }
 );
 
+/**
+ * Checks if the logged in user in state has complete their profile.
+ */
 const checkProfileComplete = (state, user) => {
   if (!user || (user && !user.username)) {
     state.profileComplete = false;
@@ -56,7 +77,7 @@ const checkProfileComplete = (state, user) => {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    data: null,
+    data: {},
     loading: false,
     profileComplete: false,
     loggedIn: false,

@@ -4,6 +4,9 @@ import { loginThunk } from '../../redux/userSlice';
 
 import { Loader } from '../../components';
 
+/**
+ * User login form that uses a redux async loginThunk to log user in. Displays loading button when login in being processed.
+ */
 const LoginForm = () => {
   const loading = useSelector((state) => state.user.loading);
   const [loginUser, setLoginUser] = useState({

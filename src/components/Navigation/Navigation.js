@@ -2,6 +2,9 @@ import React from 'react';
 import './navigation.css';
 import { useLocation, Link } from 'react-router-dom';
 
+/**
+ * Displays the main navigation menu of the app.
+ */
 function Navigation() {
   const { pathname } = useLocation();
   const links = [

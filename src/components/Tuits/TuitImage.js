@@ -1,4 +1,8 @@
 import React from 'react';
+
+/**
+ * Displays an image post of a tuit.
+ */
 const TuitImage = ({ tuit }) => {
   return (
     <div className='position-relative'>

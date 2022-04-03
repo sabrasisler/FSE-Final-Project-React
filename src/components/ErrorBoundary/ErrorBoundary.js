@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { LandingView } from '../../views';
 import { GenericError } from '../../components';
 
+/**
+ * Error boundary wrapper for the application to display a friendly error for uncaught errors. Should wrap the main App component.
+ * @class
+ */
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);

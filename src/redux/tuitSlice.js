@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   findAllTuits,
   createTuit,
   deleteTuit,
 } from '../services/tuits-service';
-import { updateError } from './errorSlice';
 import { dataOrStateError } from './helpers';
 
+/**
+ * Uses tuits service to update state with all tuits. Also keeps track of loading status of requests.
+ */
 export const findAllTuitsThunk = createAsyncThunk(
   'tuits/findAllTuits',
   async (data, ThunkAPI) => {
@@ -16,6 +17,9 @@ export const findAllTuitsThunk = createAsyncThunk(
   }
 );
 
+/**
+ * Uses tuit service to crate a tuit and then makes another call to fetch all tuits to update state.
+ */
 export const createTuitThunk = createAsyncThunk(
   'tuits/createTuit',
   async ({ userId, tuit }, ThunkAPI) => {
@@ -25,6 +29,9 @@ export const createTuitThunk = createAsyncThunk(
   }
 );
 
+/**
+ * Uses tuit service to delete a tuit and then makes another call to fetch all tuits to update state.
+ */
 export const deleteTuitThunk = createAsyncThunk(
   'tuits/deleteTuit',
   async (tuitId, ThunkAPI) => {
@@ -39,24 +46,17 @@ const tuitSlice = createSlice({
   initialState: {
     list: null,
     loading: false,
-    error: null,
-  },
-  reducers: {
-    updateError: (state, action) => {
-      state.error = action.payload;
-    },
   },
   extraReducers: {
+    // for the async thunks
     [findAllTuitsThunk.pending]: (state) => {
       state.loading = true;
     },
     [findAllTuitsThunk.fulfilled]: (state, action) => {
       state.loading = false;
       state.list = action.payload;
-      console.log('from slice', state.list);
     },
     [findAllTuitsThunk.rejected]: (state, action) => {
-      console.log('from slice rejected');
       state.loading = false;
     },
     [createTuitThunk.pending]: (state) => {

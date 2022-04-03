@@ -7,7 +7,6 @@ import { findAllTuitsThunk } from '../../redux/tuitSlice';
 const HomeView = () => {
   const user = useSelector((state) => state.user.data);
   const loading = useSelector((state) => state.tuits.loading);
-  const error = useSelector((state) => state.error.data);
   const dispatch = useDispatch();
   const tuits = useSelector((state) => state.tuits.list);
   useEffect(() => {

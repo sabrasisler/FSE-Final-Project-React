@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import './AlertBox.css';
 
+/**
+ * Displays an alert message with option to dismiss message.
+ * @function
+ * @param {string} heading the heading of the alert
+ * @param {boolean} message the message of the alert
+ 
+ */
 const AlertBox = ({ heading, message }) => {
   const [show, setShow] = useState(true);
 
@@ -19,6 +26,7 @@ const AlertBox = ({ heading, message }) => {
       >
         <Alert.Heading>{heading && heading}</Alert.Heading>
         <p>{message && message}</p>
+        {test && test}
       </Alert>
     );
   }

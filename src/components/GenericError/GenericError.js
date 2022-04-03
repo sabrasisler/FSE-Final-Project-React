@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * Generic error content that can be added to a page. Passed into {@link LandingView}.
+ *
+ */
 const GenericError = () => {
   return (
     <div>

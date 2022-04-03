@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import LikeDislikeButtons from './LikeDislikeButtons';
 import LikeDislikeButton from './LikeDislikeButtons';
 
+/**
+ * Displays all stats of a tuit, including likes, dislikes, retuits, and replies.
+ */
 const TuitStats = ({ tuit }) => {
   return (
     <div className='row mt-2'>

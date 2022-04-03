@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './Tuits.css';
 import Tuit from './Tuit';
-
-const Tuits = ({ tuits = [], deleteTuit }) => {
+/**
+ * A container to display a list of tuits.
+ */
+const Tuits = ({ tuits = [] }) => {
   return (
     <div>
       <ul className='ttr-tuits list-group'>

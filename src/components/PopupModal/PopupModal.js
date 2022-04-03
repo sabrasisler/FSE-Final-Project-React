@@ -1,27 +1,48 @@
 import { React, useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
-const PopupModal = ({ props }) => {
-  const [show, setShow] = useState(props.show);
+/**
+ * A popup modal that can be dismissed. Takes all content as props.
+ * @param {boolean} show the show status of the modal
+ * @param {string} title heading of the modal
+ * @param {string} content body content
+ * @param {boolan} withExternalButton if the modal should display an accompanying button that triggers its display
+ * @param {string} externalButtonTitle the label of the external button
+ * @param {string} size of the modal; sm, md, lg
+ * @param {string} submitTitle label for the submit button at the bottom
+ * @param {function} handleSubmit handles the button submit action
+ * @returns
+ */
+const PopupModal = ({
+  show,
+  title,
+  content,
+  withExternalButton,
+  externalButtonTitle,
+  size,
+  submitTitle,
+  handleSubmit,
+}) => {
+  const [showModal, setShow] = useState(show);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    setShow(props.show);
-  }, [props.show]);
+    setShow(showModal);
+  }, [showModal]);
   return (
     <div>
-      {props.withExternalButton ? (
+      {withExternalButton ? (
         <Button className='rounded-pill' variant='primary' onClick={handleShow}>
-          {props.externalButtonTitle}
+          {externalButtonTitle}
         </Button>
       ) : null}
 
-      <Modal size={props.size} show={show} onHide={handleClose}>
+      <Modal size={size} show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{props.title}</Modal.Title>
+          <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{props.content}</Modal.Body>
+        <Modal.Body>{content}</Modal.Body>
         <Modal.Footer>
           <Button
             className='rounded-pill'
@@ -35,10 +56,10 @@ const PopupModal = ({ props }) => {
             className='rounded-pill'
             variant='primary'
             onClick={() => {
-              props.handleSubmit();
+              handleSubmit();
             }}
           >
-            {props.submitTitle}
+            {submitTitle}
             {/* <i className='fas fa-spinner fa-pulse'></i> */}
           </Button>
         </Modal.Footer>

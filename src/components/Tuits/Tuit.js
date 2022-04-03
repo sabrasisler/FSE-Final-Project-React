@@ -3,9 +3,11 @@ import TuitStats from './TuitStats';
 import TuitImage from './TuitImage';
 import TuitVideo from './TuitVideo';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteTuit } from '../../services/tuits-service';
-import { deleteTuitThunk, findAllTuitsThunk } from '../../redux/tuitSlice';
+import { deleteTuitThunk } from '../../redux/tuitSlice';
 
+/**
+ * Displays a tuit with all of its information, including Author, time, and stats (likes, dislikes, etc). Includes action to handle tuit deletion if the tuit belongs to logged in user.
+ */
 const Tuit = ({ tuit }) => {
   const userId = useSelector((state) => state.user.data.id);
   const dispatch = useDispatch();

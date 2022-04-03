@@ -7,9 +7,13 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.0",
+    "better-docs": "^2.7.2",
     "bootstrap-icons": "^1.8.1",
+    "clean-jsdoc-theme": "^3.3.4",
     "dotenv": "^16.0.0",
     "eslint-config-airbnb": "^19.0.4",
+    "jsdoc": "^3.6.10",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.1",
     "react-dom": "^17.0.2",
@@ -24,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docs": "rm -r docs; jsdoc --configure jsdoc.json --verbose"
   },
   "eslintConfig": {
     "extends": [
