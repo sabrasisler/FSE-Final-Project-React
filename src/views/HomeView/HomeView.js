@@ -12,7 +12,6 @@ const HomeView = () => {
   useEffect(() => {
     dispatch(findAllTuitsThunk());
   }, [dispatch]);
-  console.log(user);
   return (
     user && (
       <div className='ttr-home'>

@@ -24,7 +24,6 @@ export const findAllUsersThatLikedTuit = (tid) =>
   api.get(`${TUITS_API}/${tid}/likes`).then((response) => response.data);
 
 export const userLikesTuit = (userId, tuitId) => {
-  console.log('triggered original');
   return api
     .post(`${USERS_API}/${userId}/tuits/${tuitId}/likes`)
     .then((response) => response.data)
