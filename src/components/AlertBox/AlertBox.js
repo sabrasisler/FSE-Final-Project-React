@@ -26,7 +26,6 @@ const AlertBox = ({ heading, message }) => {
       >
         <Alert.Heading>{heading && heading}</Alert.Heading>
         <p>{message && message}</p>
-        {test && test}
       </Alert>
     );
   }

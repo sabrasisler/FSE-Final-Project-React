@@ -2,6 +2,9 @@ import { React, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import './FormInput.css';
 
+/**
+ * Form input for a form.
+ */
 const FormInput = (props) => {
   const [focused, setFocused] = useState(false);
   const handleFocus = (e) => {

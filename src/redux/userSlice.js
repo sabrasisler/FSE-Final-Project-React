@@ -84,9 +84,6 @@ const userSlice = createSlice({
   },
 
   extraReducers: {
-    [getProfileThunk.pending]: (state) => {
-      state.loading = true;
-    },
     [getProfileThunk.fulfilled]: (state, action) => {
       state.loading = false;
       if (action.payload.error) return;

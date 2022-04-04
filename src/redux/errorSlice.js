@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+/**
+ * Handles global error state for the app. Used to display error messages in higher level parent components.
+ */
 const errorSlice = createSlice({
   name: 'error',
   initialState: {
