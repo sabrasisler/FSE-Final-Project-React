@@ -17,20 +17,21 @@ const Tuit = ({ tuit }) => {
   };
   return (
     <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>
-      <div className='pe-2'>
-        {tuit.author && (
-          <img
-            src={
-              tuit.author.profilePhoto
-                ? tuit.author.profilePhoto
-                : `../images/${tuit.author.username}.jpg`
-            }
-            className='ttr-tuit-avatar-logo rounded-circle'
-            alt='profile'
-          />
-        )}
-        <Link to={`/tuiter/${userId}`}></Link>
-      </div>
+      <Link to={`${userId}`}>
+        <div className='pe-2'>
+          {tuit.author && (
+            <img
+              src={
+                tuit.author.profilePhoto
+                  ? tuit.author.profilePhoto
+                  : `../images/${tuit.author.username}.jpg`
+              }
+              className='ttr-tuit-avatar-logo rounded-circle'
+              alt='profile'
+            />
+          )}
+        </div>
+      </Link>
       <div className='w-100'>
         {userId === tuit.author.id ? ( // only delete if tuit belongs to user
           <i
