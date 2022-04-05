@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useParams } from 'react';
 import * as service from '../../services/likes-service';
 import { AlertBox } from '../../components';
 import { Tuits } from '../../components';
 
-const MyDislikes = (userId) => {
+const MyDislikes = () => {
   const [tuits, setTuits] = useState();
   const [error, setError] = useState();
+
+  let { uid } = useParams();
   const findMyTuits = async () => {
-    const res = await service.findAllTuitsDislikedByUser(userId);
+    const res = await service.findAllTuitsDislikedByUser(uid);
     if (res.error) {
       return setError(
         'We ran into an issue showing your disliked tuits. Please try again later.'
