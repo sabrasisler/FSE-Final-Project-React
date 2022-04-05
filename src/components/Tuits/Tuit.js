@@ -28,6 +28,7 @@ const Tuit = ({ tuit }) => {
             alt='profile'
           />
         )}
+        <Link to=''></Link>
       </div>
       <div className='w-100'>
         {userId === tuit.author.id ? ( // only delete if tuit belongs to user

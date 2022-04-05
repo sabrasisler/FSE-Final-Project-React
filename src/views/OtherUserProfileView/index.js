@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UsersTuits from './UsersTuits';
 import UsersLikes from './UsersLikes';
@@ -8,8 +8,9 @@ import UsersDislikes from './UsersDislikes';
 import ProfileNav from './ProfileNav';
 import service from '../../services/users-service';
 
-const ProfileView = (userId) => {
-  const user = await service.findUserById(userId);
+const OtherUserProfileView = () => {
+  let { uid } = useParams();
+  const user = await service.findUserById(uid);
 
   return (
     <div className='ttr-profile'>
@@ -67,9 +68,9 @@ const ProfileView = (userId) => {
         </div>
       </div>
       <Routes>
-        <Route path='/tuits' element={<UsersTuits user={user}/>} />
-        <Route path='/likes' element={<UsersLikes user={user} />} />
-        <Route path='/dislikes' element={<UsersDislikes user={user} />} />
+        <Route path='/tuits' element={<UsersTuits />} />
+        <Route path='/likes' element={<UsersLikes />} />
+        <Route path='/dislikes' element={<UsersDislikes />} />
 
         {/* <Route path='/tuits-and-replies' element={<TuitsAndReplies />} /> */}
         {/* <Route path='/media' element={<Media />} />
@@ -78,4 +79,4 @@ const ProfileView = (userId) => {
     </div>
   );
 };
-export default ProfileView;
+export default OtherUserProfileView;
