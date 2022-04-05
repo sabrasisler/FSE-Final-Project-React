@@ -28,7 +28,7 @@ const Tuit = ({ tuit }) => {
             alt='profile'
           />
         )}
-        <Link to=''></Link>
+        <Link to={'/tuiter/${userId}'}></Link>
       </div>
       <div className='w-100'>
         {userId === tuit.author.id ? ( // only delete if tuit belongs to user
@@ -37,10 +37,13 @@ const Tuit = ({ tuit }) => {
             className='fas btn fa-remove fa-2x fa-pull-right'
           ></i>
         ) : null}
-        <p className='fs-6 fw-bold'>
-          {tuit.author && tuit.author.name}@
-          {tuit.author && tuit.author.username} - {tuit.createdAt}
-        </p>
+        <div>
+          <p className='fs-6 fw-bold'>
+            {tuit.author && tuit.author.name}@
+            {tuit.author && tuit.author.username} - {tuit.createdAt}
+          </p>
+          <Link to={'/tuiter/${userId}'}></Link>
+        </div>
         {tuit.tuit}
         {tuit.youtube && <TuitVideo tuit={tuit} />}
         {tuit.image && <TuitImage tuit={tuit} />}
