@@ -12,16 +12,17 @@ import { Button, Modal } from 'react-bootstrap';
  * @param {string} submitTitle label for the submit button at the bottom
  * @param {function} handleSubmit handles the button submit action
  */
-const PopupModal = ({
-  show,
-  title,
-  content,
-  withExternalButton,
-  externalButtonTitle,
-  size,
-  submitTitle,
-  handleSubmit,
-}) => {
+const PopupModal = ({ props }) => {
+  const {
+    show,
+    title,
+    content,
+    withExternalButton,
+    externalButtonTitle,
+    size,
+    submitTitle,
+    handleSubmit,
+  } = props;
   const [showModal, setShow] = useState(show);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
