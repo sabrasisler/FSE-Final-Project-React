@@ -17,7 +17,7 @@ const Tuit = ({ tuit }) => {
   };
   return (
     <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>
-      <Link to={`${userId}`}>
+      <Link to={`/tuiter/${userId}`}>
         <div className='pe-2'>
           {tuit.author && (
             <img
