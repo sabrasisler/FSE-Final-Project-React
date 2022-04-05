@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SignupForm } from '../../forms';
 import { LoginForm } from '../../forms';
 import { useSelector } from 'react-redux';

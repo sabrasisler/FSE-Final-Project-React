@@ -151,7 +151,7 @@ const SignupForm = (props) => {
             onChange={onChange}
           />
         );
-      }
+      } else return null;
     });
   };
   const registerModalProps = {

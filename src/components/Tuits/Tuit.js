@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import TuitStats from './TuitStats';
 import TuitImage from './TuitImage';
 import TuitVideo from './TuitVideo';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTuitThunk } from '../../redux/tuitSlice';
-import { TuitsContext } from '.';
 
 export const TuitContext = createContext();
 
@@ -47,8 +46,8 @@ const Tuit = ({ tuitFromList }) => {
               {tuit.author && tuit.author.username} - {tuit.createdAt}
             </p>
             {tuit.tuit}
-            {/* {tuit.youtube && <TuitVideo tuit={tuit} />}
-        {tuit.image && <TuitImage tuit={tuit} />} */}
+            {tuit.youtube && <TuitVideo />}
+            {tuit.image && <TuitImage />}
             <TuitStats />
           </div>
         </li>

@@ -7,7 +7,7 @@ import DislikeButton from './DislikeButton';
  * Displays all stats of a tuit, including likes, dislikes, retuits, and replies.
  */
 const TuitStats = () => {
-  const [tuit, setTuit] = useContext(TuitContext);
+  const [tuit] = useContext(TuitContext);
   return (
     <div className='row mt-2'>
       <div className='col'>

@@ -26,6 +26,7 @@ function WhatsHappeningView() {
               </div>
               <div>
                 <img
+                  alt='user avatar'
                   src={`../images/${wh['user-logo']}`}
                   className='ttr-rounded-15px ttr-user-logo'
                 />
