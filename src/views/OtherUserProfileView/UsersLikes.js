@@ -1,4 +1,5 @@
-import { useEffect, useState, useParams } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import * as service from '../../services/likes-service';
 import { AlertBox, Tuits } from '../../components';
 

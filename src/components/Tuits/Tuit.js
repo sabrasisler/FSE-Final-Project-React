@@ -4,6 +4,7 @@ import TuitImage from './TuitImage';
 import TuitVideo from './TuitVideo';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTuitThunk } from '../../redux/tuitSlice';
+import { Link } from 'react-router-dom';
 
 /**
  * Displays a tuit with all of its information, including Author, time, and stats (likes, dislikes, etc). Includes action to handle tuit deletion if the tuit belongs to logged in user.
@@ -28,7 +29,7 @@ const Tuit = ({ tuit }) => {
             alt='profile'
           />
         )}
-        <Link to={'/tuiter/${userId}'}></Link>
+        <Link to={`/tuiter/${userId}`}></Link>
       </div>
       <div className='w-100'>
         {userId === tuit.author.id ? ( // only delete if tuit belongs to user
@@ -42,7 +43,7 @@ const Tuit = ({ tuit }) => {
             {tuit.author && tuit.author.name}@
             {tuit.author && tuit.author.username} - {tuit.createdAt}
           </p>
-          <Link to={'/tuiter/${userId}'}></Link>
+          <Link to={`/tuiter/${userId}`}></Link>
         </div>
         {tuit.tuit}
         {tuit.youtube && <TuitVideo tuit={tuit} />}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route, useParams} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UsersTuits from './UsersTuits';
 import UsersLikes from './UsersLikes';
@@ -9,8 +9,23 @@ import ProfileNav from './ProfileNav';
 import service from '../../services/users-service';
 
 const OtherUserProfileView = () => {
+  const [user, setUser] = useState();
+  const [error, setError] = useState();
   let { uid } = useParams();
-  const user = await service.findUserById(uid);
+
+  const findUser = async () => {
+    const res = await service.findUserById(uid);
+    if (res.error) {
+      return setError(
+        'We ran into an issue showing your liked tuits. Please try again later.'
+      );
+    }
+
+    setUser(res);
+  };
+  useEffect(() => {
+    findUser();
+  }, []);
 
   return (
     <div className='ttr-profile'>
