@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateTuit, ErrorBox, Loader, Tuits } from '../../components';
+import { CreateTuit, Loader, Tuits } from '../../components';
 import * as service from '../../services/tuits-service';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';

@@ -1,10 +1,7 @@
 import React from 'react';
 
 /**
- *
- * @param {boolean} loading status of the loader;
- * @param {loadingMessage} message to be displayed when loader is displayed
- * @returns {string} any content that should be displayed when loader is not active; e.g. "Sign in".
+ * Displays spinning loader with optional message and alternative content when loader is inactive.
  */
 const Loader = ({ loading, loadingMessage, content }) => {
   return (

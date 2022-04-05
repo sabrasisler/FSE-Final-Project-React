@@ -1,4 +1,3 @@
-import ErrorBox from './ErrorBox/ErrorBox';
 import GenericError from './GenericError/GenericError';
 import PopupModal from './PopupModal/PopupModal';
 import Tuits from './Tuits';
@@ -10,7 +9,6 @@ import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 export {
   AlertBox,
-  ErrorBox,
   GenericError,
   PopupModal,
   Tuits,

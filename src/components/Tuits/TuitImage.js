@@ -9,6 +9,7 @@ const TuitImage = ({ tuit }) => {
       <img
         src={`../images/${tuit.image}`}
         className='mt-2 w-100 ttr-rounded-15px'
+        alt='Tuit'
       />
       {tuit.imageOverlay && (
         <span

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import Loader from '../Loader/Loader';
-import * as service from '../../services/tuits-service';
 import { useDispatch, useSelector } from 'react-redux';
-import { findAllTuitsThunk, createTuitThunk } from '../../redux/tuitSlice';
+import { createTuitThunk } from '../../redux/tuitSlice';
 
 /**
  * Displays form where user can submit a new tuit.
@@ -16,6 +14,7 @@ const CreateTuit = () => {
   const createTuit = async (tuit) => {
     if (!tuit) return;
     dispatch(createTuitThunk({ userId, tuit }));
+    setTuit('');
   };
 
   return (
@@ -37,10 +36,7 @@ const CreateTuit = () => {
         </div>
         <div className='col-2'>
           <button
-            onClick={() => {
-              setTuit('');
-              return createTuit(tuit);
-            }}
+            onClick={() => createTuit(tuit)}
             className={`btn btn-primary rounded-pill fa-pull-right
                                   fw-bold ps-4 pe-4`}
           >

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginThunk } from '../../redux/userSlice';
 
 import { Loader } from '../../components';
+import FormInput from '../FormInput/FormInput';
 
 /**
  * User login form that uses a redux async loginThunk to log user in. Displays loading button when login in being processed.
@@ -25,29 +26,28 @@ const LoginForm = () => {
   return (
     <form data-testid='login-form'>
       <h5>Login</h5>
-      <input
-        data-testid='login-user'
-        className='mb-2 form-control'
+      <FormInput
+        dataTestId='login-user'
+        placeholder='email or username'
+        value={loginUser.username}
         onChange={(e) =>
           setLoginUser({ ...loginUser, username: e.target.value })
         }
-        placeholder='email or username'
-        value={loginUser.username}
       />
-      <input
-        data-testid='login-password'
-        className='mb-2 form-control'
+      <FormInput
+        type='password'
+        dataTestId='login-password'
+        placeholder='password'
+        value={loginUser.password}
         onChange={(e) =>
           setLoginUser({ ...loginUser, password: e.target.value })
         }
-        placeholder='password'
-        type='password'
-        value={loginUser.password}
       />
+
       <button
         type='submit'
         onClick={(e) => submit(e)}
-        className='btn btn-primary mb-5'
+        className='btn btn-primary mb-5 mt-3'
       >
         <Loader loading={loading} content='Sign in' />
       </button>
