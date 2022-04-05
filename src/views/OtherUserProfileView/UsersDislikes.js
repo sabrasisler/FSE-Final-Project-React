@@ -25,6 +25,7 @@ const MyDislikes = () => {
 
   return (
     <div>
+      <h1>Dislikes</h1>
       {error && <AlertBox message={error} />}
       {tuits && <Tuits tuits={tuits} />}
     </div>

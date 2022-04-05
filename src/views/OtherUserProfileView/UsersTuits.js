@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import * as service from '../../services/tuits-service';
 import { Tuits, AlertBox } from '../../components';
 
-const MyTuits = (userId) => {
+const MyTuits = () => {
   const [tuits, setTuits] = useState([]);
   const [error, setError] = useState();
 
-  let uid = useParams();
+  let { uid } = useParams();
   const findMyTuits = async () => {
     const res = await service.findTuitsByUser(uid);
     if (res.error) {

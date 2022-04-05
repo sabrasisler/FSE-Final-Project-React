@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import { Routes, Route, useParams} from 'react-router-dom';
+import { Routes, Route, useParams, useLocation} from 'react-router-dom';
 import UsersTuits from './UsersTuits';
 import UsersLikes from './UsersLikes';
 import UsersDislikes from './UsersDislikes';
@@ -11,6 +11,7 @@ const OtherUserProfileView = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState();
   let { uid } = useParams();
+  const location = useLocation();
 
   const findUser = async () => {
     const res = await service.findUserById(uid);
@@ -72,13 +73,13 @@ const OtherUserProfileView = () => {
           </p>
           <b>{user ? user.followeeCount : 0}</b> Following
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
-          <ProfileNav />
+          <ProfileNav uid={uid}/>
         </div>
       </div>
       <Routes>
-        <Route path='/tuits' element={<UsersTuits />} />
-        <Route path='/likes' element={<UsersLikes />} />
-        <Route path='/dislikes' element={<UsersDislikes />} />
+        <Route path={`/tuiter/${uid}/tuits`} element={<UsersTuits />} />
+        <Route path={`/tuiter/${uid}/likes`} element={<UsersLikes />} />
+        <Route path={`/tuiter/${uid}/dislikes`} element={<UsersDislikes />} />
 
         {/* <Route path='/tuits-and-replies' element={<TuitsAndReplies />} /> */}
         {/* <Route path='/media' element={<Media />} />

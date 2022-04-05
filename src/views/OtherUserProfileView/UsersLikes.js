@@ -7,7 +7,7 @@ const MyLikes = () => {
   const [tuits, setTuits] = useState([]);
   const [error, setError] = useState();
 
-  let uid = useParams();
+  let { uid } = useParams();
   const findMyTuits = async () => {
     const res = await service.findAllTuitsLikedByUser(uid);
     if (res.error) {
