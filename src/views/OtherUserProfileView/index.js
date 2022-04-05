@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from 'react';
 
 import { Routes, Route, useParams} from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import UsersTuits from './UsersTuits';
 import UsersLikes from './UsersLikes';
 import UsersDislikes from './UsersDislikes';
 import ProfileNav from './ProfileNav';
-import service from '../../services/users-service';
+import * as service from '../../services/users-service';
 
 const OtherUserProfileView = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [error, setError] = useState();
   let { uid } = useParams();
 
@@ -17,7 +16,7 @@ const OtherUserProfileView = () => {
     const res = await service.findUserById(uid);
     if (res.error) {
       return setError(
-        'We ran into an issue showing your liked tuits. Please try again later.'
+        'We ran into an issue finding the user. Please try again later.'
       );
     }
 
@@ -30,23 +29,13 @@ const OtherUserProfileView = () => {
   return (
     <div className='ttr-profile'>
       <div className='border border-bottom-0'>
-        <h5 className='p-2 mb-0 pb-0 fw-bolder'>
-          {user.name ? `${user.name}` : ''}
-          <i className='fa fa-badge-check text-primary'></i>
-        </h5>
-        <span className='ps-2'>67.6K Tuits</span>
         <div className='mb-5 position-relative'>
-          <img
-            className='w-100'
-            src='../images/nasa-profile-header.jpg'
-            alt='profile header'
-          />
-          <div className='bottom-0 left-0 position-absolute'>
+          <div className='bottom-0 left-0 position-relative'>
             <div className='position-relative'>
               <img
                 className='position-relative img-fluid ttr-z-index-1 ttr-top-40px ttr-width-150px rounded-circle'
                 alt='user profile'
-                src={user.profilePhoto}
+                src={user ? user.profilePhoto : ''}
               />
             </div>
           </div>
@@ -54,31 +43,35 @@ const OtherUserProfileView = () => {
 
         <div className='p-2'>
           <h5 className='fw-bolder pb-0 mb-0'>
-            {`${user.name}`}
+            {`${user ? user.name: ''}`}
             <i className='fa fa-badge-check text-primary'></i>
           </h5>
-          <h6 className='pt-0'>{`@${user.username}`}</h6>
-          <p className='pt-2'>{user.bio}</p>
+          <h6 className='pt-0'>{`@${user ? user.username : ''}`}</h6>
+          <p className='pt-2'>{user ? user.bio : ''}</p>
           <p>
-            {user.location
+            {user ?
+            user.location
               ? <i className='far fa-location-dot me-2'></i> + user.location
+              : ''
               : ''}
             <i className='far fa-link ms-3 me-2'></i>
-            {user.website ? (
+            {user ?
+            user.website ? (
               <a href={user.website} className='text-decoration-none'>
                 {user.website}:
               </a>
             ) : (
               ''
-            )}
+            )
+            : ''}
             {/* <i className='far fa-balloon ms-3 me-2'></i>
             Born October 1, 1958
             <br /> */}
             <i className='far fa-calendar me-2'></i>
-            {user.joinedDate}
+            {user ? user.joinedDate : ''}
           </p>
-          <b>{user.followeeCount}</b> Following
-          <b className='ms-4'>{user.followerCount}</b> Followers
+          <b>{user ? user.followeeCount : 0}</b> Following
+          <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
           <ProfileNav />
         </div>
       </div>
