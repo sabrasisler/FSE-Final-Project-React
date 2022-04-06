@@ -13,7 +13,7 @@ const OtherUserProfileView = () => {
   const [error, setError] = useState();
   let { uid } = useParams();
   const location = useLocation();
-  const userId = useSelector((state) => state.user.data);
+  const authUser = useSelector((state) => state.user.data);
 
   const findUser = async () => {
     const res = await service.findUserById(uid);
@@ -27,7 +27,7 @@ const OtherUserProfileView = () => {
   };
 
   const followUser = async () => {
-    const res = await service.followUser(uid, userId);
+    const res = await service.followUser(uid, authUser.id);
     if (res.error) {
       return setError(
         'We ran into an issue following the user. Please try again later.'

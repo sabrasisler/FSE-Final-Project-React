@@ -37,7 +37,7 @@ export const findUserByCredentials = (credentials) =>
   api.post(`${LOGIN_API}`, credentials).then((response) => response.data);
 
 export const followUser = (uid, followeeId) =>
-  api.post(`${BASE_URL}/${uid}/follows`, {followeeId: followeeId})
+  api.post(`${USERS_API}/${uid}/follows`, {followeeId: followeeId})
   .then((response) => response.data)
   .catch((err) => err.response.data);
 
