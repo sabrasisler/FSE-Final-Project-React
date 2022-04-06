@@ -10,3 +10,9 @@ export const findLatestMessagesByUser = (userId) =>
         .get(`${MESSAGES_API}/${userId}/messages`)
         .then((response) => response.data)
         .catch((err) => processError(err));
+
+export const findAllMessagesSentByUser = (userId) =>
+    api
+        .get(`${MESSAGES_API}/${userId}/messages/sent`)
+        .then((response) => response.data)
+        .catch((err) => processError(err));
