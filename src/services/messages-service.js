@@ -28,3 +28,9 @@ export const createConversation = (userId, conversationId, conversation) =>
         .post(`${MESSAGES_API}/${userId}/conversations/${conversationId}/messages`, {conversation: conversation})
         .then((response) => response.data)
         .catch((err) => processError(err));
+
+export const createMessage = (userId, message) =>
+    api
+        .post(`${MESSAGES_API}/${userId}/messages`, {message: message})
+        .then((response) => response.data)
+        .catch((err) => processError(err));
