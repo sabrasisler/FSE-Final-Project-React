@@ -16,3 +16,9 @@ export const findAllMessagesSentByUser = (userId) =>
         .get(`${MESSAGES_API}/${userId}/messages/sent`)
         .then((response) => response.data)
         .catch((err) => processError(err));
+
+export const findAllMessagesByConversation = (userId, conversationId) =>
+    api
+        .get(`${MESSAGES_API}/${userId}/conversations/${conversationId}/messages`)
+        .then((response) => response.data)
+        .catch((err) => processError(err));
