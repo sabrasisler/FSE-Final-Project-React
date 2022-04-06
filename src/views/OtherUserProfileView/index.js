@@ -27,7 +27,12 @@ const OtherUserProfileView = () => {
   };
 
   const followUser = async () => {
-    
+    const res = await service.followUser(uid, userId);
+    if (res.error) {
+      return setError(
+        'We ran into an issue following the user. Please try again later.'
+      );
+    }
   }
 
   useEffect(() => {
@@ -80,7 +85,7 @@ const OtherUserProfileView = () => {
           </p>
           <b>{user ? user.followeeCount : 0}</b> Following
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
-          <button onClick={followUser}></button>
+          <button onClick={followUser}>Follow</button>
           <ProfileNav uid={uid}/>
         </div>
       </div>
