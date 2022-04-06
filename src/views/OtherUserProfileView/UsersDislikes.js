@@ -4,11 +4,10 @@ import * as service from '../../services/likes-service';
 import { AlertBox } from '../../components';
 import { Tuits } from '../../components';
 
-const MyDislikes = () => {
+const UsersDislikes = ({uid}) => {
   const [tuits, setTuits] = useState();
   const [error, setError] = useState();
 
-  let { uid } = useParams();
   const findMyTuits = async () => {
     const res = await service.findAllTuitsDislikedByUser(uid);
     if (res.error) {
@@ -25,11 +24,10 @@ const MyDislikes = () => {
 
   return (
     <div>
-      <h1>Dislikes</h1>
       {error && <AlertBox message={error} />}
       {tuits && <Tuits tuits={tuits} />}
     </div>
   );
 };
 
-export default MyDislikes;
+export default UsersDislikes;

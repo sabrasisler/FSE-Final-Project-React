@@ -38,7 +38,7 @@ export const findUserByCredentials = (credentials) =>
   api.post(`${LOGIN_API}`, credentials).then((response) => response.data);
 
 const service = {
-  findAllUsers,
+  findAllUsers
 };
 
 export default service;

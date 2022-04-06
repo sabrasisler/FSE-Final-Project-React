@@ -17,7 +17,7 @@ const Tuit = ({ tuit }) => {
   };
   return (
     <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>
-      <Link to={`/tuiter/${tuit.author.id}`}>
+      <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`}>
         <div className='pe-2'>
           {tuit.author && (
             <img
@@ -43,7 +43,7 @@ const Tuit = ({ tuit }) => {
         
           <p className='fs-6 fw-bold'>
             {tuit.author && tuit.author.name + ' '}
-            <Link to={`/tuiter/${tuit.author.id}`}>@{tuit.author && tuit.author.username} </Link> - {tuit.createdAt}
+            <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`}> @{tuit.author && tuit.author.username} </Link> - {tuit.createdAt}
           </p>
         </div>
         {tuit.tuit}

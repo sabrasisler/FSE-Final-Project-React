@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 import * as service from '../../services/tuits-service';
 import { Tuits, AlertBox } from '../../components';
 
-const MyTuits = () => {
+const UsersTuits = ({uid}) => {
   const [tuits, setTuits] = useState([]);
   const [error, setError] = useState();
 
-  let { uid } = useParams();
   const findMyTuits = async () => {
     const res = await service.findTuitsByUser(uid);
     if (res.error) {
@@ -21,14 +20,13 @@ const MyTuits = () => {
   useEffect(() => {
     findMyTuits();
   }, []);
-  const deleteTuit = (tid) => service.deleteTuit(tid).then(findMyTuits);
 
   return (
     <div>
       {error && <AlertBox message={error} />}
-      <Tuits tuits={tuits} deleteTuit={deleteTuit} />
+      <Tuits tuits={tuits} />
     </div>
   );
 };
 
-export default MyTuits;
+export default UsersTuits;

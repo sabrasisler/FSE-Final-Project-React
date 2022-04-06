@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 import * as service from '../../services/likes-service';
 import { AlertBox, Tuits } from '../../components';
 
-const MyLikes = () => {
+const UsersLikes = ({uid}) => {
   const [tuits, setTuits] = useState([]);
   const [error, setError] = useState();
 
-  let { uid } = useParams();
   const findMyTuits = async () => {
     const res = await service.findAllTuitsLikedByUser(uid);
     if (res.error) {
@@ -30,4 +29,4 @@ const MyLikes = () => {
   );
 };
 
-export default MyLikes;
+export default UsersLikes;

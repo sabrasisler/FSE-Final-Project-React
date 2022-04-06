@@ -6,12 +6,14 @@ import UsersLikes from './UsersLikes';
 import UsersDislikes from './UsersDislikes';
 import ProfileNav from './ProfileNav';
 import * as service from '../../services/users-service';
+import { useSelector } from 'react-redux';
 
 const OtherUserProfileView = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState();
   let { uid } = useParams();
   const location = useLocation();
+  const userId = useSelector((state) => state.user.id.data);
 
   const findUser = async () => {
     const res = await service.findUserById(uid);
@@ -23,6 +25,11 @@ const OtherUserProfileView = () => {
 
     setUser(res);
   };
+
+  const followUser = async () => {
+    
+  }
+
   useEffect(() => {
     findUser();
   }, []);
@@ -73,13 +80,14 @@ const OtherUserProfileView = () => {
           </p>
           <b>{user ? user.followeeCount : 0}</b> Following
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
+          <button onClick={followUser}></button>
           <ProfileNav uid={uid}/>
         </div>
       </div>
       <Routes>
-        <Route path={`/tuiter/${uid}/tuits`} element={<UsersTuits />} />
-        <Route path={`/tuiter/${uid}/likes`} element={<UsersLikes />} />
-        <Route path={`/tuiter/${uid}/dislikes`} element={<UsersDislikes />} />
+        <Route path='/tuits' element={<UsersTuits uid={uid} />} />
+        <Route path='/likes' element={<UsersLikes uid={uid} />} />
+        <Route path='/dislikes' element={<UsersDislikes uid={uid} />} />
 
         {/* <Route path='/tuits-and-replies' element={<TuitsAndReplies />} /> */}
         {/* <Route path='/media' element={<Media />} />
