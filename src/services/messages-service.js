@@ -22,3 +22,9 @@ export const findAllMessagesByConversation = (userId, conversationId) =>
         .get(`${MESSAGES_API}/${userId}/conversations/${conversationId}/messages`)
         .then((response) => response.data)
         .catch((err) => processError(err));
+
+export const createConversation = (userId, conversationId, conversation) =>
+    api
+        .post(`${MESSAGES_API}/${userId}/conversations/${conversationId}/messages`, {conversation: conversation})
+        .then((response) => response.data)
+        .catch((err) => processError(err));
