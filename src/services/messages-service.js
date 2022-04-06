@@ -34,3 +34,9 @@ export const createMessage = (userId, message) =>
         .post(`${MESSAGES_API}/${userId}/messages`, {message: message})
         .then((response) => response.data)
         .catch((err) => processError(err));
+
+export const deleteMessage = (userId, messageId) =>
+    api
+        .delete(`${MESSAGES_API}/${userId}/messages/${messageId}`)
+        .then((response) => response.data)
+        .catch((err) => processError(err));
