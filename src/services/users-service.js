@@ -1,9 +1,8 @@
 import axios from 'axios';
-// const BASE_URL = "https://cs5500-01-sp22.herokuapp.com/api";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 const LOGIN_API = `${BASE_URL}/login`;
-const USERS_API = `${process.env.REACT_APP_API_URL}/users`;
+const USERS_API = `${BASE_URL}/users`;
 
 export const api = axios.create({
   withCredentials: true,
@@ -37,8 +36,10 @@ export const deleteUsersByUsername = (username) =>
 export const findUserByCredentials = (credentials) =>
   api.post(`${LOGIN_API}`, credentials).then((response) => response.data);
 
-export const followUser = (uid) =>
-  api.post(`${BASE_URL}`)
+export const followUser = (uid, followeeId) =>
+  api.post(`${BASE_URL}/${uid}/follows`, {followeeId: followeeId})
+  .then((response) => response.data)
+  .catch((err) => err.response.data);
 
 const service = {
   findAllUsers

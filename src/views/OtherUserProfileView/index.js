@@ -13,7 +13,7 @@ const OtherUserProfileView = () => {
   const [error, setError] = useState();
   let { uid } = useParams();
   const location = useLocation();
-  const userId = useSelector((state) => state.user.id.data);
+  const userId = useSelector((state) => state.user.data);
 
   const findUser = async () => {
     const res = await service.findUserById(uid);
