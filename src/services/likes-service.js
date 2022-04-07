@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const USERS_API = `${process.env.REACT_APP_API_URL}/users`;
-const TUITS_API = `${process.env.REACT_APP_API_URL}/tuits`;
+const USERS_API = `${BASE_URL}/users`;
+const TUITS_API = `${BASE_URL}/tuits`;
 
 export const api = axios.create({
   withCredentials: true,

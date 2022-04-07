@@ -77,7 +77,7 @@ const checkProfileComplete = (state, user) => {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    data: {},
+    data: null,
     loading: false,
     profileComplete: false,
     loggedIn: false,

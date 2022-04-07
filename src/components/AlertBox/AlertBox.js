@@ -4,10 +4,6 @@ import './AlertBox.css';
 
 /**
  * Displays an alert message with option to dismiss message.
- * @function
- * @param {string} heading the heading of the alert
- * @param {boolean} message the message of the alert
- 
  */
 const AlertBox = ({ heading, message }) => {
   const [show, setShow] = useState(true);

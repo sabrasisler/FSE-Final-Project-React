@@ -8,12 +8,12 @@ import { PopupModal } from '../../components';
  * Signup form displayed in a pop modal when the user clicks to register.
  * Validates user input. Checks redux state to see if user has completed profile, and if not, prompts the user to complete it. This applies for users who sign up with google, which after registered on the backend, need to fill out their username and date of birth.
  */
-const SignupForm = (props) => {
+const SignupForm = () => {
   const user = useSelector((state) => state.user.data);
   const profileComplete = useSelector((state) => state.user.profileComplete);
   const dispatch = useDispatch();
   const [values, setValues] = useState({});
-
+  console.log('user', user);
   useEffect(() => {
     const defaultVales = {
       name: '',
@@ -151,7 +151,7 @@ const SignupForm = (props) => {
             onChange={onChange}
           />
         );
-      }
+      } else return null;
     });
   };
   const registerModalProps = {

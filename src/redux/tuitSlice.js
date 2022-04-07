@@ -7,6 +7,14 @@ import {
 import { dataOrStateError } from './helpers';
 
 /**
+ * Helper that maps array of tuits to a hash table object in state by tuit id.
+ */
+// const tuitsToMap = (state, tuits) => {
+//   state.map = {};
+//   tuits.forEach((tuit) => (state.map[tuit.id] = tuit));
+// };
+
+/**
  * Uses tuits service to update state with all tuits. Also keeps track of loading status of requests.
  */
 export const findAllTuitsThunk = createAsyncThunk(
@@ -44,7 +52,7 @@ export const deleteTuitThunk = createAsyncThunk(
 const tuitSlice = createSlice({
   name: 'tuits',
   initialState: {
-    list: null,
+    list: [],
     loading: false,
   },
   extraReducers: {

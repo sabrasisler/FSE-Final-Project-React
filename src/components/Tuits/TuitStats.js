@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import LikeDislikeButtons from './LikeDislikeButtons';
-import LikeDislikeButton from './LikeDislikeButtons';
+import React, { useContext } from 'react';
+import { TuitContext } from './Tuit';
+import LikeButton from './LikeButton';
+import DislikeButton from './DislikeButton';
 
 /**
  * Displays all stats of a tuit, including likes, dislikes, retuits, and replies.
  */
-const TuitStats = ({ tuit }) => {
+const TuitStats = () => {
+  const [tuit] = useContext(TuitContext);
   return (
     <div className='row mt-2'>
       <div className='col'>
@@ -24,7 +25,10 @@ const TuitStats = ({ tuit }) => {
         </i>
       </div>
       <div className='col'>
-        <LikeDislikeButtons tuit={tuit} />
+        <div className='d-flex'>
+          <LikeButton />
+          <DislikeButton />
+        </div>
       </div>
       <div className='col'>
         <i className='far fa-inbox-out btn ttr-stat-icon'></i>

@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import { Form } from 'react-bootstrap';
 import './FormInput.css';
 
 /**
@@ -10,13 +9,13 @@ const FormInput = (props) => {
   const handleFocus = (e) => {
     if (e.target.value) setFocused(true);
   };
-
-  const { errorMessage, onChange, label, ...inputProps } = props;
+  const { errorMessage, onChange, label, dataTestId, ...inputProps } = props;
   return (
-    <div>
+    <span>
       <label htmlFor={label} className='form-label'></label>
       <input
-        className=' form-control'
+        className='form-control'
+        data-testid={dataTestId}
         onChange={onChange}
         {...inputProps}
         onBlur={handleFocus}
@@ -28,7 +27,7 @@ const FormInput = (props) => {
         focused={focused.toString()}
       />
       <span className='text-danger validation-error'>{errorMessage}</span>
-    </div>
+    </span>
   );
 };
 

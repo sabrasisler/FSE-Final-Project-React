@@ -14,6 +14,7 @@ const CreateTuit = () => {
   const createTuit = async (tuit) => {
     if (!tuit) return;
     dispatch(createTuitThunk({ userId, tuit }));
+    setTuit('');
   };
 
   return (
@@ -35,10 +36,7 @@ const CreateTuit = () => {
         </div>
         <div className='col-2'>
           <button
-            onClick={() => {
-              setTuit('');
-              return createTuit(tuit);
-            }}
+            onClick={() => createTuit(tuit)}
             className={`btn btn-primary rounded-pill fa-pull-right
                                   fw-bold ps-4 pe-4`}
           >

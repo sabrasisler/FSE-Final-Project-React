@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TuitContext } from './Tuit';
 
 /**
  * Displays a video post of a tuit.
  */
-const TuitVideo = ({ tuit }) => {
+const TuitVideo = () => {
+  const [tuit] = useContext(TuitContext);
   return (
     <div className='ttr-responsive-video ttr-rounded-15px position-relative overflow-hidden w-100 mt-2'>
       <iframe

@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TuitContext } from './Tuit';
 
 /**
  * Displays an image post of a tuit.
  */
-const TuitImage = ({ tuit }) => {
+const TuitImage = () => {
+  const [tuit] = useContext(TuitContext);
+
   return (
     <div className='position-relative'>
       <img
         src={`../images/${tuit.image}`}
         className='mt-2 w-100 ttr-rounded-15px'
+        alt='Tuit'
       />
       {tuit.imageOverlay && (
         <span

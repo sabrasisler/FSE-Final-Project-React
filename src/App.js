@@ -9,7 +9,6 @@ import { Routes, Route, HashRouter } from 'react-router-dom';
 import { getProfileThunk } from './redux/userSlice';
 
 function App() {
-  // const user = useSelector((state) => state.user.data);
   const profileComplete = useSelector((state) => state.user.profileComplete);
   const dispatch = useDispatch();
   useEffect(() => {
