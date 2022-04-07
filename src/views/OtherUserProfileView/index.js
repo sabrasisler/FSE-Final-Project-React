@@ -1,19 +1,23 @@
 import React, {useState, useEffect} from 'react';
 
-import { Routes, Route, useParams, useLocation} from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import UsersTuits from './UsersTuits';
 import UsersLikes from './UsersLikes';
 import UsersDislikes from './UsersDislikes';
 import ProfileNav from './ProfileNav';
 import * as service from '../../services/users-service';
 import { useSelector } from 'react-redux';
+import { AlertBox } from '../../components';
 
 const OtherUserProfileView = () => {
+  // We will maintain a user, the user whose profile page we are currently looking at, 
+  // and an authUser, the user who is currently logged in.
   const [user, setUser] = useState(null);
   const [error, setError] = useState();
   let { uid } = useParams();
   const authUser = useSelector((state) => state.user.data);
 
+  // Find the user we want to render from the path parameters
   const findUser = async () => {
     const res = await service.findUserById(uid);
     if (res.error) {
@@ -25,6 +29,7 @@ const OtherUserProfileView = () => {
     setUser(res);
   };
 
+  // authUser requests to follow the user
   const followUser = async () => {
     const res = await service.followUser(uid, authUser.id);
     if (res.error) {
@@ -36,7 +41,7 @@ const OtherUserProfileView = () => {
 
   useEffect(() => {
     findUser();
-  }, []);
+  });
 
   return (
     <div className='ttr-profile'>
@@ -86,6 +91,7 @@ const OtherUserProfileView = () => {
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
           <button onClick={followUser} >Follow</button>
           <ProfileNav uid={uid}/>
+          {error && <AlertBox message={error} />}
         </div>
       </div>
       <Routes>

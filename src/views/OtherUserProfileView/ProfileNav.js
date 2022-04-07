@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const ProfileNav = ({ uid }) => {
-  const location = useLocation();
   const navItems = [
     {
       title: 'Tuits',

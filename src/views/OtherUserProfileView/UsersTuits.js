@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import * as service from '../../services/tuits-service';
 import { Tuits, AlertBox } from '../../components';
 
@@ -20,7 +19,7 @@ const UsersTuits = ({uid}) => {
 
   useEffect(() => {
     findMyTuits();
-  }, []);
+  });
 
   return (
     <div>

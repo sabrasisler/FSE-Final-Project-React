@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import Loader from '../Loader/Loader';
-import * as service from '../../services/tuits-service';
 import { useDispatch, useSelector } from 'react-redux';
-import { findAllTuitsThunk, createTuitThunk } from '../../redux/tuitSlice';
+import { createTuitThunk } from '../../redux/tuitSlice';
 
 /**
  * Displays form where user can submit a new tuit.

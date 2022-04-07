@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import * as service from '../../services/likes-service';
 import { AlertBox } from '../../components';
 import { Tuits } from '../../components';
@@ -20,7 +19,7 @@ const UsersDislikes = ({uid}) => {
   };
   useEffect(() => {
     findMyTuits();
-  }, []);
+  });
 
   return (
     <div>
