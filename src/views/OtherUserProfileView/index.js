@@ -12,7 +12,6 @@ const OtherUserProfileView = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState();
   let { uid } = useParams();
-  const location = useLocation();
   const authUser = useSelector((state) => state.user.data);
 
   const findUser = async () => {
@@ -85,7 +84,7 @@ const OtherUserProfileView = () => {
           </p>
           <b>{user ? user.followeeCount : 0}</b> Following
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
-          <button onClick={followUser}>Follow</button>
+          <button onClick={followUser} >Follow</button>
           <ProfileNav uid={uid}/>
         </div>
       </div>

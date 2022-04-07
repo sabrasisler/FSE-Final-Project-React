@@ -17,6 +17,7 @@ const UsersTuits = ({uid}) => {
 
     setTuits(res);
   };
+
   useEffect(() => {
     findMyTuits();
   }, []);
@@ -24,7 +25,7 @@ const UsersTuits = ({uid}) => {
   return (
     <div>
       {error && <AlertBox message={error} />}
-      <Tuits tuits={tuits} />
+      {tuits && <Tuits tuits={tuits} />}
     </div>
   );
 };
