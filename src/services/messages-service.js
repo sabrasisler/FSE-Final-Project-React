@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {processError} from './helpers';
 
-const MESSAGES_API = `${process.env.REACT_APP_API_URL}/`;
+const MESSAGES_API = `${process.env.REACT_APP_API_URL}/users`;
 
 export const api = axios.create({withCredentials: true});
 
