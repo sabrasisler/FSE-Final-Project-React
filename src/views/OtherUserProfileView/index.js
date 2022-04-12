@@ -9,7 +9,6 @@ import * as usersService from '../../services/users-service';
 import * as followsService from '../../services/follows-service';
 import { useSelector } from 'react-redux';
 import { AlertBox } from '../../components';
-import { resetWarningCache } from 'prop-types';
 
 const OtherUserProfileView = () => {
   // We will maintain a user, the user whose profile page we are currently looking at, 

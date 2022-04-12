@@ -16,6 +16,7 @@ const UsersLikes = ({uid}) => {
 
     setTuits(res);
   };
+
   useEffect(() => {
     findMyTuits();
   });
