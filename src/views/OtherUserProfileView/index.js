@@ -5,9 +5,11 @@ import UsersTuits from './UsersTuits';
 import UsersLikes from './UsersLikes';
 import UsersDislikes from './UsersDislikes';
 import ProfileNav from './ProfileNav';
-import * as service from '../../services/users-service';
+import * as usersService from '../../services/users-service';
+import * as followsService from '../../services/follows-service';
 import { useSelector } from 'react-redux';
 import { AlertBox } from '../../components';
+import { resetWarningCache } from 'prop-types';
 
 const OtherUserProfileView = () => {
   // We will maintain a user, the user whose profile page we are currently looking at, 
@@ -19,7 +21,7 @@ const OtherUserProfileView = () => {
 
   // Find the user we want to render from the path parameters
   const findUser = async () => {
-    const res = await service.findUserById(uid);
+    const res = await usersService.findUserById(uid);
     if (res.error) {
       return setError(
         'We ran into an issue finding the user. Please try again later.'
@@ -31,7 +33,7 @@ const OtherUserProfileView = () => {
 
   // authUser requests to follow the user
   const followUser = async () => {
-    const res = await service.followUser(uid, authUser.id);
+    const res = await followsService.followUser(uid, authUser.id);
     if (res.error) {
       return setError(
         'We ran into an issue following the user. Please try again later.'
@@ -39,8 +41,9 @@ const OtherUserProfileView = () => {
     }
   };
 
+  // authUser requests to unfollow the user
   const unfollowUser = async () => {
-    const res = await service.unfollowUser(uid, authUser.id);
+    const res = await followsService.unfollowUser(uid, authUser.id);
     if (res.error) {
       return setError(
         'We ran into an issue unfollowing the user. Please try again later.'
@@ -48,13 +51,18 @@ const OtherUserProfileView = () => {
     }
   };
 
+  // Check if the authenticated user is following the given user
   const checkIfFollowing = async () => {
-    const followers = await service.findAllFollowers(uid);
+    const res = await followsService.findAllFollowers(uid);
 
-    if (followers.some(follower => follower._id === authUser.id)) {
-      return true;
+    // If we have an error return it
+    if (res.error) {
+      return setError(
+        'We ran into an issue finding the user. Please try again later.'
+      );
     } else {
-      return false;
+      // Otherwise, check if the authUser is in the list of followers for this user.
+      return res.data.some(follower => follower.username === authUser.username);
     }
   };
 
@@ -108,11 +116,12 @@ const OtherUserProfileView = () => {
           </p>
           <b>{user ? user.followeeCount : 0}</b> Following
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
-          
           {
-            checkIfFollowing() ? 
-            <button onClick={followUser} >Follow</button> :
-            <button onClick={unfollowUser} >UnFollow</button>
+            // If the authenticated user is following this user, display the unFollow button.
+            // Otherwise, display the follow button 
+            checkIfFollowing() ?
+            <button onClick={unfollowUser} >UnFollow</button> : 
+            <button onClick={followUser} >Follow</button>            
           }         
           <ProfileNav uid={uid}/>
           {error && <AlertBox message={error} />}
