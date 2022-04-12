@@ -37,7 +37,16 @@ const OtherUserProfileView = () => {
         'We ran into an issue following the user. Please try again later.'
       );
     }
-  }
+  };
+
+  const unfollowUser = async () => {
+    const res = await service.unfollowUser(uid, authUser.id);
+    if (res.error) {
+      return setError(
+        'We ran into an issue unfollowing the user. Please try again later.'
+      )
+    }
+  };
 
   useEffect(() => {
     findUser();
@@ -89,6 +98,11 @@ const OtherUserProfileView = () => {
           </p>
           <b>{user ? user.followeeCount : 0}</b> Following
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
+          
+          {
+            
+          }
+          
           <button onClick={followUser} >Follow</button>
           <ProfileNav uid={uid}/>
           {error && <AlertBox message={error} />}
