@@ -48,6 +48,16 @@ const OtherUserProfileView = () => {
     }
   };
 
+  const checkIfFollowing = async () => {
+    const followers = await service.findAllFollowers(uid);
+
+    if (followers.some(follower => follower._id === authUser.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   useEffect(() => {
     findUser();
   });
@@ -100,10 +110,10 @@ const OtherUserProfileView = () => {
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
           
           {
-            
-          }
-          
-          <button onClick={followUser} >Follow</button>
+            checkIfFollowing() ? 
+            <button onClick={followUser} >Follow</button> :
+            <button onClick={unfollowUser} >UnFollow</button>
+          }         
           <ProfileNav uid={uid}/>
           {error && <AlertBox message={error} />}
         </div>
