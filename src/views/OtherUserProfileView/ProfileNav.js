@@ -1,5 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
+/**
+ * 
+ * @param {string} uid The uid of the user whos navigation panel should be loaded  
+ * @returns a view of the navigation tab, allowing the user to select which page of their profile they are currently looking at.
+ */
 const ProfileNav = ({ uid }) => {
   const navItems = [
     {
@@ -16,13 +21,7 @@ const ProfileNav = ({ uid }) => {
     <ul className='mt-4 nav nav-pills nav-fill'>
       {navItems.map((item) => (
         <li key={item.link} className='nav-item'>
-          <NavLink
-            to={item.link}
-            // className={`nav-link ${
-            //   location.pathname.indexOf(item.link) === 0 ? 'active' : ''
-            // }`}
-            className='nav-link'
-          >
+          <NavLink to={item.link} className='nav-link'>
             {item.title}
           </NavLink>
         </li>

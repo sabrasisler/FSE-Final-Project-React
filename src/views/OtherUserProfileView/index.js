@@ -9,6 +9,13 @@ import * as service from '../../services/users-service';
 import { useSelector } from 'react-redux';
 import { AlertBox } from '../../components';
 
+/**
+ * This component will render the profile of another user, seperate from the user who is currently logged in. 
+ * This profile page will look very similar to the current profile page, but will instead include follow and unfollow buttons
+ * instead of edit profile buttons.
+ * 
+ * @returns A page which renders another user's profile
+ */
 const OtherUserProfileView = () => {
   // We will maintain a user, the user whose profile page we are currently looking at, 
   // and an authUser, the user who is currently logged in.
