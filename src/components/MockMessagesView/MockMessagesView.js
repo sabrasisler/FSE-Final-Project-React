@@ -15,8 +15,9 @@ const MockMessagesView = () => {
   return (
     <div>
       <h5>Mock Messages View!</h5>
+      <p>Styling needed. Click any conversation to open up chat.</p>
       <Routes>
-        <Route exact path={`/`} element={<MockInbox />} />
+        <Route exact path={`/`} element={<MockInbox inbox={inbox} />} />
         {inbox
           ? inbox.map((message) => (
               <Route

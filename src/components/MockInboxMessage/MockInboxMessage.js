@@ -6,25 +6,20 @@ import { findMessagesByConversationThunk } from '../../redux/messageThunks';
 const MockInboxMessage = ({ message }) => {
   const dispatch = useDispatch();
   return (
-    <div style={{ border: 'solid 1px white' }}>
-      <p>Conversation Id: {message.conversation}</p>
-      <p>Message: {message.message}</p>
-      <p>Sender: {message.sender.name}</p>
-
-      <Link
-        to={`/messages/${message.conversation}`}
-        id={message.id}
-        className='text-decoration-none text-black'
-      >
-        <button
-          onClick={() =>
-            dispatch(findMessagesByConversationThunk(message.conversation))
-          }
-        >
-          Open chat
-        </button>
-      </Link>
-    </div>
+    <Link
+      to={`/messages/${message.conversation}`}
+      id={message.id}
+      className='text-decoration-none text-white'
+      onClick={() =>
+        dispatch(findMessagesByConversationThunk(message.conversation))
+      }
+    >
+      <div className='p-3' style={{ border: 'solid 1px white' }}>
+        <p>Conversation Id: {message.conversation}</p>
+        <p>Message: {message.message}</p>
+        <p>Sender: {message.sender.name}</p>
+      </div>
+    </Link>
   );
 };
 

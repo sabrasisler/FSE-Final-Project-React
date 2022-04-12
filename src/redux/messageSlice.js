@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   findInboxMessagesThunk,
   findMessagesByConversationThunk,
+  sendMessageThunk,
 } from './messageThunks';
 
 const messageSlice = createSlice({
@@ -22,6 +23,7 @@ const messageSlice = createSlice({
     // },
     updateActiveChat: (state, action) => {
       const message = action.payload;
+      console.log('state message', message);
       if (message.conversation === state.activeChat.id)
         state.activeChat.messages.unshift(message);
     },
@@ -56,6 +58,19 @@ const messageSlice = createSlice({
     [findMessagesByConversationThunk.rejected]: (state, action) => {
       state.loading = false;
       console.log('messages by conversation  rejected');
+    },
+    [sendMessageThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [sendMessageThunk.fulfilled]: (state, action) => {
+      state.loading = false;
+
+      console.log('send message fulfilled', state.inbox);
+      // messagesAPI.listenOnConversations(state.inbox);
+    },
+    [sendMessageThunk.rejected]: (state, action) => {
+      state.loading = false;
+      console.log('send message rejected');
     },
   },
 });

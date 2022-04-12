@@ -29,10 +29,18 @@ export const findMessagesByConversationThunk = createAsyncThunk(
  */
 export const sendMessageThunk = createAsyncThunk(
   'messages/sendMessage',
-  async (message, ThunkAPI) => {
-    const newMessage = await messageAPI.sendMessage();
+  async (messageBody, ThunkAPI) => {
+    const userId = messageBody.sender;
+    const conversationId = messageBody.conversationId;
+    const message = messageBody.message;
+    const newMessage = await messageAPI.sendMessage(
+      userId,
+      conversationId,
+      message
+    );
+    console.log(newMessage);
+    ThunkAPI.dispatch(findMessagesByConversationThunk(conversationId));
     // push message to front of array in state
-    ThunkAPI.dispatch(findInboxMessagesThunk());
     return dataOrStateError(newMessage, ThunkAPI);
   }
 );
