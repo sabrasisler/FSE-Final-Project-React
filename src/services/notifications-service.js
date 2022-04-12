@@ -24,6 +24,6 @@ export const createNotification = (userId, type, userId2, notificationString) =>
     .then((response) => response.data)
     .catch((err) => processError(err));
 
-export const markNotificationAsRead = (nid) =>
+export const markNotificationAsRead = (userId, nid) =>
     api.update(`${USERS_API}/${userId}/notifications/${nid}/read`, {_id: nid})
     .then((response) => response.data).catch((err) => processError(err));
