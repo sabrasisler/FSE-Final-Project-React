@@ -99,11 +99,11 @@ const SignupForm = () => {
 
   return (
     <div>
-      {user && !profileComplete ? (
+      {/* {user && !profileComplete ? (
         <PopupModal props={completeSignupModalProps} />
       ) : (
         <PopupModal props={signUpModalProps} />
-      )}
+      )} */}
     </div>
   );
 };

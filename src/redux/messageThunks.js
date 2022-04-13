@@ -44,3 +44,15 @@ export const sendMessageThunk = createAsyncThunk(
     return dataOrStateError(newMessage, ThunkAPI);
   }
 );
+
+export const createConversationThunk = createAsyncThunk(
+  'messages/createConversation',
+  async (conversation, ThunkAPI) => {
+    const userId = ThunkAPI.getState().user.data.id;
+    const newConversation = await messageAPI.createConversation(
+      userId,
+      conversation
+    );
+    return dataOrStateError(newConversation, ThunkAPI);
+  }
+);

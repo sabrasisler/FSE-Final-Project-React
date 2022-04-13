@@ -3,6 +3,7 @@ import {
   findInboxMessagesThunk,
   findMessagesByConversationThunk,
   sendMessageThunk,
+  createConversationThunk,
 } from './messageThunks';
 
 const messageSlice = createSlice({
@@ -15,20 +16,35 @@ const messageSlice = createSlice({
     },
   },
   reducers: {
-    // updateMessages: (state, action) => {
+    // updateMessages: (state, acFindUtion) => {
     //   const message = action.payload;
     //   state.inbox.unshift(message);
     //   if (message.conversation === state.activeChat.id)
     //     state.activeChat.messages.unshift(message);
     // },
-    updateActiveChat: (state, action) => {
-      const message = action.payload;
-      console.log('state message', message);
-      if (message.conversation === state.activeChat.id)
-        state.activeChat.messages.unshift(message);
+    // updateActiveChat: (state, action) => {
+    //   const message = action.payload;
+    //   console.log('update active chat reducer', message);
+    //   if (message.conversation === state.activeChat.id)
+    //     state.activeChat.messages.unshift(message);
+    // },
+    setActiveChat: (state, action) => {
+      const conversation = action.payload;
+      console.log('setting active chat', conversation);
+      state.activeChat.id = conversation.id;
     },
   },
   extraReducers: {
+    [createConversationThunk.pending]: (state) => {
+      state.loading = true;
+    },
+    [createConversationThunk.fulfilled]: (state, action) => {
+      state.loading = false;
+    },
+    [createConversationThunk.rejected]: (state, action) => {
+      state.loading = false;
+    },
+
     // for the async thunks
     [findInboxMessagesThunk.pending]: (state) => {
       state.loading = true;
@@ -49,7 +65,7 @@ const messageSlice = createSlice({
     [findMessagesByConversationThunk.fulfilled]: (state, action) => {
       state.loading = false;
       state.activeChat.messages = action.payload;
-      state.activeChat.id = state.activeChat.messages[0].conversation;
+      // state.activeChat.id = state.activeChat.messages[0].conversation;
       console.log(
         'messages by conversation fulfilled',
         state.activeChat.messages
@@ -74,5 +90,5 @@ const messageSlice = createSlice({
     },
   },
 });
-export const { updateActiveChat } = messageSlice.actions;
+export const { updateActiveChat, setActiveChat } = messageSlice.actions;
 export default messageSlice.reducer;

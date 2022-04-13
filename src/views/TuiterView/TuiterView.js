@@ -9,7 +9,6 @@ import {
   ProfileView,
   ExploreView,
   NotificationsView,
-  MessagesView,
   MoreView,
   ListsView,
 } from '../index';

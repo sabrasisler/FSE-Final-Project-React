@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { processError } from './helpers';
 // const BASE_URL = "https://cs5500-01-sp22.herokuapp.com/api";
 const BASE_URL = 'http://localhost:4000/api';
 
@@ -19,9 +20,16 @@ export const updateUser = (user) =>
     .catch((err) => err.response.data);
 
 export const findAllUsers = () =>
-  api.get(USERS_API).then((response) => {
-    return response.data;
-  });
+  api
+    .get(USERS_API)
+    .then((response) => response.data)
+    .catch((err) => processError(err));
+
+export const findAllByName = (nameOrUsername) =>
+  api
+    .post(`${USERS_API}/${nameOrUsername}`)
+    .then((response) => response.data)
+    .catch((err) => processError(err));
 
 export const findUserById = (uid) =>
   api.get(`${USERS_API}/${uid}`).then((response) => response.data);

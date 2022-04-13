@@ -13,36 +13,35 @@ import { Button, Modal } from 'react-bootstrap';
  * @param {function} handleSubmit handles the button submit action
  */
 const PopupModal = ({ props }) => {
-  const { show, content, handleSubmit } = props;
-  const [showModal, setShow] = useState(show);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const { show, setShow, content, handleSubmit } = props;
+  // const [show, setShow] = useState(show);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   useEffect(() => {
-    setShow(showModal);
-  }, [showModal]);
+    setShow(show);
+  }, [show]);
   return (
     <div>
-      {content.modalOpenerLabel && (
+      {/* {content.modalOpenerLabel && (
         <Button className='rounded-pill' variant='primary' onClick={handleShow}>
           {content.modalOpenerLabel}
           Sign up
         </Button>
-      )}
-
-      <Modal size={content.size} show={showModal} onHide={handleClose}>
+      )} */}
+      <Modal size={content.size} show={show} onHide={setShow}>
         <Modal.Header closeButton>
           <Modal.Title>{content.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{content.body}</Modal.Body>
         <Modal.Footer>
-          <Button
+          {/* <Button
             className='rounded-pill'
             variant='secondary'
-            onClick={handleClose}
+            onClick={setShow(false)}
           >
             Close
-          </Button>
+          </Button> */}
           <Button
             type='submit'
             className='rounded-pill'

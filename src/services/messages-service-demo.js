@@ -20,6 +20,20 @@ export const sendMessage = async (userId, conversationId, message) => {
   }
 };
 
+export const createConversation = async (userId, conversation) => {
+  try {
+    console.log('create convo service called', conversation);
+    const res = await api.post(
+      `${MESSAGES_API}/${userId}/conversations`,
+      conversation
+    );
+    console.log('create convo service result', res.data);
+    return res.data;
+  } catch (err) {
+    return processError(err);
+  }
+};
+
 export const findInboxMessages = async (userId, ThunkAPI) => {
   try {
     const res = await api.get(`${MESSAGES_API}/${userId}/messages/`);

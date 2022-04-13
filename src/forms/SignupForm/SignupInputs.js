@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const SignupInputs = ({ inputValues, setInputValues, setInputFields }) => {
   const user = useSelector((state) => state.user.data);
   const profileComplete = useSelector((state) => state.user.profileComplete);
-  const setInputFieldsForTheParentForm = setInputFields;
+  const giveParentFormAccessToInputFields = setInputFields;
   const inputs = [
     {
       id: 0,
@@ -73,7 +73,7 @@ const SignupInputs = ({ inputValues, setInputValues, setInputFields }) => {
   };
 
   useEffect(() => {
-    setInputFieldsForTheParentForm(inputs);
+    giveParentFormAccessToInputFields(inputs);
   }, []);
 
   return inputs.map((input) => {

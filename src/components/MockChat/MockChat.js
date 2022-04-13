@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import {
@@ -11,6 +13,7 @@ import { socket } from '../../services/socket-config';
 
 const MockChat = ({ conversationId }) => {
   const userId = useSelector((state) => state.user.data.id);
+  const activeChat = useSelector((state) => state.messages.activeChat);
   const messages = useSelector((state) => state.messages.activeChat.messages);
   const hasMessages = messages.length > 0;
   const dispatch = useDispatch();
@@ -45,6 +48,7 @@ const MockChat = ({ conversationId }) => {
   return (
     <div>
       <h3>Mock Chat: </h3>
+
       <Link
         to={`/messages`}
         className='mt-2 me-2 btn btn-large btn-primary border border-secondary fw-bolder rounded-pill'

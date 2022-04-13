@@ -8,6 +8,8 @@ import { findInboxMessagesThunk } from '../../redux/messageThunks';
 
 const MockMessagesView = () => {
   const inbox = useSelector((state) => state.messages.inbox);
+  const activeChat = useSelector((state) => state.messages.activeChat);
+  console.log(activeChat);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(findInboxMessagesThunk());
@@ -18,6 +20,11 @@ const MockMessagesView = () => {
       <p>Styling needed. Click any conversation to open up chat.</p>
       <Routes>
         <Route exact path={`/`} element={<MockInbox inbox={inbox} />} />
+        <Route
+          exact
+          path={`/${activeChat.id}`}
+          element={<MockChat conversationId={activeChat.id} />}
+        />
         {inbox
           ? inbox.map((message) => (
               <Route
