@@ -3,27 +3,15 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { markNotificationAsRead } from "./../../services/notifications-service";
 
+/**
+ * A component to render one notification.
+ */
 const Notification = ({ notificationFromList }) => {
 
     const [notification, setNotification] = useState(notificationFromList);
     console.log(notification.id);
-    const userId = useSelector((state) => state.user.data.id);
-    // const dispatch = useDispatch();
-    const handleViewNotification = async (cid) => {
-        // TODO
-    };
-    // const handleReadNotification = async () => {
-    //     const resNot = await markNotificationAsRead(notification.id);
-    //     if (resNot && resNot.error) {
-    //       return;
-    //     }
-    
-    //     // updateLiked(resTuit);
-    //     setNotification({ ...notification, ...resNot });
-    //     //setClassWithTimeout(setAnimationClass, 'fs-6 ttr-heart-animated fa-pulse');
-    //     return;
-    //   };
 
+    // create a notification message depending on the type of notification
     var nstring;
     if (notification.type == "FOLLOWS") {
         nstring = <span> followed you</span>
