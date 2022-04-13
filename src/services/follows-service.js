@@ -23,6 +23,6 @@ export const unfollowUser = (uid, followeeId) =>
 
 // Find all followers for the given user id
 export const findAllFollowers = (uid) =>
-    api.get(`${USERS_API}/${uid}/followers`)
+    api.get(`${USERS_API}/${uid}/followees`)
     .then((response) => response.data)
     .catch((err) => err.response.data);

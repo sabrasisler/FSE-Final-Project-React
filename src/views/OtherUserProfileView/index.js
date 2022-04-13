@@ -15,6 +15,7 @@ const OtherUserProfileView = () => {
   // and an authUser, the user who is currently logged in.
   const [user, setUser] = useState(null);
   const [error, setError] = useState();
+  const [following, setFollowing] = useState(false);
   let { uid } = useParams();
   const authUser = useSelector((state) => state.user.data);
 
@@ -61,11 +62,14 @@ const OtherUserProfileView = () => {
       );
     } else {
       // Otherwise, check if the authUser is in the list of followers for this user.
-      return res.data.some(follower => follower.username === authUser.username);
+      if (res.some(follower => follower.username === authUser.username)) {
+        setFollowing(true);
+      }
     }
   };
 
   useEffect(() => {
+    checkIfFollowing();
     findUser();
   });
 
@@ -118,9 +122,9 @@ const OtherUserProfileView = () => {
           {
             // If the authenticated user is following this user, display the unFollow button.
             // Otherwise, display the follow button 
-            checkIfFollowing() ?
-            <button onClick={unfollowUser} >UnFollow</button> : 
-            <button onClick={followUser} >Follow</button>            
+            following ?
+            <button onClick={unfollowUser} >UnFollow</button> :
+            <button onClick={followUser} >Follow</button>
           }         
           <ProfileNav uid={uid}/>
           {error && <AlertBox message={error} />}
