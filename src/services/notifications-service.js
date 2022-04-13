@@ -12,7 +12,7 @@ export const findAllNotifications = () =>
     .then((response) => response.data)
     .catch((err) => processError(err));
 
-export const findNotifationsForUser = (userId) =>
+export const findNotificationsForUser = (userId) =>
   api
     .get(`${USERS_API}/${userId}/notifications`)
     .then((response) => response.data)
@@ -24,6 +24,6 @@ export const createNotification = (userId, type, userId2, notificationString) =>
     .then((response) => response.data)
     .catch((err) => processError(err));
 
-export const markNotificationAsRead = (userId, nid) =>
-    api.update(`${USERS_API}/${userId}/notifications/${nid}/read`, {_id: nid})
+export const markNotificationAsRead = (nid) =>
+    api.put(`${NOTIFICATIONS_API}/${nid}/read`, {_id: nid})
     .then((response) => response.data).catch((err) => processError(err));
