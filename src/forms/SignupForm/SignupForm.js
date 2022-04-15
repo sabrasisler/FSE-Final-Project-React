@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerThunk, updateUserThunk } from '../../redux/userSlice';
 import { PopupModal } from '../../components';
 import SignupInputs from './SignupInputs';
+import { Button } from 'react-bootstrap';
 
 /**
  * Signup form displayed in a pop modal when the user clicks to register.
@@ -14,6 +15,7 @@ const SignupForm = () => {
   const profileComplete = useSelector((state) => state.user.profileComplete);
   const [inputValues, setInputValues] = useState({});
   const [inputFields, setInputFields] = useState([]);
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
   const isFormValid = () => {
     for (const input in inputFields) {
@@ -77,7 +79,8 @@ const SignupForm = () => {
       modalOpenerLabel: 'Sign up',
     },
     handleSubmit: handleSignup,
-    show: false,
+    show: showSignupModal,
+    setShow: setShowSignupModal,
   };
 
   const completeSignupModalProps = {
@@ -94,16 +97,26 @@ const SignupForm = () => {
       submitLabel: 'Submit',
     },
     handleSubmit: handleCompleteSignup,
-    show: true,
+    show: !showSignupModal,
+    setShow: setShowSignupModal,
   };
 
   return (
     <div>
-      {/* {user && !profileComplete ? (
+      {user && !profileComplete ? (
         <PopupModal props={completeSignupModalProps} />
       ) : (
-        <PopupModal props={signUpModalProps} />
-      )} */}
+        <div>
+          <Button
+            className='rounded-pill'
+            variant='primary'
+            onClick={() => setShowSignupModal(true)}
+          >
+            Sign up
+          </Button>
+          <PopupModal props={signUpModalProps} />
+        </div>
+      )}
     </div>
   );
 };

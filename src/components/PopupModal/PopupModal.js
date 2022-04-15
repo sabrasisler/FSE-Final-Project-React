@@ -14,34 +14,18 @@ import { Button, Modal } from 'react-bootstrap';
  */
 const PopupModal = ({ props }) => {
   const { show, setShow, content, handleSubmit } = props;
-  // const [show, setShow] = useState(show);
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
 
   useEffect(() => {
     setShow(show);
   }, [show]);
   return (
     <div>
-      {/* {content.modalOpenerLabel && (
-        <Button className='rounded-pill' variant='primary' onClick={handleShow}>
-          {content.modalOpenerLabel}
-          Sign up
-        </Button>
-      )} */}
       <Modal size={content.size} show={show} onHide={setShow}>
         <Modal.Header closeButton>
           <Modal.Title>{content.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{content.body}</Modal.Body>
         <Modal.Footer>
-          {/* <Button
-            className='rounded-pill'
-            variant='secondary'
-            onClick={setShow(false)}
-          >
-            Close
-          </Button> */}
           <Button
             type='submit'
             className='rounded-pill'
