@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { findInboxMessagesThunk } from '../../redux/messageThunks';
 import { useDispatch, useSelector } from 'react-redux';
 import { socket } from '../../services/socket-config';
@@ -8,17 +8,19 @@ import { PopupModal } from '../../components';
 import FindUsers from '../FindUsers/FindUsers';
 import { setGlobalError } from '../../redux/errorSlice';
 import { setActiveChat } from '../../redux/messageSlice';
-import { createConversation as APIcreateConversation } from '../../services/messages-service-demo';
-
-const MockInbox = ({ inbox }) => {
+import { createConversation as APIcreateConversation } from '../../services/messages-service';
+/**
+ * Displays all the inbox messages of the logged in user.
+ * @param {[]} inbox all inbox messages
+ */
+const MockInbox = ({ inbox = [] }) => {
   const loggedInUser = useSelector((state) => state.user.data);
-  const activeChat = useSelector((state) => state.messages.activeChat);
   const dispatch = useDispatch();
   const [showNewMessageModal, setShowNewMessageModal] = useState(false);
   const [newConversationUsers, setNewConversationUsers] = useState([]);
-  let navigate = useNavigate();
+  let navigateToChatView = useNavigate();
 
-  const listenForNewMessages = () => {
+  const listenForNewMessagesOnSocket = () => {
     socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
     socket.on('NEW_MESSAGE', () => {
       // when a new message is emitted to the room
@@ -40,11 +42,13 @@ const MockInbox = ({ inbox }) => {
       return dispatch(setGlobalError(newConversation.error));
     }
     dispatch(setActiveChat(newConversation));
-    navigate(`/messages/${newConversation.id}`, { replace: true });
+    navigateToChatView(`/messages/${newConversation.id}`, {
+      replace: true,
+    });
   };
 
   useEffect(() => {
-    listenForNewMessages();
+    listenForNewMessagesOnSocket();
   }, []);
 
   const newMessageModalProps = {

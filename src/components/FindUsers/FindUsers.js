@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createConversationThunk } from '../../redux/messageThunks';
 import { clearFoundUsers, findUsersByNameThunk } from '../../redux/userSlice';
 import Search from '../Search/Search';
-import { createConversation } from '../../services/messages-service-demo';
+import { createConversation } from '../../services/messages-service';
 import { setGlobalError } from '../../redux/errorSlice';
 import { setActiveChat } from '../../redux/messageSlice';
 

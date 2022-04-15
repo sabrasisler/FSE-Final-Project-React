@@ -6,6 +6,9 @@ import {
   createConversationThunk,
 } from './messageThunks';
 
+/**
+ * Manages the state dealing with messages, including inbox and current active chat.
+ */
 const messageSlice = createSlice({
   name: 'messages',
   initialState: {
@@ -13,27 +16,18 @@ const messageSlice = createSlice({
     activeChat: {
       id: undefined,
       messages: [],
+      participants: [],
     },
   },
   reducers: {
-    // updateMessages: (state, acFindUtion) => {
-    //   const message = action.payload;
-    //   state.inbox.unshift(message);
-    //   if (message.conversation === state.activeChat.id)
-    //     state.activeChat.messages.unshift(message);
-    // },
-    // updateActiveChat: (state, action) => {
-    //   const message = action.payload;
-    //   console.log('update active chat reducer', message);
-    //   if (message.conversation === state.activeChat.id)
-    //     state.activeChat.messages.unshift(message);
-    // },
+    // Sets the state of the current active chat/conversation.
     setActiveChat: (state, action) => {
       const conversation = action.payload;
-      console.log('setting active chat', conversation);
       state.activeChat.id = conversation.id;
+      state.activeChat.participants = conversation.participants;
     },
   },
+  // Manages the async call states for creating conversations.
   extraReducers: {
     [createConversationThunk.pending]: (state) => {
       state.loading = true;
@@ -45,50 +39,41 @@ const messageSlice = createSlice({
       state.loading = false;
     },
 
-    // for the async thunks
+    // Async states of the async thunk for fetching inbox.
     [findInboxMessagesThunk.pending]: (state) => {
       state.loading = true;
     },
     [findInboxMessagesThunk.fulfilled]: (state, action) => {
       state.loading = false;
       state.inbox = action.payload;
-      console.log('all messages fulfilled', state.inbox);
-      // messagesAPI.listenOnConversations(state.inbox);
     },
     [findInboxMessagesThunk.rejected]: (state, action) => {
       state.loading = false;
-      console.log('all messages rejected');
     },
+    // States for fetching all conversations of a chat.
     [findMessagesByConversationThunk.pending]: (state) => {
       state.loading = true;
     },
     [findMessagesByConversationThunk.fulfilled]: (state, action) => {
       state.loading = false;
-      state.activeChat.messages = action.payload;
-      // state.activeChat.id = state.activeChat.messages[0].conversation;
-      console.log(
-        'messages by conversation fulfilled',
-        state.activeChat.messages
-      );
+      state.activeChat.messages = action.payload.messages;
+      state.activeChat.id = action.payload.conversation.id;
+      state.activeChat.participants = action.payload.conversation.participants;
     },
     [findMessagesByConversationThunk.rejected]: (state, action) => {
       state.loading = false;
-      console.log('messages by conversation  rejected');
     },
+    // Async states of sendMessageThunk
     [sendMessageThunk.pending]: (state) => {
       state.loading = true;
     },
     [sendMessageThunk.fulfilled]: (state, action) => {
       state.loading = false;
-
-      console.log('send message fulfilled', state.inbox);
-      // messagesAPI.listenOnConversations(state.inbox);
     },
     [sendMessageThunk.rejected]: (state, action) => {
       state.loading = false;
-      console.log('send message rejected');
     },
   },
 });
-export const { updateActiveChat, setActiveChat } = messageSlice.actions;
+export const { setActiveChat } = messageSlice.actions;
 export default messageSlice.reducer;

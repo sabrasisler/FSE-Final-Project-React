@@ -3,6 +3,10 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { findMessagesByConversationThunk } from '../../redux/messageThunks';
 
+/**
+ * Display an inbox message block with the latest message for the conversation.
+ * @param {{}} message the message object
+ */
 const MockInboxMessage = ({ message }) => {
   const dispatch = useDispatch();
   return (

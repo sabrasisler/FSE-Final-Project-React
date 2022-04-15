@@ -42,6 +42,16 @@ export const findInboxMessages = async (userId, ThunkAPI) => {
     return processError(err);
   }
 };
+export const findConversation = async (userId, conversationId) => {
+  try {
+    const res = await api.get(
+      `${MESSAGES_API}/${userId}/conversations/${conversationId}`
+    );
+    return res.data;
+  } catch (err) {
+    return processError(err);
+  }
+};
 
 export const findMessagesByConversation = async (userId, conversationId) => {
   try {

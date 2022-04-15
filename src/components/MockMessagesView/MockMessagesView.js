@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MockInboxMessage from '../MockInboxMessage/MockInboxMessage';
 import { Routes, Route } from 'react-router-dom';
 import MockInbox from '../MockInbox/MockInbox';
 import MockChat from '../MockChat/MockChat';
 import { findInboxMessagesThunk } from '../../redux/messageThunks';
-
+/**
+ * Displays inbox or active chat based on the route. Uses the inbox messages fetched and stored in redux state to set up custom URLs for each conversation based on its ID.
+ */
 const MockMessagesView = () => {
   const inbox = useSelector((state) => state.messages.inbox);
   const activeChat = useSelector((state) => state.messages.activeChat);
