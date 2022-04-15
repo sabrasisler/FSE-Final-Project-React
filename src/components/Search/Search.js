@@ -1,6 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 
-const Search = ({ results, searchValue, setSearchValue }) => {
+/**
+ * Search box with dynamic state as the user types. Input state is maintained by the parent component, which uses it to dispatch an action.
+ * @param {string} searchValue the input value of the search box
+ * @param {Function} setInputValue sets the searchValue state
+ */
+const Search = ({ searchValue, setSearchValue }) => {
   return (
     <div className='ttr-search position-relative'>
       {/* <i className='fas fa-search position-absolute'></i> */}
@@ -12,7 +17,6 @@ const Search = ({ results, searchValue, setSearchValue }) => {
           setSearchValue(e.target.value);
         }}
       />
-      <div>{results && results.map((item) => <p key={item.id}>{item}</p>)}</div>
     </div>
   );
 };
