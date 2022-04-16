@@ -15,6 +15,7 @@ import {
   OtherUserProfileView,
 } from '../index';
 import { useSelector } from 'react-redux';
+import Chat from "../../components/Messages/Chat";
 
 function TuiterView() {
   const error = useSelector((state) => state.error.data);
@@ -35,6 +36,7 @@ function TuiterView() {
             <Route path='/explore' element={<ExploreView />} />
             <Route path='/notifications' element={<NotificationsView />} />
             <Route path='/messages' element={<MessagesView />} />
+            <Route path='/messages/:uid/:cid' element={<Chat/>}/>
             <Route path='/bookmarks' element={<BookmarksView />} />
             <Route path='/lists' element={<ListsView />} />
             <Route path='/profile/*' element={<ProfileView />} />
