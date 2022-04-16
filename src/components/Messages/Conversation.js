@@ -2,6 +2,11 @@ import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
+/**
+ * A component to render each individual conversation.
+ * @param conversationFromList conversation from a list of conversations
+ * @returns {JSX.Element}
+ */
 const Conversation = ({conversationFromList}) => {
     const [conversation] = useState(conversationFromList);
     const userId = useSelector((state) => state.user.data.id);
