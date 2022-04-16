@@ -5,6 +5,10 @@ import {AlertBox} from "../../components";
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 
+/**
+ * Component to render messages that are part of a conversation.
+ * @returns {JSX.Element}
+ */
 const Chat = () => {
     const {uid, cid} = useParams();
     const [message, setMessage] = useState([]);
