@@ -29,9 +29,9 @@ export const createConversation = (userId, conversationId, conversation) =>
         .then((response) => response.data)
         .catch((err) => processError(err));
 
-export const createMessage = (userId, message) =>
+export const createMessage = (userId, conversation, message) =>
     api
-        .post(`${MESSAGES_API}/${userId}/messages`, {message: message})
+        .post(`${MESSAGES_API}/${userId}/messages`, {message: message, conversation: conversation})
         .then((response) => response.data)
         .catch((err) => processError(err));
 
