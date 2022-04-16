@@ -4,6 +4,10 @@ import {AlertBox} from "../../components";
 import Conversations from "../../components/Messages/Conversations";
 import {useSelector} from "react-redux";
 
+/**
+ * Creates a page that displays all the conversations for a given user
+ * @returns {JSX.Element}
+ */
 const MessagesView = () => {
     const [conversations, setConversations] = useState([]);
     const [error, setError] = useState();
