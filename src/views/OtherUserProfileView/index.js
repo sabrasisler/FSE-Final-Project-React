@@ -64,6 +64,8 @@ const OtherUserProfileView = () => {
       // Otherwise, check if the authUser is in the list of followers for this user.
       if (res.some(follower => follower.username === authUser.username)) {
         setFollowing(true);
+      } else {
+        setFollowing(false);
       }
     }
   };
