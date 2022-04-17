@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Routes, Route, useParams } from 'react-router-dom';
 import UsersTuits from './UsersTuits';
@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { AlertBox } from '../../components';
 
 const OtherUserProfileView = () => {
-  // We will maintain a user, the user whose profile page we are currently looking at, 
+  // We will maintain a user, the user whose profile page we are currently looking at,
   // and an authUser, the user who is currently logged in.
   const [user, setUser] = useState(null);
   const [error, setError] = useState();
@@ -47,7 +47,7 @@ const OtherUserProfileView = () => {
     if (res.error) {
       return setError(
         'We ran into an issue unfollowing the user. Please try again later.'
-      )
+      );
     }
   };
 
@@ -62,7 +62,7 @@ const OtherUserProfileView = () => {
       );
     } else {
       // Otherwise, check if the authUser is in the list of followers for this user.
-      if (res.some(follower => follower.username === authUser.username)) {
+      if (res.some((follower) => follower.username === authUser.username)) {
         setFollowing(true);
       } else {
         setFollowing(false);
@@ -92,27 +92,29 @@ const OtherUserProfileView = () => {
 
         <div className='p-2'>
           <h5 className='fw-bolder pb-0 mb-0'>
-            {`${user ? user.name: ''}`}
+            {`${user ? user.name : ''}`}
             <i className='fa fa-badge-check text-primary'></i>
           </h5>
           <h6 className='pt-0'>{`@${user ? user.username : ''}`}</h6>
           <p className='pt-2'>{user ? user.bio : ''}</p>
           <p>
-            {user ?
-            user.location
-              ? <i className='far fa-location-dot me-2'></i> + user.location
-              : ''
+            {user
+              ? user.location
+                ? <i className='far fa-location-dot me-2'></i> + user.location
+                : ''
               : ''}
             <i className='far fa-link ms-3 me-2'></i>
-            {user ?
-            user.website ? (
-              <a href={user.website} className='text-decoration-none'>
-                {user.website}:
-              </a>
+            {user ? (
+              user.website ? (
+                <a href={user.website} className='text-decoration-none'>
+                  {user.website}:
+                </a>
+              ) : (
+                ''
+              )
             ) : (
               ''
-            )
-            : ''}
+            )}
             {/* <i className='far fa-balloon ms-3 me-2'></i>
             Born October 1, 1958
             <br /> */}
@@ -123,12 +125,14 @@ const OtherUserProfileView = () => {
           <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
           {
             // If the authenticated user is following this user, display the unFollow button.
-            // Otherwise, display the follow button 
-            following ?
-            <button onClick={unfollowUser} >UnFollow</button> :
-            <button onClick={followUser} >Follow</button>
-          }         
-          <ProfileNav uid={uid}/>
+            // Otherwise, display the follow button
+            following ? (
+              <button onClick={unfollowUser}>UnFollow</button>
+            ) : (
+              <button onClick={followUser}>Follow</button>
+            )
+          }
+          <ProfileNav uid={uid} />
           {error && <AlertBox message={error} />}
         </div>
       </div>
