@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import MockInboxMessage from '../MockInboxMessage/MockInboxMessage';
 import { Routes, Route } from 'react-router-dom';
 import MockInbox from '../MockInbox/MockInbox';
 import MockChat from '../MockChat/MockChat';

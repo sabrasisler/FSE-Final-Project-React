@@ -26,14 +26,12 @@ function TuiterView() {
         <div className='ttr-center-column'>
           <Routes>
             <Route path='/' element={<HomeView />} />
-            {/* <Route path='/login' element={<Login />} /> */}
             <Route path='/tuiter' element={<HomeView />} />
             <Route path='/tuiter/:uid' element={<HomeView />} />
             <Route path='/home' element={<HomeView />} />
             <Route path='/home/:uid' element={<HomeView />} />
             <Route path='/explore' element={<ExploreView />} />
             <Route path='/notifications' element={<NotificationsView />} />
-            {/* <Route path='/messages' element={<MessagesView />} /> */}
             <Route path='/bookmarks' element={<BookmarksView />} />
             <Route path='/lists' element={<ListsView />} />
             <Route path='/profile/*' element={<ProfileView />} />
