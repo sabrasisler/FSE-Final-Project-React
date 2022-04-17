@@ -2,10 +2,19 @@ import { useEffect, useState } from 'react';
 import * as service from '../../services/likes-service';
 import { AlertBox, Tuits } from '../../components';
 
+/**
+ * 
+ * @param {string} uid The uid of the user who's likes should be rendered
+ * @returns A page view of the given user's liked tuits
+ */
 const UsersLikes = ({uid}) => {
   const [tuits, setTuits] = useState([]);
   const [error, setError] = useState();
 
+  /**
+   * 
+   * @returns A list of the tuits the given user has liked
+   */
   const findMyTuits = async () => {
     const res = await service.findAllTuitsLikedByUser(uid);
     if (res.error) {

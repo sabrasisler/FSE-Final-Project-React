@@ -3,11 +3,20 @@ import * as service from '../../services/likes-service';
 import { AlertBox } from '../../components';
 import { Tuits } from '../../components';
 
+/**
+ * 
+ * @param {string} uid The uid of the user who's dislikes should be rendered
+ * @returns A page view of the given user's disliked tuits
+ */
 const UsersDislikes = ({uid}) => {
   const [tuits, setTuits] = useState();
   const [error, setError] = useState();
 
-  const findMyTuits = async () => {
+  /**
+   * Find all of the tuits this user dislikes
+   * @returns disliked tuits for this user
+   */
+  const findMyDislikes = async () => {
     const res = await service.findAllTuitsDislikedByUser(uid);
     if (res.error) {
       return setError(
@@ -18,7 +27,7 @@ const UsersDislikes = ({uid}) => {
     setTuits(res);
   };
   useEffect(() => {
-    findMyTuits();
+    findMyDislikes();
   });
 
   return (

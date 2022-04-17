@@ -45,8 +45,9 @@ const Tuit = ({ tuitFromList }) => {
               ></i>
             ) : null}
             <p className='fs-6 fw-bold'>
-              {tuit.author && tuit.author.name} - 
-              <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`} >@{tuit.author && tuit.author.username}</Link> - {tuit.createdAt}
+              {tuit.author && tuit.author.name} -
+              {/* This link and the one above will naviagate a user's the profile page for the user who posted this tuit.  */} 
+              <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`} >@{tuit.author && tuit.author.username}</Link> - {tuit.createdAt} 
             </p>
             {tuit.tuit}
             {tuit.youtube && <TuitVideo />}
