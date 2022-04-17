@@ -68,8 +68,8 @@ const ProfileView = () => {
             <i className='far fa-calendar me-2'></i>
             {user.joinedDate}
           </p>
-          <b>{user.followeeCount}</b> Following
-          <b className='ms-4'>{user.followerCount}</b> Followers
+          <b>{user ? user.followeeCount : 0}</b> Following
+          <b className='ms-4'>{user ? user.followerCount : 0}</b> Followers
           <ProfileNav />
         </div>
       </div>

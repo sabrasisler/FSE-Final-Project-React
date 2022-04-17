@@ -47,11 +47,6 @@ export const deleteUsersByUsername = (username) =>
 export const findUserByCredentials = (credentials) =>
   api.post(`${LOGIN_API}`, credentials).then((response) => response.data);
 
-export const followUser = (uid, followeeId) =>
-  api.post(`${USERS_API}/${uid}/follows`, {followeeId: followeeId})
-  .then((response) => response.data)
-  .catch((err) => err.response.data);
-
 const service = {
   findAllUsers
 };
