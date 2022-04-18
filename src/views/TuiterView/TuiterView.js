@@ -11,6 +11,7 @@ import {
   NotificationsView,
   MoreView,
   ListsView,
+  OtherUserProfileView,
 } from '../index';
 import { useSelector } from 'react-redux';
 import MockMessagesView from '../../components/MockMessagesView/MockMessagesView';
@@ -27,7 +28,7 @@ function TuiterView() {
           <Routes>
             <Route path='/' element={<HomeView />} />
             <Route path='/tuiter' element={<HomeView />} />
-            <Route path='/tuiter/:uid' element={<HomeView />} />
+            <Route path='/tuiter/:uid/*' element={<OtherUserProfileView />} />
             <Route path='/home' element={<HomeView />} />
             <Route path='/home/:uid' element={<HomeView />} />
             <Route path='/explore' element={<ExploreView />} />
