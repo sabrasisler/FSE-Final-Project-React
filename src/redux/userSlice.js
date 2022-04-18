@@ -3,7 +3,11 @@
  */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { register, getProfile, login, logout } from '../services/auth-service';
-import { updateUser } from '../services/users-service';
+import {
+  updateUser,
+  findAllUsers,
+  findAllByName,
+} from '../services/users-service';
 import { dataOrStateError } from './helpers';
 
 /**
@@ -62,6 +66,15 @@ export const updateUserThunk = createAsyncThunk(
   }
 );
 
+export const findUsersByNameThunk = createAsyncThunk(
+  'users/findAllByName',
+  async (nameOrUsername, ThunkAPI) => {
+    console.log('find all by name thunk function', nameOrUsername);
+    const users = await findAllByName(nameOrUsername);
+    return dataOrStateError(users, ThunkAPI);
+  }
+);
+
 /**
  * Checks if the logged in user in state has complete their profile.
  */
@@ -81,9 +94,26 @@ const userSlice = createSlice({
     loading: false,
     profileComplete: false,
     loggedIn: false,
+    foundUsers: [],
   },
-
+  reducers: {
+    clearFoundUsers: (state) => {
+      state.foundUsers = [];
+    },
+  },
   extraReducers: {
+    [findUsersByNameThunk.pending]: (state, action) => {
+      state.loading = false;
+    },
+    [findUsersByNameThunk.rejected]: (state) => {
+      state.loading = false;
+      console.log('find all by all users rejected');
+    },
+    [findUsersByNameThunk.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.foundUsers = action.payload;
+      console.log('find all by name fulfilled', state.foundUsers);
+    },
     [getProfileThunk.fulfilled]: (state, action) => {
       state.loading = false;
       if (action.payload.error) return;
@@ -131,5 +161,5 @@ const userSlice = createSlice({
     },
   },
 });
-
+export const { clearFoundUsers } = userSlice.actions;
 export default userSlice.reducer;
