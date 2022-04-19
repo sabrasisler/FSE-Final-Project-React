@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { processError } from './helpers';
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 const LOGIN_API = `${BASE_URL}/login`;
@@ -9,8 +10,8 @@ export const api = axios.create({
 });
 
 /*
-* This service will expose functions which can create, retrieve, update and delete objects of the the users resource by hitting API endpoints in the backend server.
-*/
+ * This service will expose functions which can create, retrieve, update and delete objects of the the users resource by hitting API endpoints in the backend server.
+ */
 
 // Create a user based on the given user object
 export const createUser = (user) =>
@@ -25,9 +26,16 @@ export const updateUser = (user) =>
 
 // Find all users in the system. Primarily useful for testing purposes.
 export const findAllUsers = () =>
-  api.get(USERS_API).then((response) => {
-    return response.data;
-  });
+  api
+    .get(USERS_API)
+    .then((response) => response.data)
+    .catch((err) => processError(err));
+
+export const findAllByName = (nameOrUsername) =>
+  api
+    .post(`${USERS_API}/${nameOrUsername}`)
+    .then((response) => response.data)
+    .catch((err) => processError(err));
 
 // Find a user by the given id.
 export const findUserById = (uid) =>
@@ -48,7 +56,7 @@ export const findUserByCredentials = (credentials) =>
   api.post(`${LOGIN_API}`, credentials).then((response) => response.data);
 
 const service = {
-  findAllUsers
+  findAllUsers,
 };
 
 export default service;

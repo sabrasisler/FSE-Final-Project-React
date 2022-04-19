@@ -9,13 +9,12 @@ import {
   ProfileView,
   ExploreView,
   NotificationsView,
-  MessagesView,
   MoreView,
   ListsView,
   OtherUserProfileView,
 } from '../index';
 import { useSelector } from 'react-redux';
-import Chat from "../../components/Messages/Chat";
+import MockMessagesView from '../../components/MockMessagesView/MockMessagesView';
 
 function TuiterView() {
   const error = useSelector((state) => state.error.data);
@@ -28,19 +27,17 @@ function TuiterView() {
         <div className='ttr-center-column'>
           <Routes>
             <Route path='/' element={<HomeView />} />
-            {/* <Route path='/login' element={<Login />} /> */}
             <Route path='/tuiter' element={<HomeView />} />
             <Route path='/tuiter/:uid/*' element={<OtherUserProfileView />} />
             <Route path='/home' element={<HomeView />} />
             <Route path='/home/:uid' element={<HomeView />} />
             <Route path='/explore' element={<ExploreView />} />
             <Route path='/notifications' element={<NotificationsView />} />
-            <Route path='/messages' element={<MessagesView />} />
-            <Route path='/messages/:uid/:cid' element={<Chat/>}/>
             <Route path='/bookmarks' element={<BookmarksView />} />
             <Route path='/lists' element={<ListsView />} />
             <Route path='/profile/*' element={<ProfileView />} />
             <Route path='/more' element={<MoreView />} />
+            <Route path='/messages/*' element={<MockMessagesView />} />
           </Routes>
           {error && <AlertBox message={error} />}
         </div>
