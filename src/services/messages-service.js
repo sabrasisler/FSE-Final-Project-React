@@ -16,7 +16,7 @@ export const api = axios.create({
  * @param userId id of the user requesting the latest messages
  * @param conversation conversation object
  * @param message messages object
- * @returns {Promise<AxiosResponse<any> | * | {error: string}>} message object
+ * @returns {Promise<{message}>} the message object or error
  */
 export const sendMessage = async (userId, conversationId, message) => {
   try {
@@ -35,16 +35,14 @@ export const sendMessage = async (userId, conversationId, message) => {
  * @param userId id of the user requesting the latest messages
  * @param conversationId sorted concatenation of all participant ids
  * @param conversation conversation object
- * @returns {Promise<AxiosResponse<any> | * | {error: string}>} conversation object
+ * @returns {Promise<{conversation}>} the conversation object or error
  */
 export const createConversation = async (userId, conversation) => {
   try {
-    console.log('create convo service called', conversation);
     const res = await api.post(
       `${MESSAGES_API}/${userId}/conversations`,
       conversation
     );
-    console.log('create convo service result', res.data);
     return res.data;
   } catch (err) {
     return processError(err);
@@ -58,8 +56,7 @@ export const createConversation = async (userId, conversation) => {
  * Uses the mongo aggregate functionality to filter and sort through conversations/messages
  * and to format the returned output.
  * @param userId id of the user requesting the latest messages
- * @returns {Promise<AxiosResponse<any> | * | {error: string}>} latest messages per conversation
- */
+ * @returns {Promise<[{message}]>} an array of message objects */
 export const findInboxMessages = async (userId, ThunkAPI) => {
   try {
     const res = await api.get(`${MESSAGES_API}/${userId}/messages/`);
@@ -84,8 +81,7 @@ export const findConversation = async (userId, conversationId) => {
  * Also check if user if indeed a participant in the conversation for security reasons.
  * @param userId id of the user requesting the latest messages
  * @param conversationId the id of the conversation
- * @returns {Promise<AxiosResponse<any> | * | {error: string}>} messages in the conversation
- */
+ * @returns {Promise<[{message}]>} an array of message objects */
 
 export const findMessagesByConversation = async (userId, conversationId) => {
   try {
@@ -101,8 +97,7 @@ export const findMessagesByConversation = async (userId, conversationId) => {
 /**
  * Finds all the messages sent by the specified user.
  * @param userId id of the user requesting the latest messages
- * @returns {Promise<AxiosResponse<any> | * | {error: string}>} all messages sent by user
- */
+ * @returns {Promise<[{message}]>} an array of message objects */
 export const findAllMessagesSentByUser = async (userId) => {
   try {
     const res = await api.get(`${MESSAGES_API}/${userId}/messages/sent`);
@@ -118,7 +113,7 @@ export const findAllMessagesSentByUser = async (userId) => {
  * and the user is placed in the array of people for whom the message is no longer visible.
  * @param userId id of the user requesting the latest messages
  * @param messageId id of the message
- * @returns {Promise<AxiosResponse<any> | * | {error: string}>} deleted message
+ * @returns {Promise<{message}>} the deleted message
  */
 export const deleteMessage = async (userId, messageId) => {
   try {
@@ -135,7 +130,7 @@ export const deleteMessage = async (userId, messageId) => {
  * Remove a conversation between user(s)
  * @param userId id of the user requesting the latest messages
  * @param conversationId id of the conversation
- * @returns {Promise<AxiosResponse<any> | * | {error: string}>} deleted conversation
+ * @returns {Promise<{message}>} the deleted conversation
  */
 export const deleteConversation = async (userId, conversationId) => {
   try {
