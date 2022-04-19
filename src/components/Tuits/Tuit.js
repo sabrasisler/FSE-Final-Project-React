@@ -4,6 +4,7 @@ import TuitImage from './TuitImage';
 import TuitVideo from './TuitVideo';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTuitThunk } from '../../redux/tuitSlice';
+import { Link } from 'react-router-dom';
 
 export const TuitContext = createContext();
 
@@ -21,19 +22,21 @@ const Tuit = ({ tuitFromList }) => {
     tuit && (
       <TuitContext.Provider value={[tuit, setTuit]}>
         <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>
-          <div className='pe-2'>
-            {tuit.author && (
-              <img
-                src={
-                  tuit.author.profilePhoto
-                    ? tuit.author.profilePhoto
-                    : `../images/${tuit.author.username}.jpg`
-                }
-                className='ttr-tuit-avatar-logo rounded-circle'
-                alt='profile'
-              />
-            )}
-          </div>
+          <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`}>
+            <div className='pe-2'>
+              {tuit.author && (
+                <img
+                  src={
+                    tuit.author.profilePhoto
+                      ? tuit.author.profilePhoto
+                      : `../images/${tuit.author.username}.jpg`
+                  }
+                  className='ttr-tuit-avatar-logo rounded-circle'
+                  alt='profile'
+                />
+              )}
+            </div>
+          </Link>
           <div className='w-100'>
             {userId === tuit.author.id ? ( // only delete if tuit belongs to user
               <i
@@ -42,8 +45,9 @@ const Tuit = ({ tuitFromList }) => {
               ></i>
             ) : null}
             <p className='fs-6 fw-bold'>
-              {tuit.author && tuit.author.name}@
-              {tuit.author && tuit.author.username} - {tuit.createdAt}
+              {tuit.author && tuit.author.name} -
+              {/* This link and the one above will naviagate a user's the profile page for the user who posted this tuit.  */} 
+              <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`} >@{tuit.author && tuit.author.username}</Link> - {tuit.createdAt} 
             </p>
             {tuit.tuit}
             {tuit.youtube && <TuitVideo />}

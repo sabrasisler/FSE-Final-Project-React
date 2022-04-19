@@ -3,6 +3,7 @@ import {
   deleteUser,
   findAllUsers,
   findUserById,
+  followUser
 } from '../services/users-service';
 
 // sample user to insert
@@ -95,5 +96,41 @@ describe('findAllUsers', () => {
       expect(user.username).toEqual(username);
       expect(user.email).toEqual(`${username}@stooges.com`);
     });
+  });
+});
+
+describe('followUser', () => {
+  // A sample user to be added
+  const david = {
+    username: 'david123',
+    password: 'david321',
+    email: 'david@gmail.com',
+  };
+
+  let davidId = '';
+  let ripleyId = '';
+
+  // Before each test add our users and record their ids
+  beforeAll(async () => {
+    const davidUser = await createUser(david);
+    const ripleyUser = await createUser(ripley);
+
+    davidId = davidUser.id;
+    ripleyId = ripleyUser.id;
+  });
+
+  // After each test remove our users
+  afterAll(async () => {
+    await deleteUser(ripleyId);
+    await deleteUser(davidId);
+  });
+
+  test('user can follow another user', async () => {
+    // Perform a follow request to create a new Follow object encapsulating the given relationship
+    const follow = await followUser(ripleyId, davidId);
+
+    // Validate the follow object is correctly populated.
+    expect(follow.uid).toEqual(ripleyId);
+    expect(follow.followeeId).toEqual(davidId);
   });
 });
