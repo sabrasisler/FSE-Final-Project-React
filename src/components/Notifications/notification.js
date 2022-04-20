@@ -10,7 +10,7 @@ const Notification = ({ notificationFromList }) => {
     console.log(notification.id);
 
     // create a notification message depending on the type of notification
-    var notificationString;
+    let notificationString;
     if (notification.type == "FOLLOWS") {
         notificationString = <span> followed you</span>
     } else if (notification.type == "LIKES") {
