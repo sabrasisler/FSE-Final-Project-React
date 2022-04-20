@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { markNotificationAsRead } from "./../../services/notifications-service";
-
+import { Link } from 'react-router-dom';
 /**
  * A component to render one notification.
  */
@@ -29,10 +29,13 @@ const Notification = ({ notificationFromList }) => {
     } else {
         notificationString = <span> messaged you.</span>
     }
+
+    const userActingLink = <Link to={`/tuiter/${notification.userActing.id}`} >@{notification.userActing && notification.userActing.username}</Link>
+
     return (
         <div className='p-2 ttr-tuit list-group-item d-flex rounded-0' >
             <span onClick={() => markNotificationAsRead(notification.id)}>
-                {notification.read ? <i> {notification.userActing.username} {notificationString} </i> : <strong> {notification.userActing.username} {notificationString}</strong>}
+                {notification.read ? <i> {userActingLink} {notificationString} </i> : <strong> {notification.userActing.username} {notificationString}</strong>}
             </span>
 
         </div>
