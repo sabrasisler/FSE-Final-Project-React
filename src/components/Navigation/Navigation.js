@@ -1,22 +1,39 @@
 import React from 'react';
 import './navigation.css';
 import { useLocation, Link } from 'react-router-dom';
+import {useSelector} from "react-redux";
+
+import { findUnreadNotificationsForUser } from '../../services/notifications-service';
 
 /**
  * Displays the main navigation menu of the app.
  */
 function Navigation() {
   const { pathname } = useLocation();
+  const authUser = useSelector((state) => state.user.data);
+
+  let userNotifications = findUnreadNotificationsForUser(authUser.id);
+  let notificationIcon;
+  console.log(userNotifications);
+  if (userNotifications.length > 0) {
+    notificationIcon = 'fa-bell'
+    console.log(" HAVE UNREAD NOTIFICATIONS");
+  } else {
+    notificationIcon = "fa-bookmark"
+    console.log(" no unread notifications");
+  }
+  
+
   const links = [
     { label: 'Tuiter', icon: 'fa-square-t', path: '/tuiter' },
     { label: 'Home', icon: 'fa-home', path: '/home' },
     { label: 'Explore', icon: 'fa-hashtag', path: '/explore' },
-    { label: 'Notifications', icon: 'fa-bell', path: '/notifications' },
+    { label: 'Notifications', icon: notificationIcon, path: '/notifications' },
     { label: 'Messages', icon: 'fa-envelope', path: '/messages' },
     { label: 'Bookmarks', icon: 'fa-bookmark', path: '/bookmarks' },
     { label: 'Lists', icon: 'fa-list', path: '/lists' },
     { label: 'Profile', icon: 'fa-user', path: '/profile/my-tuits' },
-    { label: 'More', icon: 'fa-circle-ellipsis', path: '/more' },
+    { label: 'More', icon: 'fa-circle-ellipsis color-blue', path: '/more' },
   ];
   return (
     <div className='ttr-navigation'>
