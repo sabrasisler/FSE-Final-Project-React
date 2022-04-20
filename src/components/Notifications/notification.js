@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { markNotificationAsRead } from "./../../services/notifications-service";
 
 /**
@@ -12,20 +10,22 @@ const Notification = ({ notificationFromList }) => {
     console.log(notification.id);
 
     // create a notification message depending on the type of notification
-    var nstring;
-    if (notification.type == "FOLLOWS") {
-        nstring = <span> followed you</span>
-    } else if (notification.type == "LIKES") {
-        nstring = <span> liked your tuit. </span>
-    } else {
-        nstring = <span> messaged you.</span>
+    let notificationString;
+    switch (notification.type) {
+        case "FOLLOWS":
+            notificationString = <span> followed you</span>
+        case "LIKES":
+            notificationString = <span> liked your tuit. </span>
+        case "MESSAGES":
+            notificationString = <span> messaged you.</span>
+        default:
+            console.log("Notification Type is invalid");
     }
-
 
     return (
         <div className='p-2 ttr-tuit list-group-item d-flex rounded-0' >
             <span onClick={() => markNotificationAsRead(notification.id)}>
-                {notification.read ? <i> {notification.userActing.username} {nstring} </i> : <strong> {notification.userActing.username} {nstring}</strong>}
+                {notification.read ? <i> {notification.userActing.username} {notificationString} </i> : <strong> {notification.userActing.username} {nstring}</strong>}
             </span>
 
         </div>
