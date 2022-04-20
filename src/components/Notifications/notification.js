@@ -35,7 +35,7 @@ const Notification = ({ notificationFromList }) => {
     return (
         <div className='p-2 ttr-tuit list-group-item d-flex rounded-0' >
             <span onClick={() => markNotificationAsRead(notification.id)}>
-                {notification.read ? <i> {userActingLink} {notificationString} </i> : <strong> {notification.userActing.username} {notificationString}</strong>}
+                {notification.read ? <i> {userActingLink} {notificationString} </i> : <strong> {userActingLink} {notificationString}</strong>}
             </span>
 
         </div>
