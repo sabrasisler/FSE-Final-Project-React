@@ -27,7 +27,7 @@ const NotificationsView = () => {
 
     const listenForNewFollowsOnSocket = async () => {
         socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
-        socket.on('NEW_FOLLOW', () => {
+        socket.on('NEW_NOTIFICATION', () => {
         // when a new message is emitted to the room
         console.log('new follow from server!');
         findMyNotifications();
