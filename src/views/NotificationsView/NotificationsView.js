@@ -25,18 +25,18 @@ const NotificationsView = () => {
         setNotifications(res);
     };
 
-    const listenForNewFollowsOnSocket = async () => {
+    const listenForNewNotificationsOnSocket = async () => {
         socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
         socket.on('NEW_NOTIFICATION', () => {
         // when a new message is emitted to the room
-        console.log('new follow from server!');
+        console.log('new notification from server!');
         findMyNotifications();
     });
     };
 
 
     useEffect(() => {
-        listenForNewFollowsOnSocket();
+        listenForNewNotificationsOnSocket();
     });
     return (
         <div>
