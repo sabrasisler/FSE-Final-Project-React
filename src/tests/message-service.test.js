@@ -1,4 +1,8 @@
-import { createConversation, api } from '../services/messages-service';
+import {
+  createConversation,
+  api,
+  sendMessage,
+} from '../services/messages-service';
 
 describe('MESSAGE API SERVICE', () => {
   const BASE_URL = process.env.REACT_APP_API_URL;
@@ -49,6 +53,22 @@ describe('MESSAGE API SERVICE', () => {
     id: '625f3af2e0084f5f093ed10b',
   };
 
+  const mockMessagePromise = {
+    sender: {
+      name: 'Bruce Wayne',
+      profilePhoto:
+        'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png',
+      username: 'batman',
+      id: '623a18276cd5e5d3d27ee790',
+    },
+    conversation: '6254d5c5c7c6a5e06a32e60b',
+    message: 'Hello, group. I am Bruce',
+    removeFor: [],
+    createdAt: '04/11/22, 09:29 PM',
+    updatedAt: '2022-04-12',
+    id: '6254d5e9c7c6a5e06a32e60f',
+  };
+
   it('can create a group conversation', async () => {
     const mockPost = jest.spyOn(api, 'post');
     api.post.mockImplementation(() =>
@@ -77,7 +97,22 @@ describe('MESSAGE API SERVICE', () => {
     mockPost.mockRestore();
   });
 
-  it('can create a message', async () => {
-    //TODO: ...
+  it('can send a message', async () => {
+    const mockAxiosPost = jest.spyOn(api, 'post');
+    api.post.mockImplementation(() =>
+      Promise.resolve({ data: mockMessagePromise })
+    );
+    const userId = '623a18276cd5e5d3d27ee790';
+    const conversationId = '6254d5c5c7c6a5e06a32e60b';
+    const message = 'Hello, group. I am Bruce';
+
+    const newMessage = await sendMessage(userId, conversationId, message);
+
+    expect(mockAxiosPost).toHaveBeenCalledWith(
+      `${MESSAGES_API}/${userId}/conversations/${conversationId}/messages`,
+      { message }
+    );
+    expect(newMessage).toStrictEqual(mockMessagePromise);
+    mockAxiosPost.mockRestore();
   });
 });
