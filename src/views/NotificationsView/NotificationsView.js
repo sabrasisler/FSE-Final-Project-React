@@ -28,11 +28,16 @@ const NotificationsView = () => {
     const listenForNewNotificationsOnSocket = async () => {
         socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
         socket.on('NEW_NOTIFICATION', () => {
+            // when a new notification is emitted to the room, find all of our notifications and refresh the state of our page
+            console.log('new notification from server!');
+            findMyNotifications();
+        });
 
-        // when a new notification is emitted to the room, find all of our notifications and refresh the state of our page
-        console.log('new notification from server!');
-        findMyNotifications();
-    });
+        socket.on('UPDATED_NOTIFICATION', () => {
+            // when a notification update is emitted to the room, find all of our notifications and refresh the state of our page
+            console.log('notification got updated!');
+            findMyNotifications();
+        })
     };
 
 
