@@ -17,7 +17,7 @@ function Navigation() {
 
   const authUser = useSelector((state) => state.user.data);
 
-  // find all the notifications for a given user
+  // find all the unread notifications for a given user
   const findUnreadNotifications = async () => {
       const res = await findUnreadNotificationsForUser(authUser.id);
       if (res.error) {
