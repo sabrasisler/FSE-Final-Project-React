@@ -1,28 +1,26 @@
-import React, {useState} from "react";
-import {useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import React from 'react';
+import {useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {findMessagesByConversationThunk} from '../../redux/messageThunks';
 
 /**
  * A component to render each individual conversation.
- * @param conversationFromList conversation from a list of conversations
- * @returns {JSX.Element}
+ * @param conversationconversation from a list of conversations
  */
-const Conversation = ({conversationFromList}) => {
-    const [conversation] = useState(conversationFromList);
-    const userId = useSelector((state) => state.user.data.id);
-    // const dispatch = useDispatch();
+const Conversation = ({conversation}) => {
+    const dispatch = useDispatch();
     const handleDeleteConversation = async (cid) => {
         // TODO
     };
     return (
         <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>
             <div className='pe-2'>
-                {conversation.sender && (
+                {conversation.recipients && conversation.recipients.length > 0 && (
                     <img
                         src={
-                            conversation.sender.profilePhoto
-                                ? conversation.sender.profilePhoto
-                                : `../images/${conversation.sender.username}.jpg`
+                            conversation.recipients[0].profilePhoto
+                                ? conversation.recipients[0].profilePhoto
+                                : `../images/${conversation.recipients[0].username}.jpg`
                         }
                         className='ttr-tuit-avatar-logo rounded-circle'
                         alt='profile'
@@ -30,24 +28,27 @@ const Conversation = ({conversationFromList}) => {
                 )}
             </div>
             <div className='w-100'>
-                {userId === conversation.sender._id ? ( // only delete if tuit belongs to user
-                    <i
-                        onClick={() => handleDeleteConversation(conversation._id)}
-                        className='fas btn fa-remove fa-2x fa-pull-right'
-                    ></i>
-                ) : null}
+                <i
+                    onClick={() => handleDeleteConversation(conversation._id)}
+                    className='fas btn fa-remove fa-2x fa-pull-right'
+                ></i>
                 <Link
-                    key={conversation._id}
-                    to={`/messages/${conversation.sender._id}/${conversation._id}`}
+                    to={`/messages/${conversation.conversation}`}
+                    id={conversation.id}
+                    className='text-decoration-none text-white'
+                    onClick={() =>
+                        dispatch(findMessagesByConversationThunk(conversation.conversation))
+                    }
                 >
                     <p className='fs-6 fw-bold'>
-                        {conversation && conversation.sender.name}
+                        {conversation && conversation.recipients.length === 1 && conversation.recipients[0].name}
+                        {conversation && conversation.recipients.length > 1 && conversation.recipients[0].name + ", " + conversation.recipients[1].name + " ..."}
                     </p>
-                    {conversation && conversation.latestMessage}
+                    {conversation && conversation.message}
                 </Link>
             </div>
         </li>
     );
-}
+};
 
 export default Conversation;
