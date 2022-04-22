@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Routes, Route} from 'react-router-dom';
-import Conversations from '../../components/Messages/Conversations';
+import ConversationsInbox from '../../components/Messages/ConversationsInbox';
 import Chat from '../../components/Messages/Chat';
 import {findInboxMessagesThunk} from '../../redux/messageThunks';
 import {AlertBox} from "../../components";
@@ -23,7 +23,7 @@ const MessagesView = () => {
             <h1>Messages</h1>
             {inbox.length < 1 && <AlertBox message={'No conversations.'}/>}
             <Routes>
-                <Route exact path={`/`} element={<Conversations conversations={inbox}/>}/>
+                <Route exact path={`/`} element={<ConversationsInbox conversations={inbox}/>}/>
                 <Route
                     exact
                     path={`/${activeChat.id}`}

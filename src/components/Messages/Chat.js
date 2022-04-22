@@ -8,8 +8,8 @@ import {
 import {Link} from 'react-router-dom';
 import {FormInput} from '../../forms';
 import {socket} from '../../services/socket-config';
-import {ChatFeed} from "react-chat-ui";
 import {AlertBox} from "../index";
+import Feed from "./Feed";
 
 /**
  * Displays the active chat window with all its messages and send message textbox.
@@ -66,29 +66,7 @@ const Chat = ({conversationId}) => {
                 ))}
             </p>
             {messages.length < 1 && <AlertBox message={'No messages.'}/>}
-            {messages &&
-                <ChatFeed
-                    messages={messages} // Boolean: list of message objects
-                    maxHeight="500px"
-                    hasInputField={false} // Boolean: use our input, or use your own
-                    showSenderName={true} // show the name of the user who sent the message
-                    bubblesCentered={true} //Boolean should the bubbles be centered in the feed?
-                    // JSON: Custom bubble styles
-                    bubbleStyles={{
-                        text: {
-                            fontSize: 16,
-                        },
-                        chatbubble: {
-                            borderRadius: 30,
-                            padding: 20,
-                            backgroundColor: "gray"
-                        },
-                        userBubble: {
-                            backgroundColor: "#2a9fd6",
-                        },
-                    }}
-                />}
-
+            {messages.length > 0 && <Feed messages={messages}/>} {/*list of message objects*/}
             <form onSubmit={(e) => sendMessage(e)}>
                 <FormInput
                     label='Send'

@@ -15,7 +15,7 @@ import {createConversation as APIcreateConversation} from '../../services/messag
  * @param conversations conversations list returned by an API
  * @returns {JSX.Element}
  */
-const Conversations = ({conversations = []}) => {
+const ConversationsInbox = ({conversations = []}) => {
     const loggedInUser = useSelector((state) => state.user.data);
     const dispatch = useDispatch();
     const [showNewMessageModal, setShowNewMessageModal] = useState(false);
@@ -91,4 +91,4 @@ const Conversations = ({conversations = []}) => {
     );
 };
 
-export default Conversations;
+export default ConversationsInbox;
