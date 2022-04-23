@@ -1,7 +1,9 @@
-import React from 'react';
-import {useDispatch} from 'react-redux';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {findMessagesByConversationThunk} from '../../redux/messageThunks';
+import {deleteConversation} from "../../services/messages-service";
+import {AlertBox} from "../index";
 
 /**
  * A component to render each individual conversation.
@@ -9,8 +11,15 @@ import {findMessagesByConversationThunk} from '../../redux/messageThunks';
  */
 const Conversation = ({conversation}) => {
     const dispatch = useDispatch();
-    const handleDeleteConversation = async (cid) => {
-        // TODO
+    const userId = useSelector((state) => state.user.data.id);
+    const [error, setError] = useState();
+    const handleDeleteConversation = async (conversationId) => {
+        let res = await deleteConversation(userId, conversationId);
+        if (res.error) {
+            return setError(
+                'We ran into an issue deleting your conversation. Please try again later.'
+            );
+        }
     };
     return (
         <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>
@@ -29,7 +38,9 @@ const Conversation = ({conversation}) => {
             </div>
             <div className='w-100'>
                 <i
-                    onClick={() => handleDeleteConversation(conversation._id)}
+                    onClick={() => {
+                        handleDeleteConversation(conversation.conversation);
+                    }}
                     className='fas btn fa-remove fa-2x fa-pull-right'
                 ></i>
                 <Link
@@ -47,6 +58,7 @@ const Conversation = ({conversation}) => {
                     {conversation && conversation.message}
                 </Link>
             </div>
+            {error && <AlertBox message={error}/>}
         </li>
     );
 };
