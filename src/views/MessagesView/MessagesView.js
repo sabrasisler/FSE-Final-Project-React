@@ -16,8 +16,7 @@ const MessagesView = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(findInboxMessagesThunk());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
     return (
         <div>
             <h1>Messages</h1>
