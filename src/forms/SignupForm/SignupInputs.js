@@ -74,7 +74,7 @@ const SignupInputs = ({ inputValues, setInputValues, setInputFields }) => {
 
   useEffect(() => {
     giveParentFormAccessToInputFields(inputs);
-  }, []);
+  });
 
   return inputs.map((input) => {
     if (!user) {
