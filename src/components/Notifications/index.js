@@ -12,8 +12,8 @@ const Notifications = ({ notifications }) => {
             <ul className='ttr-tuits list-group'>
                 {notifications &&
                     notifications.map((notification) => {
-                        return <Notification key={notification.id} notificationFromList={notification} />;
-                    })}
+                        return <Notification key={notification.id} notificationFromList={notification} />})
+                    }
             </ul>
         </div>
     );
