@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback } from 'react';
 import {useNavigate} from 'react-router-dom';
 import {findInboxMessagesThunk} from '../../redux/messageThunks';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 import {socket} from '../../services/socket-config';
 import Conversation from './Conversation';
 import {PopupModal} from '../index';
@@ -22,12 +22,13 @@ const ConversationsInbox = ({conversations = []}) => {
     const [newConversationUsers, setNewConversationUsers] = useState([]);
     let navigateToChatView = useNavigate();
 
-    const listenForNewMessagesOnSocket = () => {
-        socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
-        socket.on('NEW_MESSAGE', () => {
-            dispatch(findInboxMessagesThunk()); // Fetch fresh conversations.
-        });
-    };
+    const listenForNewMessagesOnSocket = useCallback(
+        () => {
+            socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
+            socket.on('NEW_MESSAGE', () => {
+                dispatch(findInboxMessagesThunk()); // Fetch fresh conversations.
+            });
+        }, [dispatch]);
 
     const createNewConversation = async () => {
         const conversation = {
@@ -49,8 +50,7 @@ const ConversationsInbox = ({conversations = []}) => {
 
     useEffect(() => {
         listenForNewMessagesOnSocket();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [listenForNewMessagesOnSocket]);
 
     const newMessageModalProps = {
         content: {

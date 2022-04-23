@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {
@@ -29,19 +29,21 @@ const Chat = ({conversationId}) => {
         message: '',
     });
 
-    const listenForNewMessagesOnSocket = () => {
-        socket.emit('JOIN_ROOM');
-        socket.on('NEW_MESSAGE', () => {
-            // Make a REST post request to update inbox and active chat.
-            dispatch(findMessagesByConversationThunk(conversationId));
-        });
-    };
+
+    const listenForNewMessagesOnSocket = useCallback(
+        (conversationId) => {
+            socket.emit('JOIN_ROOM');
+            socket.on('NEW_MESSAGE', () => {
+                // Make a REST post request to update inbox and active chat.
+                dispatch(findMessagesByConversationThunk(conversationId));
+            })
+        }, 
+        [dispatch]);
 
     useEffect(() => {
         listenForNewMessagesOnSocket();
         dispatch(findMessagesByConversationThunk(conversationId));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch, listenForNewMessagesOnSocket, conversationId]);
 
     const sendMessage = (e) => {
         e.preventDefault();

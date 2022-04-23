@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
 /**
@@ -17,7 +17,7 @@ const PopupModal = ({ props }) => {
 
   useEffect(() => {
     setShow(show);
-  }, [show]);
+  }, [setShow, show]);
   return (
     <div>
       <Modal size={content.size} show={show} onHide={setShow}>

@@ -21,12 +21,12 @@ const FindUsers = ({ selectedUsers, setSelectedUsers }) => {
       if (!searchValue) return;
       return dispatch(findUsersByNameThunk(searchValue));
     },
-    [searchValue]
+    [dispatch]
   );
 
   useEffect(() => {
     findAllUsers(searchValue);
-  }, [findAllUsers]);
+  }, [findAllUsers, searchValue]);
 
   /**
    * When the user selects someone from the search results, this function resets the search inbox value, clears the found users in the results in redux state, and sets the state of the selected users maintained by the parent component (which then makes an API call).

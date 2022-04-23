@@ -1,7 +1,6 @@
 import React from 'react';
 //import './Notification.css';
 import Notification from './notification.js';
-import { markNotificationAsRead } from '../../services/notifications-service.js';
 
 /**
  * A container to display a list of notifications.
