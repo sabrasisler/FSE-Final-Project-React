@@ -9,7 +9,7 @@ import { markNotificationAsRead } from '../../services/notifications-service.js'
 const Notifications = ({ notifications }) => {
     return (
         <div>
-            <ul className='ttr-notifications list-group'>
+            <ul className='ttr-tuits list-group'>
                 {notifications &&
                     notifications.map((notification) => {
                         return <Notification key={notification.id} notificationFromList={notification} />;
