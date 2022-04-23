@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { markNotificationAsRead } from "./../../services/notifications-service";
-
+import { Link } from 'react-router-dom';
 /**
  * A component to render one notification.
  */
@@ -10,18 +10,7 @@ const Notification = ({ notificationFromList }) => {
     console.log(notification.id);
 
     // create a notification message depending on the type of notification
-    // let notificationString;
-    // switch (notification.type) {
-    //     case "FOLLOWS":
-    //         notificationString = <span> followed you</span>
-    //     case "LIKES":
-    //         notificationString = <span> liked your tuit. </span>
-    //     case "MESSAGES":
-    //         notificationString = <span> messaged you.</span>
-    //     default:
-    //         console.log("Notification Type is invalid");
-    // }
-    var notificationString;
+    let notificationString;
     if (notification.type == "FOLLOWS") {
         notificationString = <span> followed you</span>
     } else if (notification.type == "LIKES") {
@@ -29,10 +18,13 @@ const Notification = ({ notificationFromList }) => {
     } else {
         notificationString = <span> messaged you.</span>
     }
+
+    const userActingLink = <Link to={`/tuiter/${notification.userActing.id}`} >@{notification.userActing && notification.userActing.username}</Link>
+
     return (
         <div className='p-2 ttr-tuit list-group-item d-flex rounded-0' >
             <span onClick={() => markNotificationAsRead(notification.id)}>
-                {notification.read ? <i> {notification.userActing.username} {notificationString} </i> : <strong> {notification.userActing.username} {notificationString}</strong>}
+                {notification.read ? <i> {userActingLink} {notificationString} </i> : <strong> {userActingLink} {notificationString}</strong>}
             </span>
 
         </div>
