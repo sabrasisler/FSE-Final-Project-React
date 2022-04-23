@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { processError } from './helpers';
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 const USERS_API = `${BASE_URL}/users`;
