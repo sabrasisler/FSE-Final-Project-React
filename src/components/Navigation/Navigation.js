@@ -32,7 +32,6 @@ function Navigation() {
   }, []);
 
 
-  //const userNotifications = await findUnreadNotificationsForUser(authUser.id);
   let notificationColor;
   console.log(notifications);
   if (notifications.length > 0) {
