@@ -22,7 +22,7 @@ const Tuit = ({ tuitFromList }) => {
     tuit && (
       <TuitContext.Provider value={[tuit, setTuit]}>
         <li className='p-2 ttr-tuit list-group-item d-flex rounded-0'>
-          <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`}>
+          <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}/tuits`}>
             <div className='pe-2'>
               {tuit.author && (
                 <img
@@ -47,7 +47,7 @@ const Tuit = ({ tuitFromList }) => {
             <p className='fs-6 fw-bold'>
               {tuit.author && tuit.author.name} -
               {/* This link and the one above will naviagate a user's the profile page for the user who posted this tuit.  */} 
-              <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}`} >@{tuit.author && tuit.author.username}</Link> - {tuit.createdAt} 
+              <Link to={userId === tuit.author.id ? '/profile' : `/tuiter/${tuit.author.id}/tuits`} >@{tuit.author && tuit.author.username}</Link> - {tuit.createdAt} 
             </p>
             {tuit.tuit}
             {tuit.youtube && <TuitVideo />}
