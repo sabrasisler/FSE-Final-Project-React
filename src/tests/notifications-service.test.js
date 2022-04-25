@@ -8,7 +8,8 @@ import {
     api
 } from "../services/notifications-service"
 
-describe('MESSAGE API SERVICE', () => {
+// tests for notifications service
+describe('NOTIFICATIONS API SERVICE TEST', () => {
     const BASE_URL = process.env.REACT_APP_API_URL;
     const NOTIFICATIONS_API = `${BASE_URL}/notifications`;
     const USERS_API = `${BASE_URL}/users`;
