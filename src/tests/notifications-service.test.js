@@ -1,98 +1,126 @@
-// import {
-//     createUser,
-//     deleteUser,
-//   } from '../services/users-service';
-// import {findNotificationsForUser, markNotificationAsRead} from "../services/notifications-service"
-  
-//   // sample user to insert
-//   const ripley = {
-//     username: 'ellenripley',
-//     email: 'ellenripley@aliens.com',
-//     accountType: 'Personal',
-//     birthday: '01-02-1970',
-//     password: 'ripley123',
-//     bio: 'kill all aliens',
-//   };
-  
-//   describe('createUser', () => {
-//     test('can insert new users with REST API', async () => {
-//       // insert new user in the database
-//       const newUser = await createUser(ripley);
-//       // verify inserted user's properties match parameter user
-//       expect(newUser.username).toEqual(ripley.username);
-//       expect(newUser.email).toEqual(ripley.email);
-  
-//       const deleteCount = await deleteUser(newUser.id); //cleanup
-//       expect(deleteCount).toEqual(1);
-//     });
-//   });
-  
-//   describe('findUserById', () => {
-//     // sample user we want to retrieve
-//     const adam = {
-//       username: 'adam_smith',
-//       password: 'not0sum',
-//       email: 'wealth@nations.com',
-//     };
-  
-//     test('can retrieve user from REST API by primary key', async () => {
-//       // insert the user in the database
-//       const newUser = await createUser(ripley);
-  
-//       // verify new user matches the parameter user
-//       expect(newUser.username).toEqual(ripley.username);
-//       expect(newUser.email).toEqual(ripley.email);
-  
-//       // retrieve the user from the database by its primary key
-//       const existingUser = await findUserById(newUser.id);
-  
-//       // verify retrieved user matches parameter user
-//       expect(existingUser.username).toEqual(ripley.username);
-//       expect(existingUser.email).toEqual(ripley.email);
-  
-//       const deleteCount = await deleteUser(newUser.id); //cleanup
-//       expect(deleteCount).toEqual(1);
-//     });
-//   });
-  
-//   describe('findAllUsers', () => {
-//     // sample users we'll insert to then retrieve
-//     const usernames = ['larry', 'curley', 'moe'];
-  
-//     // setup data before test
-//     beforeAll(async () =>
-//       // insert several known users
-//       usernames.map((username) =>
-//         createUser({
-//           username,
-//           password: `${username}123`,
-//           email: `${username}@stooges.com`,
-//         })
-//       )
-//     );
-  
-//     afterAll(() =>
-//       // delete the users we inserted
-//       usernames.map(async (user) => await deleteUser(user.id))
-//     );
-  
-//     test('can retrieve all users from REST API', async () => {
-//       // retrieve all the users
-//       const users = await findAllUsers();
-  
-//       // there should be a minimum number of users
-//       expect(users.length).toBeGreaterThanOrEqual(usernames.length);
-  
-//       // let's check each user we inserted
-//       const usersWeInserted = users.filter(
-//         (user) => usernames.indexOf(user.username) >= 0
-//       );
-  
-//       // compare the actual users in database with the ones we sent
-//       usersWeInserted.forEach((user) => {
-//         const username = usernames.find((username) => username === user.username);
-//         expect(user.username).toEqual(username);
-//         expect(user.email).toEqual(`${username}@stooges.com`);
-//       });
-//     });
-//   });
+import {
+    findNotificationsForUser,
+    markNotificationAsRead,
+    findUnreadNotificationsForUser,
+    api
+} from "../services/notifications-service"
+
+describe('MESSAGE API SERVICE', () => {
+    const BASE_URL = process.env.REACT_APP_API_URL;
+    const NOTIFICATIONS_API = `${BASE_URL}/notifications`;
+    const USERS_API = `${BASE_URL}/users`;
+
+    const mockNotificationsPromise = [{
+        type: 'LIKES',
+        userNotified: "623a18276cd5e5d3d27ee790",
+        userActing: "624ca4a2417f103f5e08eaea",
+        read: "false",
+        _id: "6264a41f6065aecb93894fb4",
+        createdAt: "2022-04-24T01:13:03.042Z",
+        updatedAt: "2022-04-24T01:13:03.042Z",
+        __v: 0
+    },
+    {
+        type: 'FOLLOWS',
+        userNotified: "623a18276cd5e5d3d27ee790",
+        userActing: "624ca4a2417f103f5e08eaea",
+        read: "true",
+        _id: "6264a4046065aecb93894fa0",
+        createdAt: "2022-04-23T01:13:03.042Z",
+        updatedAt: "2022-04-23T01:13:03.042Z",
+        __v: 0
+    }]
+
+    const mockReadNotificationPromise = {
+        type: 'LIKES',
+        userNotified: "623a18276cd5e5d3d27ee790",
+        userActing: "624ca4a2417f103f5e08eaea",
+        read: "true",
+        _id: "6264a41f6065aecb93894fb4",
+        createdAt: "2022-04-24T01:13:03.042Z",
+        updatedAt: "2022-04-24T01:13:03.042Z",
+        __v: 0
+    }
+
+    const mockUnreadNotificationsPromise = [{
+        type: 'LIKES',
+        userNotified: "623a18276cd5e5d3d27ee790",
+        userActing: "624ca4a2417f103f5e08eaea",
+        read: "false",
+        _id: "6264a41f6065aecb93894fb4",
+        createdAt: "2022-04-24T01:13:03.042Z",
+        updatedAt: "2022-04-24T01:13:03.042Z",
+        __v: 0
+    },
+    {
+        type: 'FOLLOWS',
+        userNotified: "623a18276cd5e5d3d27ee790",
+        userActing: "624ca4a2417f103f5e08eaea",
+        read: "false",
+        _id: "6264a4046065aecb93894fa0",
+        createdAt: "2022-04-23T01:13:03.042Z",
+        updatedAt: "2022-04-23T01:13:03.042Z",
+        __v: 0
+    }, {
+        type: 'MESSAGES',
+        userNotified: "623a18276cd5e5d3d27ee790",
+        userActing: "624ca4a2417f103f5e08eaea",
+        read: "false",
+        _id: "6264a4046065aecb93894fa0",
+        createdAt: "2022-04-23T01:13:03.042Z",
+        updatedAt: "2022-04-23T01:13:03.042Z",
+        __v: 0
+    }]
+
+    // Test findNotificationsForUser to retrieve mock notifications for a particular user
+    it('find notifications for user', async () => {
+        const mockAxios = jest.spyOn(api, 'get');
+
+        api.get.mockImplementation(() =>
+            Promise.resolve({ data: mockNotificationsPromise })
+        );
+        const userId = '623a18276cd5e5d3d27ee790';
+        const userNotifications = await findNotificationsForUser(userId);
+
+        expect(mockAxios).toHaveBeenCalledWith(
+            `${USERS_API}/${userId}/notifications`
+        );
+        expect(userNotifications).toStrictEqual(mockNotificationsPromise);
+        mockAxios.mockRestore();
+    });
+
+    // Test markNotificationAsRead service to mark a given notifications as read
+    it('mark a notification as read', async () => {
+        const mockAxios = jest.spyOn(api, 'put');
+        api.put.mockImplementation(() =>
+            Promise.resolve({ data: mockReadNotificationPromise })
+        );
+        const notificationId = '6264a41f6065aecb93894fb4';
+        const notificationToBeUpdated = await markNotificationAsRead(
+            notificationId
+        );
+
+        expect(mockAxios).toHaveBeenCalledWith(
+            `${NOTIFICATIONS_API}/${notificationId}/read`
+        );
+        expect(notificationToBeUpdated).toStrictEqual(mockReadNotificationPromise);
+        mockAxios.mockRestore();
+    });
+
+    // Test findNotificationsForUser to retrieve mock notifications for a particular user
+    it('find unread notifications for user', async () => {
+        const mockAxios = jest.spyOn(api, 'get');
+
+        api.get.mockImplementation(() =>
+            Promise.resolve({ data: mockUnreadNotificationsPromise })
+        );
+        const userId = '623a18276cd5e5d3d27ee790';
+        const userNotifications = await findUnreadNotificationsForUser(userId);
+
+        expect(mockAxios).toHaveBeenCalledWith(
+            `${USERS_API}/${userId}/notifications/unread`
+        );
+        expect(userNotifications).toStrictEqual(mockUnreadNotificationsPromise);
+        mockAxios.mockRestore();
+    });
+});
