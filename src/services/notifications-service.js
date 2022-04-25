@@ -11,12 +11,6 @@ const USERS_API = `${process.env.REACT_APP_API_URL}/users`;
 
 export const api = axios.create({ withCredentials: true });
 
-export const findAllNotifications = () =>
-  api
-    .get(NOTIFICATIONS_API)
-    .then((response) => response.data)
-    .catch((err) => processError(err));
-
 /**
  * Find all the notifications for a particular user.
  * @param userId id of the user requesting the latest notifications
@@ -30,18 +24,7 @@ export const findNotificationsForUser = async (userId) => {
   } catch (err) {
     return processError(err);
   }
-  // api
-  //   .get(`${USERS_API}/${userId}/notifications`)
-  //   .then((response) => response.data)
-  //   .catch((err) => processError(err));
-
 };
-
-export const createNotification = (userId, type, userId2, notificationString) =>
-  api
-    .post(`${USERS_API}/${userId}/notifications`, { userNotified: userId, type: type, userActing: userId2, notificationString: notificationString })
-    .then((response) => response.data)
-    .catch((err) => processError(err));
 
 /**
  * Update a notificaton as read.
@@ -52,10 +35,6 @@ export const createNotification = (userId, type, userId2, notificationString) =>
     const res = await api.put(`${NOTIFICATIONS_API}/${nid}/read`);
     return res.data;
 };
-
-// export const markNotificationAsRead = (nid) =>
-//   api.put(`${NOTIFICATIONS_API}/${nid}/read`, { _id: nid })
-//     .then((response) => response.data).catch((err) => processError(err));
 
 /**
  * Get all of the unread notifications for a given user
@@ -71,10 +50,3 @@ export const createNotification = (userId, type, userId2, notificationString) =>
     return processError(err);
   }
 };
-
-
-// export const findUnreadNotificationsForUser = (userId) =>
-//   api
-//     .get(`${USERS_API}/${userId}/notifications/unread`)
-//     .then((response) => response.data)
-//     .catch((err) => processError(err));

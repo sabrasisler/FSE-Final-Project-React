@@ -1,3 +1,6 @@
+/**
+ * @File Contains tests for the notifications service file
+ */
 import {
     findNotificationsForUser,
     markNotificationAsRead,
