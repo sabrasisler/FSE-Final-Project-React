@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 /**
  * A component to render one notification.
  */
-const Notification = ({ notificationFromList }) => {
+const Notification = ({notificationFromList}) => {
 
     const [notification, setNotification] = useState(notificationFromList);
 
     // create a notification message depending on the type of notification
     let notificationLink;
     if (notification.type == "FOLLOWS") {
-        notificationLink = <Link data-testid='ttr-follows-notification-text' className='text-decoration-none text-white' to={`/tuiter/${notification.userActing.id}/tuits`} > followed you. </Link>
+        notificationLink = <Link data-testid='ttr-follows-notification-text' className='text-decoration-none text-white' to={`/tuiter/${notification.userActing.id}/tuits`} > <span className = "ttr-follows-notification-text"> followed you.</span> </Link>
     } else if (notification.type == "LIKES") {
-        notificationLink = <Link className='text-decoration-none text-white' to={`/tuiter/${notification.userNotified.id}/tuits`} > liked your tuit. </Link>
+        notificationLink = <Link className='text-decoration-none text-white' to={`/tuiter/${notification.userNotified.id}/tuits`} > <span className = "ttr-likes-notification-text"> liked your tuit.</span></Link>
     } else {
-        notificationLink = <Link className='text-decoration-none text-white' to={`/messages`}> messaged you. </Link>
+        notificationLink = <Link className='text-decoration-none text-white' to={`/messages`}> <span className = "ttr-messages-notification-text"> messaged you.</span> </Link>
     }
 
     const userActingLink = <Link to={`/tuiter/${notification.userActing.id}`} >@{notification.userActing && notification.userActing.username}</Link>
@@ -33,7 +33,6 @@ const Notification = ({ notificationFromList }) => {
             if (el) {
                 el.style.setProperty('background-color', boxColor, 'important');
             }
-        
         }}>
             <div className= 'pe-2'>
               {notification.userActing && (
