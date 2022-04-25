@@ -10,16 +10,18 @@ import { dataOrStateError } from './helpers';
  * Fetch inbox messages.
  */
 export const findInboxMessagesThunk = createAsyncThunk(
-    'messages/findInbox',
-    async (data, ThunkAPI) => {
-        const userId = ThunkAPI.getState().user.data.id;
-        let inboxMessages = await messageAPI.findInboxMessages(userId, ThunkAPI);
-        inboxMessages.forEach((inboxMessage) => {
-            // Remove logged-in user from list of recipients
-            inboxMessage.recipients = inboxMessage.recipients.filter(recipient => (recipient._id !== userId));
-        });
-        return dataOrStateError(inboxMessages, ThunkAPI);
-    }
+  'messages/findInbox',
+  async (data, ThunkAPI) => {
+    const userId = ThunkAPI.getState().user.data.id;
+    let inboxMessages = await messageAPI.findInboxMessages(userId, ThunkAPI);
+    // inboxMessages.forEach((inboxMessage) => {
+    //   // Remove logged-in user from list of recipients
+    //   inboxMessage.recipients = inboxMessage.recipients.filter(
+    //     (recipient) => recipient._id !== userId
+    //   );
+    // });
+    return dataOrStateError(inboxMessages, ThunkAPI);
+  }
 );
 
 /**
@@ -37,12 +39,6 @@ export const findMessagesByConversationThunk = createAsyncThunk(
       userId,
       conversationId
     );
-    messages.forEach((message) => {
-        message._id = message.id;
-        // Mark messages 0/1 to denote logged-in user or otherwise for bubble colours
-        message.id = userId === message.sender._id ? 0 : 1;
-        message.senderName = message.sender.name;
-    });
     conversation = dataOrStateError(conversation, ThunkAPI);
     messages = dataOrStateError(messages, ThunkAPI);
     return { conversation, messages };
