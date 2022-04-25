@@ -7,7 +7,6 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.0",
-    "better-docs": "^2.7.2",
     "bootstrap-icons": "^1.8.1",
     "clean-jsdoc-theme": "^3.3.4",
     "dotenv": "^16.0.0",
