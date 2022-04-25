@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {findMessagesByConversationThunk} from '../../redux/messageThunks';
+import {findInboxMessagesThunk, findMessagesByConversationThunk} from '../../redux/messageThunks';
 import {deleteConversation} from "../../services/messages-service";
 import {AlertBox} from "../index";
 
@@ -19,6 +19,8 @@ const Conversation = ({conversation}) => {
             return setError(
                 'We ran into an issue deleting your conversation. Please try again later.'
             );
+        } else {
+            dispatch(findInboxMessagesThunk());
         }
     };
     return (
