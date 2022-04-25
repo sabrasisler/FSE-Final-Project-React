@@ -7,12 +7,11 @@ import { Link } from 'react-router-dom';
 const Notification = ({ notificationFromList }) => {
 
     const [notification, setNotification] = useState(notificationFromList);
-    console.log(notification.id);
 
     // create a notification message depending on the type of notification
     let notificationLink;
     if (notification.type == "FOLLOWS") {
-        notificationLink = <Link className='text-decoration-none text-white' to={`/tuiter/${notification.userActing.id}/tuits`} > followed you. </Link>
+        notificationLink = <Link data-testid='ttr-follows-notification-text' className='text-decoration-none text-white' to={`/tuiter/${notification.userActing.id}/tuits`} > followed you. </Link>
     } else if (notification.type == "LIKES") {
         notificationLink = <Link className='text-decoration-none text-white' to={`/tuiter/${notification.userNotified.id}/tuits`} > liked your tuit. </Link>
     } else {
@@ -30,7 +29,7 @@ const Notification = ({ notificationFromList }) => {
 
 
     return (
-        <li className={'p-2 list-group-item d-flex rounded-0'} onClick={() => markNotificationAsRead(notification.id)} ref={(el) => {
+        <li className={'p-2 list-group-item d-flex rounded-0'} data-testid='ttr-notification-component' onClick={() => markNotificationAsRead(notification.id)} ref={(el) => {
             if (el) {
                 el.style.setProperty('background-color', boxColor, 'important');
             }
@@ -49,9 +48,9 @@ const Notification = ({ notificationFromList }) => {
                 />
               )}
             </div>
-            <div>
+            <span >
                 {notification.read ? <span> {userActingLink} {notificationLink} </span> : <strong> {userActingLink} {notificationLink}</strong>}
-            </div>
+            </span>
         </li>
     );
 }
