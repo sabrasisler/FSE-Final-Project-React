@@ -1,12 +1,54 @@
 import React from 'react';
 import './navigation.css';
 import { useLocation, Link } from 'react-router-dom';
+<<<<<<< Updated upstream
+=======
+import {useSelector} from "react-redux";
+import { useState, useEffect } from 'react';
+import { AlertBox } from '../../components';
+
+import { findUnreadNotificationsForUser } from '../../services/notifications-service';
+>>>>>>> Stashed changes
 
 /**
  * Displays the main navigation menu of the app.
  */
 function Navigation() {
   const { pathname } = useLocation();
+<<<<<<< Updated upstream
+=======
+
+  const [notifications, setNotifications] = useState([]);
+  const [error, setError] = useState();
+
+  const authUser = useSelector((state) => state.user.data);
+
+  // find all the unread notifications for a given user
+  const findUnreadNotifications = async () => {
+      const res = await findUnreadNotificationsForUser(authUser.id);
+      if (res.error) {
+          return setError(
+              'We ran into an issue. Please try again later.'
+          );
+      }
+      setNotifications(res);
+  };
+  useEffect(() => {
+    findUnreadNotifications();
+  }, []);
+
+
+  let notificationColor;
+  console.log(notifications);
+  if (notifications.length > 0) {
+    notificationColor = '#2a9fd6'
+    console.log(" HAVE UNREAD NOTIFICATIONS");
+  } else {
+    notificationColor = 'white'
+    console.log(" no unread notifications");
+  }
+
+>>>>>>> Stashed changes
   const links = [
     { label: 'Tuiter', icon: 'fa-square-t', path: '/tuiter' },
     { label: 'Home', icon: 'fa-home', path: '/home' },
@@ -20,6 +62,7 @@ function Navigation() {
   ];
   return (
     <div className='ttr-navigation'>
+      { error && <AlertBox message={error} /> }
       <ul className='list-group'>
         {links.map((link, ndx) => {
           return (
