@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { markNotificationAsRead } from "./../../services/notifications-service";
 import { Link } from 'react-router-dom';
+
 /**
- * A component to render one notification.
+ * @File A component to render one notification.
  */
 const Notification = ({notificationFromList}) => {
 
