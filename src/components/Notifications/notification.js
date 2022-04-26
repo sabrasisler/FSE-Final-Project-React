@@ -47,8 +47,8 @@ const Notification = ({notificationFromList}) => {
                 />
               )}
             </div>
-            <span className="ttr-text">
-                {notification.read ? <span> {userActingLink} {notificationLink} </span> : <strong> {userActingLink} {notificationLink}</strong>}
+            <span className='ttr-text'>
+                {notification.read ? <span className='ttr-text-normal'> {userActingLink} {notificationLink} </span> : <strong className='ttr-text-strong'> {userActingLink} {notificationLink}</strong>}
             </span>
         </li>
     );
