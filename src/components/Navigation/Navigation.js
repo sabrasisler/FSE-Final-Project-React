@@ -1,22 +1,17 @@
 import React from 'react';
 import './navigation.css';
 import { useLocation, Link } from 'react-router-dom';
-<<<<<<< Updated upstream
-=======
 import {useSelector} from "react-redux";
 import { useState, useEffect } from 'react';
 import { AlertBox } from '../../components';
 
 import { findUnreadNotificationsForUser } from '../../services/notifications-service';
->>>>>>> Stashed changes
 
 /**
  * Displays the main navigation menu of the app.
  */
 function Navigation() {
   const { pathname } = useLocation();
-<<<<<<< Updated upstream
-=======
 
   const [notifications, setNotifications] = useState([]);
   const [error, setError] = useState();
@@ -48,7 +43,6 @@ function Navigation() {
     console.log(" no unread notifications");
   }
 
->>>>>>> Stashed changes
   const links = [
     { label: 'Tuiter', icon: 'fa-square-t', path: '/tuiter' },
     { label: 'Home', icon: 'fa-home', path: '/home' },
