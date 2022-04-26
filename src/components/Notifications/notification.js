@@ -30,7 +30,12 @@ const Notification = ({ notificationFromList }) => {
 
 
     return (
-        <li className={'p-2 list-group-item d-flex rounded-0'} onClick={() => markNotificationAsRead(notification.id)} ref={(el) => {
+        <li className={'p-2 list-group-item d-flex rounded-0'} onClick={() => {
+            markNotificationAsRead(notification.id);
+            let tmpNotificaiton = notification;
+            tmpNotification.read = true;
+            setNotification(tmpNotificaiton);
+        }} ref={(el) => {
             if (el) {
                 el.style.setProperty('background-color', boxColor, 'important');
             }
