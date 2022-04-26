@@ -4,12 +4,12 @@ import Notification from './notification.js';
 import { markNotificationAsRead } from '../../services/notifications-service.js';
 
 /**
- * A container to display a list of notifications.
+ * @File A container to display a list of notifications.
  */
 const Notifications = ({ notifications }) => {
     return (
         <div>
-            <ul className='ttr-tuits list-group' data-testid='ttr-notification'>
+            <ul className='ttr-tuits list-group'>
                 {notifications &&
                     notifications.map((notification) => {
                         return <Notification key={notification.id} notificationFromList={notification} />})

@@ -1,53 +1,49 @@
-import Notifications from '../components/Notifications/index';
-import { screen, render } from '@testing-library/react';
-import { HashRouter } from 'react-router-dom';
-import { findNotificationsForUser, api} from '../services/notifications-service';
-
-const MOCKED_USERS = ['alice', 'bob', 'charlie'];
-
-// const MOCKED_TUITS = ["alice's tuit", "bob's tuit", "charlie's tuit"];
-
-const MOCKED_NOTIFICATIONS = [
-  { id: '1234', type: "FOLLOWS", userNotified: "623a18276cd5e5d3d27ee790", 
-  userActing: "624ca4a2417f103f5e08eaea", read: "false" },
-  { id: '567', tuit: "MESSAGES",userNotified: "623a18276cd5e5d3d27ee790", 
-  userActing: "624ca4a2417f103f5e08eaea", read: "false"},
-  { id: '890', tuit: "LIKES", userNotified: "623a18276cd5e5d3d27ee790", 
-  userActing: "624ca4a2417f103f5e08eaea", read: "true"}
-];
-
-const expectActualNotifications = (notifications) => {
-  for (const notification of notifications) {
-    const DOMnotification = screen.getByText(tuit.tuit);
-    expect(DOMnotification).toBeInTheDocument();
+import {act, create} from "react-test-renderer"
+import Notifications from "../components/Notifications/index";
+import { MemoryRouter } from "react-router-dom";
+import {
+  screen,
+  waitFor,
+  within,
+  window
+} from '@testing-library/react';
+/**
+ * @File Tests the rendering for a list of notificatons
+ */
+const notificationJson = [
+  {
+    "id":  "8000",
+    "type": "LIKES",
+    "userNotified": { "id": "456", "username": "bob" },
+    "userActing": { "id": "789", "username": "alice" }, 
+    "read": "false"
+  }, {
+    "id":  "9000",
+    "type": "MESSAGES",
+    "userNotified": { "id": "456", "username": "bob" },
+    "userActing": { "id": "789", "username": "alice" }, 
+    "read": "false"
+  }, {
+    "id":  "1000",
+    "type": "FOLLOWS",
+    "userNotified": { "id": "456", "username": "bob" },
+    "userActing": { "id": "789", "username": "alice" }, 
+    "read": "false"
   }
-};
+]
 
-test('tuit list renders static tuit array', () => {
-  render(
-    <HashRouter>
-      <Notifications tuits={MOCKED_NOTIFICATIONS} deleteTuit={() => 0} />
-    </HashRouter>
-  );
-  for (const notification of MOCKED_NOTIFICATIONS) {
-    const DOMnotification = screen.getByText(tuit.tuit);
-    expect(DOMnotification).toBeInTheDocument();
-  }
-});
+// test that the correct number of notifications are rendered on the screen
+test('notifications list render', () => {
 
-test('tuit list renders mocked', async () => {
-  const mock = jest.spyOn(api, 'get');
+ let notificationsRender
+ act(() => {
+  notificationsRender = create(
+    <MemoryRouter> <Notifications notifications={notificationJson}/> </MemoryRouter>
+   )
+ });
+ const root = notificationsRender.root;
+ const ttrNotifications = root.findAllByProps({className: 'p-2 list-group-item d-flex rounded-0'});
 
-  api.get.mockImplementation(() =>
-    Promise.resolve({ data: { notifications: MOCKED_NOTIFICATIONS } })
-  );
-
-  const res = await findNotificationsForUser();
-  render(
-    <HashRouter>
-      <Notifications notifications={res.notifications} />
-    </HashRouter>
-  );
-  expectActualTuits(res.tuits);
-  mock.mockRestore();
+ expect(ttrNotifications.length)
+   .toBe(notificationJson.length)
 });
