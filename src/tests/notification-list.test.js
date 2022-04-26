@@ -1,12 +1,7 @@
 import {act, create} from "react-test-renderer"
 import Notifications from "../components/Notifications/index";
 import { MemoryRouter } from "react-router-dom";
-import {
-  screen,
-  waitFor,
-  within,
-  window
-} from '@testing-library/react';
+
 /**
  * @File Tests the rendering for a list of notificatons
  */
