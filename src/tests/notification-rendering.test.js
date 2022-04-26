@@ -1,11 +1,11 @@
 /* eslint-disable testing-library/no-unnecessary-act */
 import Notification from '../components/Notifications/notification';
 import { MemoryRouter } from "react-router-dom";
-import { window, act, create, toHaveStyle } from 'react-test-renderer';
-import { render } from '@testing-library/react';
+import { act, create } from 'react-test-renderer';
 
 /**
- * @File contains tests that ensures follows, likes, and messages notifications are rendered correctly.
+ * @File contains tests that ensures follows, likes, and messages notifications are rendered correctly, as well as 
+ * rendering a read vs unread notification.
  */
 describe('Notification types', () => {
 
