@@ -79,6 +79,7 @@ const Notification = ({ notificationFromList }) => {
     }
     dispatch(setNotifications(freshNotifications));
   };
+
   return (
     <li
       className={'p-2 list-group-item d-flex rounded-0'}
@@ -119,5 +120,4 @@ const Notification = ({ notificationFromList }) => {
     </li>
   );
 };
-
 export default Notification;
