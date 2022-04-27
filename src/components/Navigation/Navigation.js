@@ -27,6 +27,9 @@ function Navigation() {
     }
     dispatch(setNotifications(res));
   };
+  useEffect(() => {
+    findUnreadNotifications();
+  }, []);
 
   let notificationColor;
   if (notifications.length > 0) {
