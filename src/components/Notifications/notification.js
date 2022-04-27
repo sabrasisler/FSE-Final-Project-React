@@ -81,15 +81,16 @@ const Notification = ({ notificationFromList }) => {
         authUser.id
     );
 
+    // If either results in an error, return
+    if (freshNotifications.err || allNotifications.err) {
+      return;
+    }
+
+    // Find this notification in the resultSet and re-render it
     for (var notification of allNotifications) {
         if (notification.id === notificationId) {
             setNotification(notification);
         }
-    }
-
-    // If either results in an error, return
-    if (freshNotifications.err || allNotifications.err) {
-      return;
     }
 
     // Otherwise dispatch the updated data to redux
