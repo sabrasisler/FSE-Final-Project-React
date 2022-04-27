@@ -93,11 +93,15 @@ const userSlice = createSlice({
     loading: false,
     profileComplete: false,
     loggedIn: false,
+    notifications: [],
     foundUsers: [],
   },
   reducers: {
     clearFoundUsers: (state) => {
       state.foundUsers = [];
+    },
+    setNotifications: (state, action) => {
+      state.notifications = action.payload;
     },
   },
   extraReducers: {
@@ -160,5 +164,5 @@ const userSlice = createSlice({
     },
   },
 });
-export const { clearFoundUsers } = userSlice.actions;
+export const { clearFoundUsers, setNotifications } = userSlice.actions;
 export default userSlice.reducer;
