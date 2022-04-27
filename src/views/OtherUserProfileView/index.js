@@ -80,7 +80,8 @@ const OtherUserProfileView = () => {
   useEffect(() => {
     checkIfFollowing();
     findUser();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className='ttr-profile'>

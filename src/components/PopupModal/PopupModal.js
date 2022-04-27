@@ -17,6 +17,7 @@ const PopupModal = ({ props }) => {
 
   useEffect(() => {
     setShow(show);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
   return (
     <div>

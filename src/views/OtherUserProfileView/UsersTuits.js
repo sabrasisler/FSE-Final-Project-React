@@ -11,24 +11,23 @@ const UsersTuits = ({uid}) => {
   const [tuits, setTuits] = useState([]);
   const [error, setError] = useState();
 
-  /**
-   * 
-   * @returns a list of the tuits this user has posted 
-   */
-  const findMyTuits = async () => {
-    const res = await service.findTuitsByUser(uid);
-    if (res.error) {
-      return setError(
-        'We ran into an issue showing your tuits. Please try again later.'
-      );
-    }
-
-    setTuits(res);
-  };
-
   useEffect(() => {
+    /**
+     *
+     * @returns a list of the tuits this user has posted
+     */
+    const findMyTuits = async () => {
+      const res = await service.findTuitsByUser(uid);
+      if (res.error) {
+        return setError(
+            'We ran into an issue showing your tuits. Please try again later.'
+        );
+      }
+
+      setTuits(res);
+    };
     findMyTuits();
-  });
+  }, [uid]);
 
   return (
     <div>

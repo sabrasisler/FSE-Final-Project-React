@@ -11,24 +11,22 @@ const UsersLikes = ({uid}) => {
   const [tuits, setTuits] = useState([]);
   const [error, setError] = useState();
 
-  /**
-   * 
-   * @returns A list of the tuits the given user has liked
-   */
-  const findMyTuits = async () => {
-    const res = await service.findAllTuitsLikedByUser(uid);
-    if (res.error) {
-      return setError(
-        'We ran into an issue showing your liked tuits. Please try again later.'
-      );
-    }
-
-    setTuits(res);
-  };
-
   useEffect(() => {
+    /**
+     *
+     * @returns A list of the tuits the given user has liked
+     */
+    const findMyTuits = async () => {
+      const res = await service.findAllTuitsLikedByUser(uid);
+      if (res.error) {
+        return setError(
+            'We ran into an issue showing your liked tuits. Please try again later.'
+        );
+      }
+      setTuits(res);
+    };
     findMyTuits();
-  });
+  }, [uid]);
 
   return (
     <div>

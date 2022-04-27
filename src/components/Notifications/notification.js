@@ -6,7 +6,7 @@ import {
 } from './../../services/notifications-service';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNotifications, setUnreadNotifications } from '../../redux/userSlice';
+import { setUnreadNotifications } from '../../redux/userSlice';
 
 /**
  * @File A component to render one notification.
@@ -18,7 +18,7 @@ const Notification = ({ notificationFromList }) => {
 
   // create a notification message depending on the type of notification
   let notificationLink;
-  if (notification.type == 'FOLLOWS') {
+  if (notification.type === 'FOLLOWS') {
     notificationLink = (
       <Link
         className='text-decoration-none text-white'
@@ -31,7 +31,7 @@ const Notification = ({ notificationFromList }) => {
         </span>{' '}
       </Link>
     );
-  } else if (notification.type == 'LIKES') {
+  } else if (notification.type === 'LIKES') {
     notificationLink = (
       <Link
         className='text-decoration-none text-white'

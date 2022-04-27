@@ -1,11 +1,12 @@
 import {
-  findNotificationsForUser
+    findNotificationsForUser
 } from '../../services/notifications-service';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import Notifications from '../../components/Notifications/index.js';
-import { useSelector, useDispatch } from 'react-redux';
-import { socket } from '../../services/socket-config';
-import { setNotifications } from '../../redux/userSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {socket} from '../../services/socket-config';
+import {setNotifications} from '../../redux/userSlice';
+import {AlertBox} from "../../components";
 
 /**
  * Creates a page that displays all of the notifications for a given user
@@ -29,9 +30,6 @@ const NotificationsView = () => {
       dispatch(setNotifications(res));
     },
   [dispatch, authUser.id]);
-  useEffect(() => {
-    findMyNotifications();
-  });
 
   const listenForNewNotificationsOnSocket = useCallback(
     async () => {
@@ -46,11 +44,13 @@ const NotificationsView = () => {
   useEffect(() => {
     listenForNewNotificationsOnSocket();
     findMyNotifications();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listenForNewNotificationsOnSocket, findMyNotifications]);
   return (
     <div>
       <h1>Notifications</h1>
       <Notifications notifications={notifications} />
+        {error && <AlertBox message={error}/>}
     </div>
   );
 };

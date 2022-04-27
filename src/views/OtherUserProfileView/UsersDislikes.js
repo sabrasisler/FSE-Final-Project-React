@@ -12,23 +12,22 @@ const UsersDislikes = ({uid}) => {
   const [tuits, setTuits] = useState();
   const [error, setError] = useState();
 
-  /**
-   * Find all of the tuits this user dislikes
-   * @returns disliked tuits for this user
-   */
-  const findMyDislikes = async () => {
-    const res = await service.findAllTuitsDislikedByUser(uid);
-    if (res.error) {
-      return setError(
-        'We ran into an issue showing your disliked tuits. Please try again later.'
-      );
-    }
-
-    setTuits(res);
-  };
   useEffect(() => {
+    /**
+     * Find all of the tuits this user dislikes
+     * @returns disliked tuits for this user
+     */
+    const findMyDislikes = async () => {
+      const res = await service.findAllTuitsDislikedByUser(uid);
+      if (res.error) {
+        return setError(
+            'We ran into an issue showing your disliked tuits. Please try again later.'
+        );
+      }
+      setTuits(res);
+    };
     findMyDislikes();
-  });
+  }, [uid]);
 
   return (
     <div>
