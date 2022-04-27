@@ -1,5 +1,6 @@
 import {
   findNotificationsForUser,
+  findAllNotifications,
 } from '../../services/notifications-service';
 import React, { useEffect, useState, useCallback } from 'react';
 import Notifications from '../../components/Notifications/index.js';
@@ -8,7 +9,7 @@ import { socket } from '../../services/socket-config';
 import { AlertBox } from '../../components';
 
 /**
- * Creates a page that displays all of the notifications for a given user 
+ * Creates a page that displays all of the notifications for a given user
  */
 const NotificationsView = () => {
   const [notifications, setNotifications] = useState([]);
@@ -27,17 +28,19 @@ const NotificationsView = () => {
       }
       console.log('notifcations res', res);
       setNotifications(res);
-  }, [authUser.id]);
+    },
+  [authUser.id]);
 
   const listenForNewNotificationsOnSocket = useCallback(
-    () => {
+    async () => {
       socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
       socket.on('NEW_NOTIFICATION', () => {
         // when a new notification is emitted to the room, find all of our notifications and refresh the state of our page
         console.log('new notification from server!');
         findMyNotifications();
       });
-    }, [findMyNotifications]);
+    },
+  [findMyNotifications]);
 
   useEffect(() => {
     listenForNewNotificationsOnSocket();
