@@ -2,7 +2,7 @@ import React from 'react';
 import './navigation.css';
 import { useLocation, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { AlertBox } from '../../components';
 
 import { findUnreadNotificationsForUser } from '../../services/notifications-service';
@@ -21,16 +21,15 @@ function Navigation() {
   const authUser = useSelector((state) => state.user.data);
 
   // find all the unread notifications for a given user
-  const findUnreadNotifications = async () => {
+  const findUnreadNotifications = useCallback(
+  async () => {
     const res = await findUnreadNotificationsForUser(authUser.id);
     if (res.error) {
       return setError('We ran into an issue. Please try again later.');
     }
     dispatch(setNotifications(res));
-  };
-  useEffect(() => {
-    findUnreadNotifications();
-  }, []);
+  },
+  [dispatch, authUser.id]);
 
   let notificationColor;
   if (notifications.length > 0) {
@@ -39,17 +38,19 @@ function Navigation() {
     notificationColor = 'white';
   }
 
-  const listenForNewNotificationsOnSocket = async () => {
+  const listenForNewNotificationsOnSocket = useCallback(
+  async () => {
     socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
     socket.on('NEW_NOTIFICATION', () => {
       findUnreadNotifications();
     });
-  };
+  },
+  [findUnreadNotifications]);
 
   useEffect(() => {
     listenForNewNotificationsOnSocket();
     findUnreadNotifications();
-  }, []);
+  }, [listenForNewNotificationsOnSocket, findUnreadNotifications]);
 
   const links = [
     { label: 'Tuiter', icon: 'fa-square-t', path: '/tuiter', color: 'white' },
