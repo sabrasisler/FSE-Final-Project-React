@@ -33,18 +33,20 @@ const NotificationsView = () => {
     findMyNotifications();
   });
 
-  const listenForNewNotificationsOnSocket = async () => {
-    socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
-    socket.on('NEW_NOTIFICATION', () => {
-      // when a new notification is emitted to the room, find all of our notifications and refresh the state of our page
-      findMyNotifications();
-    });
-  };
+  const listenForNewNotificationsOnSocket = useCallback(
+    async () => {
+      socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.
+      socket.on('NEW_NOTIFICATION', () => {
+        // when a new notification is emitted to the room, find all of our notifications and refresh the state of our page
+        findMyNotifications();
+      });
+    },
+  [findMyNotifications]);
 
   useEffect(() => {
     listenForNewNotificationsOnSocket();
     findMyNotifications();
-  }, []);
+  }, [listenForNewNotificationsOnSocket, findMyNotifications]);
   return (
     <div>
       <h1>Notifications</h1>

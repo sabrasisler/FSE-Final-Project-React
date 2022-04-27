@@ -80,7 +80,13 @@ const Notification = ({ notificationFromList }) => {
     const allNotifications = await findNotificationsForUser(
         authUser.id
     );
-    
+
+    for (var notification of allNotifications) {
+        if (notification.id === notificationId) {
+            setNotification(notification);
+        }
+    }
+
     // If either results in an error, return
     if (freshNotifications.err || allNotifications.err) {
       return;
@@ -88,7 +94,6 @@ const Notification = ({ notificationFromList }) => {
 
     // Otherwise dispatch the updated data to redux
     dispatch(setUnreadNotifications(freshNotifications));
-    dispatch(setNotifications(allNotifications));
   };
   return (
     <li
