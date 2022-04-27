@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { markNotificationAsRead } from "./../../services/notifications-service";
 import { Link } from 'react-router-dom';
 
@@ -28,6 +28,14 @@ const Notification = ({notificationFromList}) => {
         boxColor = '#0f2d3c'
     }
 
+    // function to update the notification as read both for display purposes and in the database
+    const readNotification = async () => {
+        if (!notification.read) {
+            markNotificationAsRead(notification.id);
+            let newNot = { createdAt: notification.createdAt, id: notification.id, read: true, type: notification.type, updatedAt: notification.updatedAt, userActing: notification.userActing, userNotified: notification.userNotified }
+            setNotification(newNot);
+        }
+    }
 
     return (
         <li className={'p-2 list-group-item d-flex rounded-0'} data-testid='ttr-notification-component' onClick={() => markNotificationAsRead(notification.id)} ref={(el) => {
@@ -54,5 +62,4 @@ const Notification = ({notificationFromList}) => {
         </li>
     );
 }
-
 export default Notification;
