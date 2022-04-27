@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 import { findUnreadNotificationsForUser } from '../../services/notifications-service';
-import { setUnreadNotifications } from '../../redux/userSlice';
+import { setNotifications } from '../../redux/userSlice';
 import { socket } from '../../services/socket-config';
 
 /**
@@ -14,8 +14,8 @@ import { socket } from '../../services/socket-config';
 function Navigation() {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const notifications = useSelector((state) => state.user.unreadNotifications);
-  const [error, setError] = useState();
+  const notifications = useSelector((state) => state.user.notifications);
+  const [setError] = useState();
 
   const authUser = useSelector((state) => state.user.data);
 
@@ -25,11 +25,11 @@ function Navigation() {
     if (res.error) {
       return setError('We ran into an issue. Please try again later.');
     }
-    dispatch(setUnreadNotifications(res));
+    dispatch(setNotifications(res));
   };
   useEffect(() => {
     findUnreadNotifications();
-  });
+  }, []);
 
   let notificationColor;
   if (notifications.length > 0) {
