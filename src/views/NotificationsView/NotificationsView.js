@@ -1,6 +1,5 @@
 import {
   findNotificationsForUser,
-  findAllNotifications,
 } from '../../services/notifications-service';
 import React, { useEffect, useState } from 'react';
 import Notifications from '../../components/Notifications/index.js';

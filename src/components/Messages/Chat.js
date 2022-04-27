@@ -8,8 +8,6 @@ import {
 import {Link} from 'react-router-dom';
 import {FormInput} from '../../forms';
 import {socket} from '../../services/socket-config';
-import {AlertBox} from '../index';
-import Feed from './Feed';
 import Message from './Message';
 
 /**

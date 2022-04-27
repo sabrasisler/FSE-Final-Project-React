@@ -11,9 +11,9 @@ const Notification = ({notificationFromList}) => {
 
     // create a notification message depending on the type of notification
     let notificationLink;
-    if (notification.type == "FOLLOWS") {
+    if (notification.type === "FOLLOWS") {
         notificationLink = <Link className='text-decoration-none text-white' to={`/tuiter/${notification.userActing.id}/tuits`} > <span className = "ttr-follows-notification-text"> followed you.</span> </Link>
-    } else if (notification.type == "LIKES") {
+    } else if (notification.type === "LIKES") {
         notificationLink = <Link className='text-decoration-none text-white' to={`/tuiter/${notification.userNotified.id}/tuits`} > <span className = "ttr-likes-notification-text"> liked your tuit.</span></Link>
     } else {
         notificationLink = <Link className='text-decoration-none text-white' to={`/messages`}> <span className = "ttr-messages-notification-text"> messaged you.</span> </Link>
