@@ -5,7 +5,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { register, getProfile, login, logout } from '../services/auth-service';
 import {
   updateUser,
-  findAllUsers,
   findAllByName,
 } from '../services/users-service';
 import { dataOrStateError } from './helpers';
