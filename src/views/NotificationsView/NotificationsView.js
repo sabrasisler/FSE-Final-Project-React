@@ -1,19 +1,20 @@
 import {
-  findNotificationsForUser,
-  findAllNotifications,
+  findNotificationsForUser
 } from '../../services/notifications-service';
 import React, { useEffect, useState, useCallback } from 'react';
 import Notifications from '../../components/Notifications/index.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { socket } from '../../services/socket-config';
+import { setNotifications } from '../../redux/userSlice';
 import { AlertBox } from '../../components';
 
 /**
  * Creates a page that displays all of the notifications for a given user
  */
 const NotificationsView = () => {
-  const [notifications, setNotifications] = useState([]);
+  const notifications = useSelector((state) => state.user.notifications);
   const [error, setError] = useState();
+  const dispatch = useDispatch();
 
   const authUser = useSelector((state) => state.user.data);
 
@@ -27,9 +28,9 @@ const NotificationsView = () => {
         );
       }
       console.log('notifcations res', res);
-      setNotifications(res);
+      dispatch(setNotifications(res));
     },
-  [authUser.id]);
+  [dispatch, authUser.id]);
 
   const listenForNewNotificationsOnSocket = useCallback(
     async () => {
