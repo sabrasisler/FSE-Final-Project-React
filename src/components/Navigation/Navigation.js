@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { findUnreadNotificationsForUser } from '../../services/notifications-service';
 import { setUnreadNotifications } from '../../redux/userSlice';
 import { socket } from '../../services/socket-config';
+import {AlertBox} from "../index";
 
 /**
  * Displays the main navigation menu of the app.
@@ -27,9 +28,6 @@ function Navigation() {
     }
     dispatch(setUnreadNotifications(res));
   };
-  useEffect(() => {
-    findUnreadNotifications();
-  });
 
   let notificationColor;
   if (notifications.length > 0) {
@@ -48,6 +46,7 @@ function Navigation() {
   useEffect(() => {
     listenForNewNotificationsOnSocket();
     findUnreadNotifications();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const links = [
@@ -124,9 +123,7 @@ function Navigation() {
           );
         })}
       </ul>
-      {/* <button className='mt-3 btn btn-lg btn-primary rounded-pill w-100 fw-bold text-white'>
-        Tuit
-      </button> */}
+      {error && <AlertBox message={error}/>}
     </div>
   );
 }

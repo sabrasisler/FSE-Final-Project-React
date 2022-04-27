@@ -21,11 +21,13 @@ const FindUsers = ({ selectedUsers, setSelectedUsers }) => {
       if (!searchValue) return;
       return dispatch(findUsersByNameThunk(searchValue));
     },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchValue]
   );
 
   useEffect(() => {
     findAllUsers(searchValue);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [findAllUsers]);
 
   /**

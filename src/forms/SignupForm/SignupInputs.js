@@ -74,6 +74,7 @@ const SignupInputs = ({ inputValues, setInputValues, setInputFields }) => {
 
   useEffect(() => {
     giveParentFormAccessToInputFields(inputs);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return inputs.map((input) => {
