@@ -1,7 +1,7 @@
 import {
   findNotificationsForUser
 } from '../../services/notifications-service';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Notifications from '../../components/Notifications/index.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { socket } from '../../services/socket-config';
@@ -12,21 +12,26 @@ import { setNotifications } from '../../redux/userSlice';
  */
 const NotificationsView = () => {
   const notifications = useSelector((state) => state.user.notifications);
-  const [setError] = useState();
+  const [error, setError] = useState();
   const dispatch = useDispatch();
 
   const authUser = useSelector((state) => state.user.data);
 
   // find all the notifications for a given user
-  const findMyNotifications = async () => {
-    const res = await findNotificationsForUser(authUser.id);
-    if (res.error) {
-      return setError(
-        'We ran into an issue showing your notifications. Please try again later.'
-      );
-    }
-    dispatch(setNotifications(res));
-  };
+  const findMyNotifications = useCallback(
+    async () => {
+      const res = await findNotificationsForUser(authUser.id);
+      if (res.error) {
+        return setError(
+          'We ran into an issue showing your notifications. Please try again later.'
+        );
+      }
+      dispatch(setNotifications(res));
+    },
+  [dispatch, authUser.id]);
+  useEffect(() => {
+    findMyNotifications();
+  });
 
   const listenForNewNotificationsOnSocket = async () => {
     socket.emit('JOIN_ROOM'); // Server will assign room for user based on session.

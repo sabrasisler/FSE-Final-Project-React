@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import {
   markNotificationAsRead,
   findUnreadNotificationsForUser,
+  findNotificationsForUser,
 } from './../../services/notifications-service';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNotifications } from '../../redux/userSlice';
+import { setNotifications, setUnreadNotifications } from '../../redux/userSlice';
 
 /**
  * @File A component to render one notification.
@@ -71,13 +72,23 @@ const Notification = ({ notificationFromList }) => {
 
   const handleMarkAsRead = async (notificationId) => {
     await markNotificationAsRead(notificationId);
+
+    // Retrieve the lists of unread notifications and total notifications
     const freshNotifications = await findUnreadNotificationsForUser(
       authUser.id
     );
-    if (freshNotifications.err) {
+    const allNotifications = await findNotificationsForUser(
+        authUser.id
+    );
+    
+    // If either results in an error, return
+    if (freshNotifications.err || allNotifications.err) {
       return;
     }
-    dispatch(setNotifications(freshNotifications));
+
+    // Otherwise dispatch the updated data to redux
+    dispatch(setUnreadNotifications(freshNotifications));
+    dispatch(setNotifications(allNotifications));
   };
   return (
     <li
